@@ -30,7 +30,11 @@ Router.post('/register', (req, res)=>{
 
     }
 
-    var whiteList = ["uwaterloo.ca","yorku.ca","utoronto.ca","mcmaster.ca","ryerson.ca","queensu.ca","uwo.ca","uottawa.ca","carleton.ca","wlu.ca"]
+    //old version whitelist, updated to include only waterloo
+    // var whiteList = ["uwaterloo.ca","yorku.ca","utoronto.ca","mcmaster.ca","ryerson.ca","queensu.ca","uwo.ca","uottawa.ca","carleton.ca","wlu.ca"]
+    
+    
+    var whiteList = ["uwaterloo.ca"]
     var emailExt = email.split("@")[1];
     var temp = true
     whiteList.forEach(ext=>{
@@ -39,7 +43,10 @@ Router.post('/register', (req, res)=>{
     })
 
     if(temp){
-        errors.push({msg: 'Email not affiliated with a post secondary institution'})
+        // old error message, updated for waterloo email specific
+        // errors.push({msg: 'Email not affiliated with a post secondary institution'})
+
+        errors.push({msg: 'OmegU is only accepting Waterloo students at the moment. Please use your <id>@uwaterloo.ca email.'})
     }
     
 
