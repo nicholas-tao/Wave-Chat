@@ -5,6 +5,16 @@ const QueueSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+
+  active:{
+    type: Boolean,
+    default: false,
+  },
+
+  roomId:{
+    type: String,
+    default: "roomLink",
+  },
   email: {
     type: String,
     required: true,

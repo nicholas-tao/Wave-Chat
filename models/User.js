@@ -37,7 +37,12 @@ const UserSchema = new mongoose.Schema({
     date: {
         type: Date,
         default: Date.now
+    },
+    authenticated: {
+        type: Boolean,
+        default: false,
     }
+
 })
 
 const User = mongoose.model('User', UserSchema)
