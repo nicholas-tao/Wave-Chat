@@ -15,7 +15,7 @@ const UserSchema = new mongoose.Schema({
     },
     interests: {
         type: [String],
-        default: ["food"]
+        default: []
 
     },
     university: {

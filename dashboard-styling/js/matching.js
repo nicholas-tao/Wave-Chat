@@ -6,5 +6,13 @@ function startBtnClicked() {
   5. server waits for this to be completed and searches for the room-id (or we have a function that returns the link) that both users should be sent to
   6. server does like "window.location = omeggu.herokuapp.com/?room={room-id}"
   */
-  console.log("hello worked");
+
+  console.log("Start Chatting clicked");
+
+  var email = document.getElementById('start-chatting').dataset.testValue
+
+  console.log("User's email: " + email)
+
+  //connect to db, search for user with email
+
 }
