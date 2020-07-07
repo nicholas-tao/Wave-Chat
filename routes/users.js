@@ -44,7 +44,7 @@ Router.post("/register", (req, res) => {
 
     errors.push({
       msg:
-        "OmegU is only available to UWaterloo students at the moment. Please use your <id>@uwaterloo.ca email.",
+        "OmegU is only available to UWaterloo students at the moment. Please use your uwaterloo.ca email.",
     });
   }
 
