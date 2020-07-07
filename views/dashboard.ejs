@@ -1,0 +1,204 @@
+<head>
+  <link rel="stylesheet" href="/css/style.css" />
+  <script type="text/javascript" src="jquery-3.5.1.min.js"></script>
+  <script
+    type="text/javascript"
+    src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"
+  ></script>
+  <script type="text/javascript" src="js/matching.js"></script>
+
+  <style>
+    .intro {
+      margin: 30px 0px;
+      font-weight: bold;
+    }
+
+    /* h1 {
+	color: #ffffff;
+	text-transform: uppercase;
+	font-weight: 800;
+} */
+
+    /* p {
+	font-weight: 600;
+} */
+
+    #first {
+      margin-top: 10px;
+      color: #ffcd5d;
+    }
+
+    #second {
+      color: #51df70;
+    }
+
+    #third {
+      color: #025f70;
+      margin-bottom: 30px;
+    }
+
+    #enter {
+      border: none;
+      padding: 5px 15px;
+      border-radius: 5px;
+      color: #04a1bf;
+      background-color: #025f70;
+      transition: all 0.75s ease;
+      -webkit-transition: all 0.75s ease;
+      -moz-transition: all 0.75s ease;
+      -ms-transition: all 0.75s ease;
+      -o-transition: all 0.75 ease;
+      font-weight: normal;
+    }
+
+    #enter:hover {
+      background-color: #02798f;
+      color: #ffcd5d;
+    }
+
+    #customUl {
+      text-align: left;
+      margin-top: 20px;
+    }
+
+    #customLi {
+      list-style: none;
+      padding: 10px 20px;
+      color: #ffffff;
+      text-transform: capitalize;
+      font-weight: 600;
+      border: 2px solid #025f70;
+      border-radius: 5px;
+      margin-bottom: 10px;
+      background: #4eb9cd;
+      transition: all 0.75s ease;
+      -webkit-transition: all 0.5s ease;
+      -moz-transition: all 0.5s ease;
+      -ms-transition: all 0.5s ease;
+      -o-transition: all 0.5 ease;
+    }
+
+    #customLi:hover {
+      background: #76cfe0;
+    }
+
+    #customLi > button {
+      font-weight: normal;
+      background: none;
+      border: none;
+      float: right;
+      color: #025f70;
+      font-weight: 800;
+    }
+
+    input {
+      border-radius: 5px;
+      min-width: 65%;
+      padding: 5px;
+      border: none;
+    }
+
+    .done {
+      background: #51df70 !important;
+      color: #00891e;
+    }
+
+    .delete {
+      display: none;
+    }
+  </style>
+</head>
+
+<title>OmegU</title>
+
+<body>
+  <div class="page-wrapper chiller-theme toggled">
+    <a id="show-sidebar" class="btn btn-sm btn-dark" href="#">
+      <i class="fas fa-bars"></i>
+    </a>
+    <nav id="sidebar" class="sidebar-wrapper">
+      <div class="sidebar-content">
+        <div class="sidebar-brand">
+          <a href="#">OmegU</a>
+          <div id="close-sidebar">
+            <i class="fas fa-times"></i>
+          </div>
+        </div>
+        <div class="sidebar-header">
+          <div class="user-pic">
+            <img
+              class="img-responsive img-rounded"
+              src="https://cdn1.vectorstock.com/i/thumb-large/20/10/canada-goose-of-bird-isolated-object-vector-23862010.jpg"
+              alt="User picture"
+            />
+          </div>
+          <div class="user-info">
+            <span class="user-name"><%=name%></span>
+            <span class="user-status">
+              <i class="fa fa-circle"></i>
+              <span>Online</span>
+            </span>
+          </div>
+        </div>
+
+        <div class="sidebar-menu">
+          <ul>
+            <li class="header-menu">
+              <span>Profile</span>
+            </li>
+
+            <li class="sidebar-dropdown">
+              <a href="/dashboard/profile">
+                <!--EDIT THIS FOR REDIRECTION-->
+                <i class="fa fa-user"></i>
+                <span>My Profile</span>
+                <!-- <span class="badge badge-pill badge-danger">3</span> -->
+              </a>
+            </li>
+
+            <!-- <li class="sidebar-dropdown"> -->
+            <!-- <a href="#">    EDIT THIS FOR REDIRECTION -->
+            <!-- <i class="fa fa-user"></i> -->
+            <!-- <span >My Profile</span> -->
+            <!-- <span class="badge badge-pill badge-danger">3</span> -->
+            <!-- </a> -->
+
+            <!-- </li> -->
+
+            <li class="header-menu">
+              <span>Actions</span>
+            </li>
+            <li>
+              <a href="/dashboard/home">
+                <i class="fa fa-home"></i>
+                <span>Home</span>
+              </a>
+            </li>
+            <li>
+              <a href="/users/logout">
+                <i class="fas fa-share-square"></i>
+                <span>Log Out</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <!-- sidebar-wrapper  -->
+    <main class="page-content">
+      <div class="container" style="text-align: center;">
+        <!--IF THE GET WORKS PROPERLY, THIS CHANGED TO USE BODYCONTENT.EJS AS PARTIAL-->
+
+        <%- include('./partials/bodyContent.ejs') %>
+      </div>
+    </main>
+    <!-- page-content" -->
+  </div>
+  <!-- page-wrapper -->
+
+  <script type="text/javascript" src="js/main.js"></script>
+  <script type="text/javascript" src="js/interestItemScript.js"></script>
+
+  <!--Script to make program dropdown list dependent on faculty dropdown-->
+  <script type="text/javascript" src="js/profileItemScript.js"></script>
+</body>
