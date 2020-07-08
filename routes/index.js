@@ -159,4 +159,48 @@ Router.get('/dashboard/start', ensureAuthenticated, (req, res) => {
     })
 })
 
+
+
+Router.get('/find-match', ensureAuthenticated, (req, res) => {
+
+    //load the current user's interests into local array 
+    var userInterests = req.user.interests
+
+    //variable to hold the matched user
+    var matchedUser = null
+
+
+    var foundMatch = false
+
+    //loop through each item in the interests
+    for(var interestItem in userInterests){
+
+        //find user in queue whose interest array contains the interest item
+        matchedUser = Queue.findOne({'interests' : {$all: [interestItem]}})
+
+        //if there is a matched user
+        if(matchedUser != null){
+            foundMatch = true
+            break
+        }
+
+    }
+
+
+    if(foundMatch){
+        //send the room id to the queue objects of both users
+        //return user found
+        console.log("matched user's interests: " + matchedUser.interests)
+        console.log("this user's interests: " + userInterests)
+    } else {
+        //no match for u very sad
+        console.log("no match found")
+    }
+
+
+
+
+})
+
+
 module.exports = Router
