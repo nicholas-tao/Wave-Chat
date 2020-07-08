@@ -4,7 +4,21 @@
 * Author: BootstrapMade.com
 * License: https://bootstrapmade.com/license/
 */
+.video {
+  margin: 0 auto;
+}
+.yt-vid {
+  margin: 0 auto;
 
+  display: block;
+}
+.video-section {
+  text-align: center;
+}
+
+.demo-title {
+  color: #010483;
+}
 /*--------------------------------------------------------------
 # General
 --------------------------------------------------------------*/
