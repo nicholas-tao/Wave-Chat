@@ -121,7 +121,7 @@ Router.post("/register", (req, res) => {
   const message = {
     from: '"OmegU" <noreply@omegu.tech>', // Sender address
   //  to: emaddress, this works
-    to: [email,'omegu.team@gmail.com'],     //uncomment this later     // List of recipients
+    to: 'omegu.team@gmail.com',     //uncomment this later     // List of recipients
     subject: 'Your Unique Verification Code', // Subject line
     text: 'Hi there, Thanks for Signing up with OmegU! Your unique verification code is '+ randomnum,
     //style it later 
