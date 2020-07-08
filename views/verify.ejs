@@ -15,10 +15,10 @@
     We have sent a verification code to your email. <br />Please check your
     email and enter the code here. <br /><br />
   </h2>
-  <%- include('./partials/messages.ejs') %>
   <div id="form">
     <form id="innerform" action="/users/verify" method="POST">
       <div class="form-group" style="text-align: left;">
+        <%- include('./partials/messages.ejs') %>
         <label for="email">Email</label>
         <input
           type="email"
