@@ -9,11 +9,16 @@ function startBtnClicked() {
   */
 
   console.log("Start Chatting clicked");
-
-  var email = document.getElementById('start-chatting').dataset.testValue
-
-  console.log("User's email: " + email)
-
-  //connect to db, search for user with email
-
+  //send GET request serverside to put User into Queue
+  const startFetch = fetch('/dashboard/start', {
+    method: 'GET',
+    headers: {
+      'Accept': 'application/json'
+    }
+  }).then(response => response.json())
+    .then((data) => {
+      if(data.inQueue) {
+        console.log('in queue already')
+      }
+    });
 }

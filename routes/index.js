@@ -2,6 +2,7 @@ const express = require('express')
 const Router = express.Router()
 const {ensureAuthenticated} = require('../config/auth')
 const User = require('../models/User')
+const Queue = require('../models/Queue')
 
 
 Router.get('/', (req, res)=>{
@@ -16,8 +17,6 @@ Router.get('/dashboard', ensureAuthenticated, (req, res)=>{
         email: req.user.email
     })
 })
-
-
 
 Router.get('/dashboard/profile', ensureAuthenticated, (req,res)=>{
     req.flash('contentCode', "profile")
@@ -131,5 +130,31 @@ Router.get('/dashboard/load/profile', ensureAuthenticated, (req, res) => {
     res.send(JSON.stringify(data))
 })
 
+//START CHATTING
+Router.get('/dashboard/start', ensureAuthenticated, (req, res) => {
+    //ADD USER TO QUEUE
+    Queue.findOne({ email: req.user.email }) //check if user is in queue
+    .then((queueUser) => {
+        if(!queueUser) { //if not, make document for user in queue
+            bool = false //set inQueue to false
+            var newQueue = new Queue({
+                name: req.user.name,
+                email: req.user.email,
+                interests: req.user.interests,
+                program: req.user.program,
+            });
+            newQueue.save((err) => {
+                if(err) return handleError(err);
+            })
+            console.log(newQueue)
+        }
+        else {
+            bool = true //set inQueue to true
+            console.log("in queue already")
+        }
+        res.status(200)
+        .json({inQueue: bool}) //send if in queue to browser
+    })
+})
 
 module.exports = Router
