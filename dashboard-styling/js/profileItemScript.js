@@ -1,4 +1,3 @@
-
   //function which runs when DOM is ready i.e. upon page start - populates the faculty dropdown list
   $(document).ready( populateDropdowns())
 
@@ -26,6 +25,7 @@
           console.log(loadFaculty)
           console.log(loadProgram)
           console.log(loadYear)
+          console.log('hi123456789');
       })
 
 
