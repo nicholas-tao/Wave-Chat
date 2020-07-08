@@ -8,15 +8,17 @@ Router.get("/", (req, res) => {
   res.render("welcome");
 });
 
-Router.get("/dashboard", ensureAuthenticated, (req, res) => {
-  //   console.log(req.user)
-  res.render("dashboard", {
-    name: req.user.name,
-    email: req.user.email,
-    onlineCount: 14,
-    //static count rn, should discuss
-  });
-});
+Router.get('/dashboard', ensureAuthenticated, (req, res)=>{
+ //   console.log(req.user)
+    var count = Math.floor(Math.random() * 10000) + 1;
+
+    res.render('dashboard',{
+        name: req.user.name,
+        email: req.user.email,
+        onlineCount: count
+//static count rn, should discuss
+    })
+})
 
 Router.get("/dashboard/profile", ensureAuthenticated, (req, res) => {
   req.flash("contentCode", "profile");
