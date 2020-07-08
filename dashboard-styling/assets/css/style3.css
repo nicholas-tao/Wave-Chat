@@ -14,3 +14,11 @@
     width:50%;
     display:inline-block;
 }
+
+#bottom-form{
+    display:inline-block;
+    /* width:50%; */
+    position:absolute;
+    bottom:10px;
+    right:10px;
+}

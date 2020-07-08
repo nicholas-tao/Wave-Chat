@@ -10,7 +10,7 @@ Router.get('/', (req, res)=>{
 
 
 Router.get('/dashboard', ensureAuthenticated, (req, res)=>{
-    console.log(req.user)
+ //   console.log(req.user)
     res.render('dashboard',{
         name: req.user.name,
         email: req.user.email
