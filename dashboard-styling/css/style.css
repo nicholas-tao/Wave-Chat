@@ -1,5 +1,9 @@
 @import url(https://fonts.googleapis.com/css?family=Source+Code+Pro);
 
+.colorz{
+  color: #16c7ff;
+}
+
 p {
   font-family: Roboto, "Open Sans", BlinkMacSystemFont, "Segoe UI",
     "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji",
