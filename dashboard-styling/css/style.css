@@ -6,6 +6,13 @@
   color: #aacbf0;
 }
 
+input{
+  margin-right: -50px;
+  margin-left: -60px;
+  float: left;
+  margin-top: 5px;
+}
+
 .online{
     position: absolute;
     top: 1rem;
