@@ -199,17 +199,24 @@ Router.get("/dashboard/start", ensureAuthenticated, (req, res) => {
        }
  
        if (foundMatch) {
-         //send the room id to the queue objects of both users
-         //return user found
-         console.log("matched user's interests: " + matchedUser.interests);
-         console.log("this user's interests: " + userInterests);
-         let roomID = generateRoomID(16); //once match is found, generate room-id
-       } else {
-         //no match for u very sad
-         console.log("no match found");
-       }
- 
-       // END OF /find-match
+        //send the room id to the queue objects of both users
+
+       const roomID = generateRoomID(16)
+
+       Queue.findOneAndUpdate({email : req.user.email}, {roomId : roomID})
+
+       Queue.findOneAndUpdate({email : matchedUser.email}, {roomId : roomID})
+
+        //return user found
+        console.log("matched user's interests: " + matchedUser.interests);
+        console.log("this user's interests: " + userInterests);
+       //  let roomID = generateRoomID(16); //once match is found, generate room-id
+      } else {
+        //no match for u very sad
+        console.log("no match found");
+      }
+
+      // END OF /find-match
 
 
 
