@@ -3,7 +3,7 @@ const Router = express.Router();
 const bcrypt = require("bcryptjs");
 const User = require("../models/User");
 const passport = require("passport");
-const nodemailer = require('nodemailer');
+const nodemailer = require("nodemailer");
 const { db } = require("../models/User");
 
 Router.get("/login", (req, res) => {
@@ -17,7 +17,6 @@ Router.get("/register", (req, res) => {
 Router.get("/verify", (req, res) => {
   res.render("verify");
 });
-
 
 Router.post("/register", (req, res) => {
   const { name, email, password, password2 } = req.body;
@@ -94,13 +93,13 @@ Router.post("/register", (req, res) => {
           })
         );
         sendEmail(newUser);
-        //sending mail here    
+        //sending mail here
       }
     });
-   }
- });
+  }
+});
 
- function sendEmail(newUser){
+function sendEmail(newUser) {
   let randomnum = 100000 + Math.floor(Math.random() * Math.floor(89999));
   newUser.code = randomnum;
 
@@ -111,102 +110,106 @@ Router.post("/register", (req, res) => {
     port: 587,
     secure: false, // true for 465, false for other ports
     auth: {
-      user: "noreply@omegu.tech", 
-      pass: "o$C#Qyr2", 
+      user: "noreply@omegu.tech", //put this in a .env file
+      pass: "o$C#Qyr2", //put this in a .env file
     },
-    ignoreTLS: true
+    ignoreTLS: true,
   });
-  
+
   // send mail with defined transport object
   const message = {
     from: '"OmegU" <noreply@omegu.tech>', // Sender address
-  //  to: emaddress, this works
-    to: 'omegu.team@gmail.com',     //uncomment this later     // List of recipients
-    subject: 'Your Unique Verification Code', // Subject line
-    text: 'Hi there, Thanks for Signing up with OmegU! Your unique verification code is '+ randomnum,
-    //style it later 
+    //  to: emaddress, this works
+    to: "omegu.team@gmail.com", //uncomment this later     // List of recipients
+    subject: "Your Unique Verification Code", // Subject line
+    html:
+      "Hi, <br /> <br />Thanks for signing up with OmegU! <br /> Your unique verification code is <strong>" +
+      randomnum +
+      "</strong> <br /><br /> Best, <br /> OmegU Team",
+    //style it later
   };
-  transport.sendMail(message, function(err, info) {
+  transport.sendMail(message, function (err, info) {
     if (err) {
-      console.log(err)
+      console.log(err);
     } else {
       console.log(info);
     }
   });
- }   //end of send mail method
+} //end of send mail method
 
 Router.post("/verify", (req, res) => {
   const { email, pin } = req.body;
   console.log(email);
   console.log(pin);
 
-  if(pin==null){
-    console.log('notnull'); //if they entered in the resend email box
-    User.find({email: email}, function(err, result){
-      if(err){
-        console.log(err)
-      }
-      else{
-        console.log("hello?" + result)
-        if(result[0]==null){
-          console.log('here');
-          req.flash("error_msg", "Your email has not yet been registered. Please Register")
-          res.redirect("/users/register")
+  if (pin == null) {
+    console.log("notnull"); //if they entered in the resend email box
+    User.find({ email: email }, function (err, result) {
+      if (err) {
+        console.log(err);
+      } else {
+        console.log("hello?" + result);
+        if (result[0] == null) {
+          console.log("here");
+          req.flash(
+            "error_msg",
+            "Your email has not yet been registered. Please Register"
+          );
+          res.redirect("/users/register");
+        } else {
+          console.log("hiiii" + result);
+          sendEmail(result);
+          req.flash("success_msg", "Email Sent!");
+          res.redirect("/users/verify");
         }
-        else{
-          console.log("hiiii"+result);
-          sendEmail(result)
-          req.flash("success_msg", "Email Sent!")
-          res.redirect("/users/verify")
+      }
+    });
+  } else {
+    let userCode;
+    User.find({ email: email }, function (err, result) {
+      if (err) {
+        console.log(err);
+      } else if (result[0] == null) {
+        req.flash(
+          "error_msg",
+          "Your email has not yet been registered. Please Register"
+        );
+        res.redirect("/users/register");
+      } else {
+        userCode = result[0].code;
+        if (pin == userCode) {
+          console.log("same!");
+          User.findOneAndUpdate(
+            { email: email },
+            {
+              //Update database with said qualities
+              $set: {
+                authenticated: true,
+              },
+            },
+            function (err, result) {
+              if (err) {
+                console.log(err);
+              } else {
+                req.flash(
+                  "success_msg",
+                  "You are now registered. Please login again to continue"
+                );
+                res.redirect("/users/login");
+              }
+            }
+          );
+        } else {
+          req.flash("error_msg", "Invalid email or PIN. Please try again.");
+          res.redirect("/users/verify");
+          console.log("fail");
         }
       }
     });
   }
-
-  else{
-    let userCode;   
-    User.find({email: email}, function(err, result){
-      if(err){
-        console.log(err);
-      }
-      else if(result[0]==null){
-        req.flash("error_msg", "Your email has not yet been registered. Please Register")
-        res.redirect("/users/register")
-      }
-      else{ 
-        userCode = result[0].code;
-        if(pin == userCode){
-          console.log('same!');
-          User.findOneAndUpdate({email: email}, { //Update database with said qualities
-            $set: {
-                authenticated:true
-            }
-        }, function(err, result){
-              if(err){
-                console.log(err)
-              }
-              else{
-                req.flash("success_msg", "You are now registered. Please login again to continue");
-                res.redirect("/users/login");
-              }
-        });
-        }
-        else{
-          req.flash("error_msg", "Invalid email or PIN. Please try again.")
-          res.redirect("/users/verify")
-          console.log("fail");
-      
-        }
-      };
-    })
-  }
 });
 
-
-
-
 Router.post("/login", (req, res, next) => {
-  
   passport.authenticate("local", {
     successRedirect: "/dashboard",
     failureRedirect: "/users/login",
