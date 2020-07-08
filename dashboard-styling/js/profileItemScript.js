@@ -43,7 +43,7 @@
 
 
 
-          if(data==null){
+          if(sfaculty =="No Faculty Entered"){
             console.log("nullllllll")
           faculty.options[0] = new Option('--Select--', "none") /*Option(text, value, defaultSelected, selected)*/
           }
@@ -59,7 +59,7 @@
       
       
           programs.options.length = 0
-          if(data==null){
+          if(sprograms=="No Program Entered"){
           programs.options[0] = new Option("--Select a Faculty--", "none")
           }
           else{
@@ -177,7 +177,7 @@
       
         })
 
-        if(data==null){
+        if(syear=="0"){
           year.options[0] = new Option("2020")
         }
         else{
