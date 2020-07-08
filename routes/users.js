@@ -98,7 +98,7 @@ Router.post("/register", (req, res) => {
     });
   }
 });
-
+//SEND EMAIL FUNCTION
 function sendEmail(newUser) {
   let randomnum = 100000 + Math.floor(Math.random() * Math.floor(89999));
   newUser.code = randomnum;
@@ -119,7 +119,7 @@ function sendEmail(newUser) {
   // send mail with defined transport object
   const message = {
     from: '"OmegU" <noreply@omegu.tech>', // Sender address
-    //  to: emaddress, this works
+    //  to: newUser.email, this works
     to: "omegu.team@gmail.com", //uncomment this later     // List of recipients
     subject: "Your Unique Verification Code", // Subject line
     html:
@@ -137,57 +137,69 @@ function sendEmail(newUser) {
   });
 } //end of send mail method
 
+
+
+//ROUTER POST REQUEST FOR VERIFY
 Router.post("/verify", (req, res) => {
   const { email, pin } = req.body;
-  console.log(email);
-  console.log(pin);
+  console.log(email); 
+  console.log(pin); //gets email and poin
 
-  if (pin == null) {
-    console.log("notnull"); //if they entered in the resend email box
+
+
+  //RESEND VERIFICATOIN VODE
+  if (pin == null) {//if they entered in the resend email box
     User.find({ email: email }, function (err, result) {
       if (err) {
         console.log(err);
-      } else {
-        console.log("hello?" + result);
-        if (result[0] == null) {
-          console.log("here");
-          req.flash(
-            "error_msg",
-            "Your email has not yet been registered. Please Register"
-          );
-          res.redirect("/users/register");
-        } else {
-          console.log("hiiii" + result);
-          sendEmail(result);
-          req.flash("success_msg", "Email Sent!");
-          res.redirect("/users/verify");
-        }
+      } 
+      else {
+          if (result[0] == null) {
+            console.log("here");
+            req.flash(  //error message
+              "error_msg",
+              "Your email has not yet been registered. Please Register"
+            );
+            res.redirect("/users/register");
+          } else {  
+            sendEmail(result);  //need to fix; need to update the code in the db
+            req.flash("success_msg", "Email Sent!");
+            res.redirect("/users/verify");
+          }
       }
     });
-  } else {
+  } 
+  
+  //ATTEMPT TO VERIFY
+  else {
     let userCode;
-    User.find({ email: email }, function (err, result) {
+    User.find({ email: email }, function (err, result) { //find user based on the email entered
       if (err) {
         console.log(err);
-      } else if (result[0] == null) {
+      } 
+      
+      else if (result[0] == null) {  //if there email is not yet regiestered, redirect them back to the register page
         req.flash(
           "error_msg",
           "Your email has not yet been registered. Please Register"
         );
         res.redirect("/users/register");
-      } else {
-        userCode = result[0].code;
-        if (pin == userCode) {
+      } 
+      
+      
+      else {
+        userCode = result[0].code; //stores the code
+        if (pin == userCode) { //if it matches, 
           console.log("same!");
           User.findOneAndUpdate(
             { email: email },
             {
-              //Update database with said qualities
+              //Updating db
               $set: {
                 authenticated: true,
               },
             },
-            function (err, result) {
+            function (err, result) {   //if successful verification, send them back to login page to relogin
               if (err) {
                 console.log(err);
               } else {
@@ -199,7 +211,9 @@ Router.post("/verify", (req, res) => {
               }
             }
           );
-        } else {
+        }
+        
+        else { //invalid pin/email
           req.flash("error_msg", "Invalid email or PIN. Please try again.");
           res.redirect("/users/verify");
           console.log("fail");
