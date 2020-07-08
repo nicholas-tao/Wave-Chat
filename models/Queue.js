@@ -5,12 +5,6 @@ const QueueSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-
-  active:{
-    type: Boolean,
-    default: false,
-  },
-
   roomId:{
     type: String,
     default: "roomLink",
@@ -36,6 +30,6 @@ const QueueSchema = new mongoose.Schema({
   },
 });
 
-const Queue = mongoose.model("Queue", QueueSchema);
+const Queue = mongoose.model("Queue", QueueSchema, 'queue');
 
 module.exports = Queue;

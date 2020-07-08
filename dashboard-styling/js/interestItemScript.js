@@ -2,6 +2,7 @@ var enterButton = document.getElementById("enter");
 var input = document.getElementById("userInput");
 var ul = document.querySelector("#customUl");
 var item = document.getElementsByTagName("li");
+var startBtn = document.getElementById("start-chatting");
 var cbs = document.querySelectorAll("[type=checkbox]");
 [].forEach.call(cbs, function (cb) {
 	cb.addEventListener("click", function() {
@@ -41,10 +42,10 @@ const rawResponse = fetch('/dashboard/load', {
 	}
 }).then(response => response.json())
 	.then(data => {
-		console.log(data)
 		for(let i = 0; i < data.length; i++) {
 			document.getElementById(data[i] + "-box").checked = true
 		}
 	})
+
 
 
