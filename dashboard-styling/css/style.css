@@ -6,18 +6,18 @@
   color: #aacbf0;
 }
 
-.tickbox{
+.tickbox {
   margin-right: -50px;
   margin-left: -60px;
   float: left;
   margin-top: 5px;
 }
 
-.online{
-    position: absolute;
-    top: 1rem;
-    right: 3rem;
-    font-size: 3rem;
+.online {
+  position: absolute;
+  top: 1rem;
+  right: 3rem;
+  font-size: 3rem;
 }
 
 p {
