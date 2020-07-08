@@ -3,6 +3,7 @@ const Router = express.Router();
 const bcrypt = require("bcryptjs");
 const User = require("../models/User");
 const passport = require("passport");
+const nodemailer = require('nodemailer');
 
 Router.get("/login", (req, res) => {
   res.render("login");
@@ -11,6 +12,11 @@ Router.get("/login", (req, res) => {
 Router.get("/register", (req, res) => {
   res.render("register");
 });
+
+Router.get("/verify", (req, res) => {
+  res.render("verify");
+});
+
 
 Router.post("/register", (req, res) => {
   const { name, email, password, password2 } = req.body;
@@ -82,15 +88,47 @@ Router.post("/register", (req, res) => {
               .save()
               .then((user) => {
                 req.flash("success_msg", "You are now registered");
-                res.redirect("/users/login");
+                res.redirect("/users/verify");
               })
               .catch((err) => console.log(err));
           })
         );
+        let randomnum = 1000 + Math.floor(Math.random() * Math.floor(8999));
+
+        let transport = nodemailer.createTransport({
+          host: "smtp.omegu.tech",
+          port: 587,
+          secure: false, // true for 465, false for other ports
+          auth: {
+            user: "noreply@omegu.tech", 
+            pass: "o$C#Qyr2", 
+          },
+          ignoreTLS: true
+        });
+        
+        // send mail with defined transport object
+        const message = {
+          from: '"OmegU" <noreply@omegu.tech>', // Sender address
+          to: 'adamwlam26@gmail.com',         // List of recipients
+          subject: 'Your Unique Verification Code', // Subject line
+          text: 'Hi there, Thanks for Signing up with OmegU! Your unique verification code is '+ randomnum,
+          //style it later 
+        };
+        transport.sendMail(message, function(err, info) {
+          if (err) {
+            console.log(err)
+          } else {
+            console.log(info);
+          }
+        });
+          
       }
     });
   }
 });
+
+
+
 
 Router.post("/login", (req, res, next) => {
   passport.authenticate("local", {
