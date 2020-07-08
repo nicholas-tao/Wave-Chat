@@ -1,0 +1,16 @@
+.h2{
+    text-align:center;
+}
+
+#title{
+    text-align:center;
+}
+
+#form{
+    text-align:center;
+}
+
+#innerform{
+    width:50%;
+    display:inline-block;
+}
