@@ -5,6 +5,7 @@ function startBtnClicked() {
   4. add string to BOTH users' db entries ("link: 5b7n2k7a8fb2" or "room-id: 5b7n2k7a8fb2")
   5. server waits for this to be completed and searches for the room-id (or we have a function that returns the link) that both users should be sent to
   6. server does like "window.location = omeggu.herokuapp.com/?room={room-id}"
+  7. also need to send user info - name/matching interests - to the chat room as well
   */
 
   console.log("Start Chatting clicked");
