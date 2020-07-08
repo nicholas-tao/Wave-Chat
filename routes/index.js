@@ -206,6 +206,8 @@ Router.get("/find-match", ensureAuthenticated, (req, res) => {
     //no match for u very sad
     console.log("no match found");
   }
+
+  //somwhere here need to fetch room-id from the DB and send user there
 });
 
 function generateRoomID(length) {
