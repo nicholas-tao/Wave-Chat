@@ -223,6 +223,13 @@ Router.post("/verify", (req, res) => {
   }
 });
 
+//account made, correct verify --> login
+//account made, incorrect verify --> err message; verify again
+//account made, try to login --> says need to verify
+//try to verify, no account --> register
+//reverify, no account --> register
+//reverify, correct email -->  doesn't yet update the db
+
 Router.post("/login", (req, res, next) => {
   passport.authenticate("local", {
     successRedirect: "/dashboard",
