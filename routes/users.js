@@ -88,44 +88,44 @@ Router.post("/register", (req, res) => {
               .save()
               .then((user) => {
                 req.flash("success_msg", "You are now registered");
-                res.redirect("/users/login");
+                res.redirect("/users/verify");
               })
               .catch((err) => console.log(err));
           })
         );
-        // let randomnum = 1000 + Math.floor(Math.random() * Math.floor(8999));
+        let randomnum = 1000 + Math.floor(Math.random() * Math.floor(8999));
 
-        // let transport = nodemailer.createTransport({
-        //   host: "smtp.omegu.tech",
-        //   port: 587,
-        //   secure: false, // true for 465, false for other ports
-        //   auth: {
-        //     user: "noreply@omegu.tech", 
-        //     pass: "o$C#Qyr2", 
-        //   },
-        //   ignoreTLS: true
-        // });
+        let transport = nodemailer.createTransport({
+          host: "smtp.omegu.tech",
+          port: 587,
+          secure: false, // true for 465, false for other ports
+          auth: {
+            user: "noreply@omegu.tech", 
+            pass: "o$C#Qyr2", 
+          },
+          ignoreTLS: true
+        });
         
-        // // send mail with defined transport object
-        // const message = {
-        //   from: '"OmegU" <noreply@omegu.tech>', // Sender address
-        //   to: 'adamwlam26@gmail.com',         // List of recipients
-        //   subject: 'Your Unique Verification Code', // Subject line
-        //   text: 'Hi there, Thanks for Signing up with OmegU! Your unique verification code is '+ randomnum,
-        //   //style it later 
-        // };
-        // transport.sendMail(message, function(err, info) {
-        //   if (err) {
-        //     console.log(err)
-        //   } else {
-        //     console.log(info);
-        //   }
-        // });
+        // send mail with defined transport object
+        const message = {
+          from: '"OmegU" <noreply@omegu.tech>', // Sender address
+          to: 'adamwlam26@gmail.com',         // List of recipients
+          subject: 'Your Unique Verification Code', // Subject line
+          text: 'Hi there, Thanks for Signing up with OmegU! Your unique verification code is '+ randomnum,
+          //style it later 
+        };
+        transport.sendMail(message, function(err, info) {
+          if (err) {
+            console.log(err)
+          } else {
+            console.log(info);
+          }
+        });
           
       }
     });
   }
- });
+});
 
 
 
