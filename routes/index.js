@@ -13,7 +13,9 @@ Router.get('/dashboard', ensureAuthenticated, (req, res)=>{
  //   console.log(req.user)
     res.render('dashboard',{
         name: req.user.name,
-        email: req.user.email
+        email: req.user.email,
+        onlineCount: 14
+//static count rn, should discuss
     })
 })
 
