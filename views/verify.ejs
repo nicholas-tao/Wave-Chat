@@ -12,13 +12,13 @@
 <body>
   <h2 id="title">
     <br /><br />
-    We have sent an email with a verification code to your email. <br />Please
-    check it and enter the code here <br /><br /><br />
+    We have sent a verification code to your email. <br />Please check your
+    email and enter the code here. <br /><br />
   </h2>
-  <%- include('./partials/messages.ejs') %>
   <div id="form">
     <form id="innerform" action="/users/verify" method="POST">
       <div class="form-group" style="text-align: left;">
+        <%- include('./partials/messages.ejs') %>
         <label for="email">Email</label>
         <input
           type="email"
@@ -44,7 +44,7 @@
         style="
           font-size: 1.2rem;
           margin-top: 2rem !important;
-          width: 50%;
+          width: 25%;
           margin: 0 auto;
         "
       >
@@ -54,7 +54,7 @@
 
     <form id="bottom-form" action="/users/verify" method="POST">
       <div class="form-group">
-        <label for="email">Didn't get the Email? </label>
+        <label for="email">Didn't get the Code? </label>
         <input
           type="email"
           id="email"
@@ -64,7 +64,7 @@
         />
       </div>
       <button type="submit" class="btn btn-primary btn-block">
-        Re-send Verification Email
+        Re-send Verification Code
       </button>
     </form>
   </div>
