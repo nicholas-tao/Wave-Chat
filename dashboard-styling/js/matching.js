@@ -10,10 +10,23 @@ function startBtnClicked() {
 
   console.log("Start Chatting clicked");
 
-  var email = document.getElementById('start-chatting').dataset.testValue
+  var email = document.getElementById("start-chatting").dataset.testValue;
 
-  console.log("User's email: " + email)
+  console.log("User's email: " + email);
 
   //connect to db, search for user with email
 
+  let roomID = generateRoomID(16);
+  console.log("Room ID: " + roomID);
+}
+
+function generateRoomID(length) {
+  var result = "";
+  var characters =
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  var charactersLength = characters.length;
+  for (var i = 0; i < length; i++) {
+    result += characters.charAt(Math.floor(Math.random() * charactersLength));
+  }
+  return result;
 }
