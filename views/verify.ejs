@@ -1,57 +1,71 @@
 <html lang="en"></html>
-  <head>
-    <script type="text/javascript" src="jquery-3.5.1.min.js"></script>
-    <script
-      type="text/javascript"
-      src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js">
-    </script>
-    <link href="../assets/css/style3.css" rel="stylesheet">
-  </head> 
+<head>
+  <script type="text/javascript" src="jquery-3.5.1.min.js"></script>
+  <script
+    type="text/javascript"
+    src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"
+  ></script>
+  <link href="../assets/css/style3.css" rel="stylesheet" />
+</head>
 
-  
+<title>OmegU</title>
+<body>
+  <h2 id="title">
+    <br /><br />
+    We have sent an email with a verification code to your email. <br />Please
+    check it and enter the code here <br /><br /><br />
+  </h2>
+  <%- include('./partials/messages.ejs') %>
+  <div id="form">
+    <form id="innerform" action="/users/verify" method="POST">
+      <div class="form-group" style="text-align: left;">
+        <label for="email">Email</label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          class="form-control"
+          placeholder="Re-enter Your Email"
+        />
+      </div>
+      <div class="form-group" style="text-align: left;">
+        <label for="password">Verification Code</label>
+        <input
+          type="pin"
+          id="pin"
+          name="pin"
+          class="form-control"
+          placeholder="Enter Your 6 Digit Code Here"
+        />
+      </div>
+      <button
+        type="submit"
+        class="btn btn-primary btn-block"
+        style="
+          font-size: 1.2rem;
+          margin-top: 2rem !important;
+          width: 50%;
+          margin: 0 auto;
+        "
+      >
+        Verify
+      </button>
+    </form>
 
-  <title>OmegU</title>
-  <body>
-    <h2 id = "title"><br><br> We have sent an email with a unique code to your email. Please check it and enter the pin number here <br><br><br></h2>
-    <%- include('./partials/messages.ejs') %>
-    <div id = "form">
-      <form  id = "innerform" action="/users/verify" method="POST">
-        <div class="form-group">
-          <label for="email">Email</label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            class="form-control"
-            placeholder="Please re-enter your email"
-          />
-        </div>
-        <div class="form-group">
-          <label for="password">PIN</label>
-          <input
-            type="pin"
-            id="pin"
-            name="pin"
-            class="form-control"
-            placeholder="Enter Your 6 Digit Pin Here"
-          />
-        </div>
-        <button type="submit" class="btn btn-primary btn-block">Verify</button>
-      </form>
-
-      <form id = bottom-form action="/users/verify" method="POST">
-        <div class="form-group">
-          <label for="email">Didn't get the Email? </label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            class="form-control"
-            placeholder="Please re-enter your email"
-          />
-        </div>
-        <button type="submit" class="btn btn-primary btn-block">Re-send Email</button>
-      </form>
-    </div>
-  </body>
- 
+    <form id="bottom-form" action="/users/verify" method="POST">
+      <div class="form-group">
+        <label for="email">Didn't get the Email? </label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          class="form-control"
+          placeholder="Enter your email"
+        />
+      </div>
+      <button type="submit" class="btn btn-primary btn-block">
+        Re-send Verification Email
+      </button>
+    </form>
+  </div>
+</body>
