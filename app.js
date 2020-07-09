@@ -61,6 +61,8 @@ match();
 
 //Matching Algorithm
 async function match() {
+
+
   let docNum = await Queue.countDocuments({}); //when first executed, get number of documents in queue (irl would probably be 0, right now is 3)
   console.log(docNum);
   while (true) {
@@ -69,6 +71,43 @@ async function match() {
       //see if someone has added themselves to the queue basically
       //execute algorithm --> we just compare anyone with everyone now instead of new user in queue with exisiting users right?
       let foundMatch = false;
+
+        //find the most recent user in queue
+        var user = await Queue.find({}).sort({_id : -1}).limit(1)
+
+        //console logging to see if everything is working
+        console.log("user: " + user[0])
+        console.log("email: " + user[0].email)
+        console.log("interests: " + user[0].interests)
+
+        //loop over the users interests
+        for(const interestItem of user[0].interests){
+
+            //log the interest item currently being checked
+            console.log("Interest Item: " + interestItem)
+
+            //search the queue for another document containing the current interest item. Limited to 1 document return
+            var matchedUser = Queue.find({ interests: { $all : [interestItem]}}).limit(1)
+
+            //NOTE
+            //Queue.find typically returns a cursor object which is then iterated over to see each document
+            //which was returned. I tried out this a little bit and played with the .limit but couldn't seem
+            //to get it to work. Recommend running in debug mode node.js preview so you can see exactly whats
+            //going on with the variables
+
+            //console log the results to check if it is working
+            console.log(matchedUser)
+            console.log('matched user email:')
+            console.log(matchedUser[0].email)
+
+            if(matchedUser[0] != undefined){
+                foundMatch = true
+                break
+            }
+
+        }
+
+
       if (foundMatch) {
         const roomID = generateRoomID(16);
 
