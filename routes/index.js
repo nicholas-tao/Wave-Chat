@@ -253,40 +253,40 @@ Router.get("/dashboard/start", ensureAuthenticated, (req, res) => {
     });
 });
 
-// Router.get("/find-match", ensureAuthenticated, (req, res) => {
-//   //load the current user's interests into local array
-//   var userInterests = req.user.interests;
+Router.get("/find-match", ensureAuthenticated, (req, res) => {
+  //load the current user's interests into local array
+  var userInterests = req.user.interests;
 
-//   //variable to hold the matched user
-//   var matchedUser = null;
+  //variable to hold the matched user
+  var matchedUser = null;
 
-//   var foundMatch = false;
+  var foundMatch = false;
 
-//   //loop through each item in the interests
-//   for (var interestItem in userInterests) {
-//     //find user in queue whose interest array contains the interest item
-//     matchedUser = Queue.findOne({ interests: { $all: [interestItem] } });
+  //loop through each item in the interests
+  for (var interestItem in userInterests) {
+    //find user in queue whose interest array contains the interest item
+    matchedUser = Queue.findOne({ interests: { $all: [interestItem] } });
 
-//     //if there is a matched user
-//     if (matchedUser != null) {
-//       foundMatch = true;
-//       break;
-//     }
-//   }
+    //if there is a matched user
+    if (matchedUser != null) {
+      foundMatch = true;
+      break;
+    }
+  }
 
-//   if (foundMatch) {
-//     //send the room id to the queue objects of both users
-//     //return user found
-//     console.log("matched user's interests: " + matchedUser.interests);
-//     console.log("this user's interests: " + userInterests);
-//     let roomID = generateRoomID(16); //once match is found, generate room-id
-//   } else {
-//     //no match for u very sad
-//     console.log("no match found");
-//   }
+  if (foundMatch) {
+    //send the room id to the queue objects of both users
+    //return user found
+    console.log("matched user's interests: " + matchedUser.interests);
+    console.log("this user's interests: " + userInterests);
+    let roomID = generateRoomID(16); //once match is found, generate room-id
+  } else {
+    //no match for u very sad
+    console.log("no match found");
+  }
 
-//   //somwhere here need to fetch room-id from the DB and send user there
-// });
+  //somwhere here need to fetch room-id from the DB and send user there
+});
 
 function generateRoomID(length) {
   var result = "";
