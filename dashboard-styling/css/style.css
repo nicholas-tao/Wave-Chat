@@ -20,6 +20,38 @@
     font-size: 3rem;
 }
 
+.home{
+  
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    font-size: 1.1rem;
+    width: 5rem;
+    height: 5rem;
+    background-color: #89f5c3;
+    border-radius: 1rem;
+    outline: none;
+    border: none;
+    cursor: pointer;
+    padding: 1rem ;
+    color: #899df5;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+
+}
+.home i{
+  font-size: 3rem;
+
+}
+
+.home:hover{
+  outline: 0;
+  border: none;
+  background-color: #5ee0bd;
+  transition-duration: 500ms;
+}
+
 p {
   font-family: Roboto, "Open Sans", BlinkMacSystemFont, "Segoe UI",
     "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji",
