@@ -8,48 +8,42 @@ Router.get("/", (req, res) => {
   res.render("welcome");
 });
 
-Router.get('/dashboard', ensureAuthenticated, (req, res)=>{
- //   console.log(req.user)
+Router.get("/dashboard", ensureAuthenticated, (req, res) => {
+  //   console.log(req.user)
 
-    User.findOneAndUpdate(
-      { email: req.user.email },
-      {
-        $set: {
-          status: 'online',
-        }
+  User.findOneAndUpdate(
+    { email: req.user.email },
+    {
+      $set: {
+        status: "online",
       },
-      { new: true },
-      (err, result) => {
-        if (err) {
-          console.log(err);
-        }
-        console.log(result);
-      }
-    );
-
-
-
-    var count = 0
-    User.find({ status: 'online' }, function(err, result) {
+    },
+    { new: true },
+    (err, result) => {
       if (err) {
         console.log(err);
-      } 
+      }
+      console.log(result);
+    }
+  );
 
-      //console.log(result)
-      count = Object.keys(result).length
-      console.log(count)
+  var count = 0;
+  User.find({ status: "online" }, function (err, result) {
+    if (err) {
+      console.log(err);
+    }
 
-      res.render('dashboard',{
-        name: req.user.name,
-        email: req.user.email,
-        onlineCount: count
-    })
+    //console.log(result)
+    count = Object.keys(result).length;
+    console.log(count);
 
+    res.render("dashboard", {
+      name: req.user.name,
+      email: req.user.email,
+      onlineCount: count,
     });
-    
-
-    
-})
+  });
+});
 
 Router.get("/dashboard/profile", ensureAuthenticated, (req, res) => {
   req.flash("contentCode", "profile");
@@ -204,53 +198,51 @@ Router.get("/dashboard/start", ensureAuthenticated, (req, res) => {
         console.log("in queue already");
       }
 
-
       // MIGRATING /find-match
 
-       //load the current user's interests into local array
-       var userInterests = req.user.interests;
+      //load the current user's interests into local array
+      var userInterests = req.user.interests;
 
-       //variable to hold the matched user
-       var matchedUser = null;
- 
-       var foundMatch = false;
- 
-       //loop through each item in the interests
-       for (var interestItem in userInterests) {
-         
-         //find user in queue whose interest array contains the interest item
-         matchedUser = Queue.findOne({ interests: { $all: [interestItem] } });
- 
-         //if there is a matched user
-         if (matchedUser != null) {
-           foundMatch = true;
-           break;
-         }
-         
-       }
- 
-       if (foundMatch) {
+      //variable to hold the matched user
+      var matchedUser = null;
+
+      var foundMatch = false;
+
+      //loop through each item in the interests
+      for (var interestItem in userInterests) {
+        //find user in queue whose interest array contains the interest item
+        matchedUser = Queue.findOne({ interests: { $all: [interestItem] } });
+
+        //if there is a matched user
+        if (matchedUser != null) {
+          foundMatch = true;
+          console.log("found a match");
+          break;
+        }
+      }
+
+      if (foundMatch) {
         //send the room id to the queue objects of both users
 
-       const roomID = generateRoomID(16)
+        const roomID = generateRoomID(16);
 
-       Queue.findOneAndUpdate({email : req.user.email}, {roomId : roomID})
+        Queue.findOneAndUpdate({ email: req.user.email }, { roomId: roomID });
 
-       Queue.findOneAndUpdate({email : matchedUser.email}, {roomId : roomID})
+        Queue.findOneAndUpdate(
+          { email: matchedUser.email },
+          { roomId: roomID }
+        );
 
         //return user found
         console.log("matched user's interests: " + matchedUser.interests);
         console.log("this user's interests: " + userInterests);
-       //  let roomID = generateRoomID(16); //once match is found, generate room-id
+        //  let roomID = generateRoomID(16); //once match is found, generate room-id
       } else {
         //no match for u very sad
         console.log("no match found");
       }
 
       // END OF /find-match
-
-
-
 
       res.status(200).json({ inQueue: bool }); //send if in queue to browser
     });
