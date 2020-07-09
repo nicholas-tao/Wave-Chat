@@ -239,6 +239,21 @@ Router.post("/login", (req, res, next) => {
 });
 
 Router.get("/logout", (req, res) => {
+  User.findOneAndUpdate(
+    { email: req.user.email },
+    {
+      $set: {
+        status: 'offline',
+      }
+    },
+    { new: true },
+    (err, result) => {
+      if (err) {
+        console.log(err);
+      }
+      console.log(result);
+    }
+  );
   req.logout();
   req.flash("success_msg", "You are logged out");
   res.redirect("/users/login");
