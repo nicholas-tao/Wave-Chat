@@ -197,7 +197,7 @@ Router.get("/dashboard/start", ensureAuthenticated, (req, res) => {
         bool = true; //set inQueue to true
         console.log("in queue already");
       }
-
+      /*
       // MIGRATING /find-match
 
       //load the current user's interests into local array
@@ -247,6 +247,7 @@ Router.get("/dashboard/start", ensureAuthenticated, (req, res) => {
       }
 
       // END OF /find-match
+      */
 
       res.status(200).json({ inQueue: bool }); //send if in queue to browser
     });
