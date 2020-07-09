@@ -10,14 +10,45 @@ Router.get("/", (req, res) => {
 
 Router.get('/dashboard', ensureAuthenticated, (req, res)=>{
  //   console.log(req.user)
-    var count = Math.floor(Math.random() * 98) + 301;
 
-    res.render('dashboard',{
+    User.findOneAndUpdate(
+      { email: req.user.email },
+      {
+        $set: {
+          status: 'online',
+        }
+      },
+      { new: true },
+      (err, result) => {
+        if (err) {
+          console.log(err);
+        }
+        console.log(result);
+      }
+    );
+
+
+
+    var count = 0
+    User.find({ status: 'online' }, function(err, result) {
+      if (err) {
+        console.log(err);
+      } 
+
+      //console.log(result)
+      count = Object.keys(result).length
+      console.log(count)
+
+      res.render('dashboard',{
         name: req.user.name,
         email: req.user.email,
         onlineCount: count
-//static count rn, should discuss
     })
+
+    });
+    
+
+    
 })
 
 Router.get("/dashboard/profile", ensureAuthenticated, (req, res) => {
