@@ -208,10 +208,14 @@ Router.get("/dashboard/start", ensureAuthenticated, (req, res) => {
 
       var foundMatch = false;
 
+      console.log("uh"); //this did not execute
+
       //loop through each item in the interests
       for (var interestItem in userInterests) {
         //find user in queue whose interest array contains the interest item
         matchedUser = Queue.findOne({ interests: { $all: [interestItem] } });
+        console.log(interests[interestItem]);
+        console.log("hi"); //this did not execute
 
         //if there is a matched user
         if (matchedUser != null) {
