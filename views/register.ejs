@@ -1,79 +1,122 @@
 <head>
   <link rel="stylesheet" href="/css/style.css" />
+  <link rel="stylesheet" href="/assets/css/style2.css" />
+  <link
+    href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Montserrat:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+    rel="stylesheet"
+  />
 </head>
+<!--
 <form action="/" method="get">
   <button class="home" type="submit" >
     <i class="fas fa-arrow-circle-left 3x"></i>
   </button>
-  
 </form>
-<div class="row mt-5">
-  <div class="col-md-6 m-auto">
-    <div class="card card-body">
-      <h1 class="log text-center mb-3">
-        <i class="fas fa-user-plus"></i> Register
-      </h1>
-      <%- include('./partials/messages.ejs') %>
+-->
+<body style="background-color: #0093e9; font-family: 'Poppins', sans-serif;">
+  <header
+    id="header"
+    class="fixed-top d-flex align-items-center header-transparent"
+  >
+    <div class="container d-flex align-items-center">
+      <div class="logo mr-auto">
+        <!-- <h1 class="text-light"><a href="index.html"><span>OmegU</span></a></h1> -->
 
-      <form action="/users/register" method="POST">
-        <div class="form-group">
-          <label for="name">Name</label>
-          <input
-            type="name"
-            id="name"
-            name="name"
-            class="form-control"
-            placeholder="Enter Name"
-            value="<%= typeof name != 'undefined' ? name : '' %>"
-          />
-        </div>
-        <div class="form-group">
-          <label for="email">Email</label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            class="form-control"
-            placeholder="Enter Email"
-            value="<%= typeof email != 'undefined' ? email : '' %>"
-          />
-        </div>
-        <div class="form-group">
-          <label for="password">Password</label>
-          <input
-            type="password"
-            id="password"
-            name="password"
-            class="form-control"
-            placeholder="Create Password"
-            value="<%= typeof password != 'undefined' ? password : '' %>"
-          />
-        </div>
-        <div class="form-group">
-          <label for="password2">Confirm Password</label>
-          <input
-            type="password"
-            id="password2"
-            name="password2"
-            class="form-control"
-            placeholder="Confirm Password"
-            value="<%= typeof password2 != 'undefined' ? password2 : '' %>"
-          />
-        </div>
-        <button
-          type="submit"
-          class="btn btn-primary btn-block"
-          style="
-            font-size: 1.1rem;
-            margin-top: 1.5rem !important;
-            width: 25%;
-            margin: 0 auto;
-          "
-        >
-          Register
-        </button>
-      </form>
-      <p class="lead mt-4">Have An Account? <a href="/users/login">Login</a></p>
+        <a href=""
+          ><img src="/assets/img/test12.png" alt="" class="img-fluid"
+        /></a>
+      </div>
+
+      <nav class="nav-menu d-none d-lg-block">
+        <ul>
+          <li><a href="/">Home</a></li>
+          <li><a href="/#about">About</a></li>
+          <li><a href="/#details">Inspiration</a></li>
+          <li><a href="/#video">Demo Video</a></li>
+          <li><a href="/#team">Team</a></li>
+          <!--ADD LINKS HERE TO LINK TO SIGNUP/LOGIN PAGE -->
+          <li><a href="/users/login">Log In</a></li>
+          <li class="active">
+            <a id="signup" href="/users/register"><b>Sign Up</b></a>
+          </li>
+        </ul>
+      </nav>
+      <!-- .nav-menu -->
+    </div>
+  </header>
+  <!-- End Header -->
+
+  <div class="row" style="margin-top: 10vh;">
+    <div class="col-md-6 m-auto">
+      <div class="card card-body">
+        <h1 class="log text-center mb-3">
+          <i class="fas fa-user-plus"></i> Register
+        </h1>
+        <%- include('./partials/messages.ejs') %>
+
+        <form action="/users/register" method="POST">
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input
+              type="name"
+              id="name"
+              name="name"
+              class="form-control"
+              placeholder="Enter Name"
+              value="<%= typeof name != 'undefined' ? name : '' %>"
+            />
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              class="form-control"
+              placeholder="Enter Email"
+              value="<%= typeof email != 'undefined' ? email : '' %>"
+            />
+          </div>
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              class="form-control"
+              placeholder="Create Password"
+              value="<%= typeof password != 'undefined' ? password : '' %>"
+            />
+          </div>
+          <div class="form-group">
+            <label for="password2">Confirm Password</label>
+            <input
+              type="password"
+              id="password2"
+              name="password2"
+              class="form-control"
+              placeholder="Confirm Password"
+              value="<%= typeof password2 != 'undefined' ? password2 : '' %>"
+            />
+          </div>
+          <button
+            type="submit"
+            class="btn btn-primary btn-block"
+            style="
+              font-size: 1.1rem;
+              margin-top: 1.5rem !important;
+              width: 25%;
+              margin: 0 auto;
+            "
+          >
+            Register
+          </button>
+        </form>
+        <p class="lead mt-4">
+          Have An Account?
+          <a href="/users/login" style="color: #0093e9;">Login</a>
+        </p>
+      </div>
     </div>
   </div>
-</div>
+</body>
