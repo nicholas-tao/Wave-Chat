@@ -74,11 +74,11 @@ match()
 
 //Matching Algorithm
 async function match() {
-    let docNum = await Queue.countDocuments({})
+    let docNum = await Queue.countDocuments({}) //when first executed, get number of documents in queue (irl would probably be 0, right now is 3)
     console.log(docNum)
     while(true) {
-        const updateNum = await Queue.countDocuments({})
-        if(updateNum != docNum) {
+        const updateNum = await Queue.countDocuments({}) 
+        if(updateNum != docNum) { //see if someone has added themselves to the queue basically
             //execute algorithm
             console.log("im here!")
             docNum = await Queue.countDocuments({}) //with proper document-count tracking in an algorithm this step can be obviated
