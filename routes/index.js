@@ -8,10 +8,10 @@ Router.get("/", (req, res) => {
   res.render("welcome");
 });
 
-Router.get('/dashboard', ensureAuthenticated, (req, res)=>{
+Router.get('/dashboard', ensureAuthenticated, async (req, res)=>{
  //   console.log(req.user)
 
-    User.findOneAndUpdate(
+    await User.findOneAndUpdate(
       { email: req.user.email },
       {
         $set: {
