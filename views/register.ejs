@@ -37,7 +37,7 @@
           <!--ADD LINKS HERE TO LINK TO SIGNUP/LOGIN PAGE -->
           <li><a href="/users/login">Log In</a></li>
           <li class="active">
-            <a id="signup" href="/users/register"><b>Sign Up</b></a>
+            <a id="signup" href="/users/register"><b></b>Sign Up</b></a>
           </li>
         </ul>
       </nav>
@@ -46,7 +46,7 @@
   </header>
   <!-- End Header -->
 
-  <div class="row" style="margin-top: 10vh;">
+  <div class="row" style="margin-top: 12vh;">
     <div class="col-md-6 m-auto">
       <div class="card card-body">
         <h1 class="log text-center mb-3">
@@ -62,18 +62,18 @@
               id="name"
               name="name"
               class="form-control"
-              placeholder="Enter Name"
+              placeholder="Enter Your Full Name"
               value="<%= typeof name != 'undefined' ? name : '' %>"
             />
           </div>
           <div class="form-group">
-            <label for="email">Email</label>
+            <label for="email">University Email</label>
             <input
               type="email"
               id="email"
               name="email"
               class="form-control"
-              placeholder="Enter Email"
+              placeholder="Enter Your University Email"
               value="<%= typeof email != 'undefined' ? email : '' %>"
             />
           </div>
@@ -112,7 +112,7 @@
             Register
           </button>
         </form>
-        <p class="lead mt-4">
+        <p class="lead mt-4" >
           Have An Account?
           <a href="/users/login" style="color: #0093e9;">Login</a>
         </p>
