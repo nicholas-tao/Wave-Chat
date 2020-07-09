@@ -5,6 +5,8 @@ const flash = require('connect-flash')
 const session = require('express-session')
 const passport = require('passport')
 const app = express()
+const Queue = require('./models/Queue')
+const { update } = require('./models/Queue')
 require('./config/passport')(passport)
 
 
@@ -65,3 +67,21 @@ const PORT = process.env.PORT || 5000
 
 
 app.listen(PORT, console.log(`Server started on port ${PORT}`))
+
+match()
+
+//////////////////////////////////////////////////////////
+
+//Matching Algorithm
+async function match() {
+    let docNum = await Queue.countDocuments({})
+    console.log(docNum)
+    while(true) {
+        const updateNum = await Queue.countDocuments({})
+        if(updateNum != docNum) {
+            //execute algorithm
+            console.log("im here!")
+            docNum = await Queue.countDocuments({}) //with proper document-count tracking in an algorithm this step can be obviated
+        }
+    }
+}
