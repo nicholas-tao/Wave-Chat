@@ -40,7 +40,7 @@ const UserSchema = new mongoose.Schema({
     },
     authenticated: {
         type: Boolean,
-        default: false
+        default: true
     },
     code:{
         type: Number,
