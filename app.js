@@ -121,7 +121,7 @@ async function match() {
         await Queue.findOneAndUpdate({email : matchEmail}, {roomId : roomID})
 
         await Queue.findOneAndUpdate({email : user.email}, {roomId : roomID})
-
+        console.log("found!");
         //update roomID for matched pair
       }
       console.log("im here!");
