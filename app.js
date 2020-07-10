@@ -103,6 +103,10 @@ async function match() {
         console.log("matched user email: " + matchedUser[0].email);
 
         if (matchedUser[0] != undefined) {
+          //make sure user is not matched with themself
+          if (matchedUser[0].email === user[0].email) {
+            continue;
+          }
           console.log("match found");
           console.log(
             "Common Interests: " +
@@ -117,7 +121,7 @@ async function match() {
           user[0].interests = intersect(matchedOGInterests, userOGInterests);
           matchedUser[0].interests = user[0].interests;
 
-          //store user[0].interests and matchedUser[0].interests to their document in the Queue collection
+          //store user[0].interests and matchedUser[0].interests to their document in the Queue collection (THIS DOESNT WORK idk why)
           await Queue.findOneAndUpdate(
             { email: matchEmail },
             { interests: matchedUser[0].interests }
