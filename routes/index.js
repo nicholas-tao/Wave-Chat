@@ -198,6 +198,15 @@ Router.get("/dashboard/start", ensureAuthenticated, (req, res) => {
         console.log("in queue already");
       }
 
+      let userInQueue = Queue.findOne({ email: req.user.email });
+
+      while (true) {
+        if (!userInQueue.roomId.equals("roomLink")) {
+          console.log("we got a roomid: " + userInQueue.roomId);
+          break;
+        }
+      }
+
       res.status(200).json({ inQueue: bool }); //send if in queue to browser
     });
 });
