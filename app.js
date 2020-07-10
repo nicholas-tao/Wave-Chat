@@ -62,7 +62,7 @@ match();
 //Matching Algorithm
 async function match() {
   let docNum = await Queue.countDocuments({}); //when first executed, get number of documents in queue (irl would probably be 0, right now is 3)
-  console.log(docNum);
+  console.log("queue length: " + docNum);
   while (true) {
     const updateNum = await Queue.countDocuments({});
     if (updateNum != docNum) {
