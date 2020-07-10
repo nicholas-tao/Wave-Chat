@@ -98,10 +98,7 @@ async function match() {
         //to get it to work. Recommend running in debug mode node.js preview so you can see exactly whats
         //going on with the variables
 
-        //console log the results to check if it is working
-        console.log(matchedUser);
-        console.log("matched user email:");
-        console.log(matchedUser[0].email);
+        console.log("matched user email: " + matchedUser[0].email);
 
         if (matchedUser[0] != undefined) {
           console.log("match found");
@@ -113,7 +110,7 @@ async function match() {
       if (foundMatch) {
         const roomID = generateRoomID(16);
 
-        console.log(roomID);
+        console.log("roomID: " + roomID);
 
         var matchEmail = matchedUser[0].email;
 
@@ -123,10 +120,9 @@ async function match() {
           { email: user[0].email },
           { roomId: roomID }
         );
-        console.log("found!");
+        console.log("match found!");
         //update roomID for matched pair
       }
-      console.log("im here!");
       docNum = await Queue.countDocuments({}); //with proper document-count tracking in an algorithm this step can be obviated
     }
   }
