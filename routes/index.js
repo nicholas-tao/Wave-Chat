@@ -209,8 +209,40 @@ Router.get("/dashboard/start", ensureAuthenticated, (req, res) => {
       }
       */
 
+     changeListener()
+
+
       res.status(200).json({ inQueue: bool }); //send if in queue to browser
     });
 });
+
+async function changeListener(){
+
+  // let updateFilter = {
+  //   $match: {
+
+  //     $and: [
+  //       {roomId : {$ne : ""}},
+  //       {operationType : "update"}
+  //     ]
+  //   }
+  // }
+
+  let updateFilter = {
+    $match: {
+      roomId : {$ne : ""}
+    }
+  }
+
+  let options = { fullDocument : "updateLookup"}
+  
+  const changeStream = Queue.watch(updateFilter, options)
+
+  changeStream.on('change', (event) => {
+    console.log("change stream triggered")
+    console.log(event._id)
+  })
+
+}
 
 module.exports = Router;
