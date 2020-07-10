@@ -192,7 +192,8 @@ Router.get("/dashboard/start", ensureAuthenticated, (req, res) => {
           if (err) return handleError(err);
         });
 
-        console.log(newQueue);
+        //console.log(newQueue);
+        console.log("added to queue");
       } else {
         bool = true; //set inQueue to true
         console.log("in queue already");
