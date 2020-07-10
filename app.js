@@ -59,6 +59,8 @@ app.listen(PORT, console.log(`Server started on port ${PORT}`));
 
 match();
 
+//var matchedUser;
+
 //////////////////////////////////////////////////////////
 
 //Matching Algorithm
@@ -87,10 +89,19 @@ async function match() {
         //log the interest item currently being checked
         console.log("Interest Item: " + interestItem);
 
-        //search the queue for another document containing the current interest item. Limited to 1 document return
-        matchedUser = await Queue.find({
+        queueUsers = await Queue.find({
           interests: { $all: [interestItem] },
-        }).limit(1);
+        });
+
+        for (const queueUser of queueUsers) {
+          //make sure user is not matched with themself
+          if (!queueUser.email === user[0].email) {
+            matchedUser[0] = queueUser;
+            console.log("matched with someone who's not you ");
+          }
+        }
+
+        //search the queue for another document containing the current interest item. Limited to 1 document return
 
         //NOTE
         //Queue.find typically returns a cursor object which is then iterated over to see each document
@@ -103,11 +114,6 @@ async function match() {
         console.log("matched user email: " + matchedUser[0].email);
 
         if (matchedUser[0] != undefined) {
-          //make sure user is not matched with themself
-          if (matchedUser[0].email === user[0].email) {
-            console.log("you were matched with yourself LOL");
-            continue;
-          }
           console.log("match found");
           console.log(
             "Common Interests: " +
@@ -129,7 +135,7 @@ async function match() {
             { $set: { interests: user[0].interests } },
             { new: true },
             (err, result) => {
-              console.log("finished updating db");
+              console.log("finished updating user's document");
             }
           );
 
@@ -138,7 +144,7 @@ async function match() {
             { $set: { interests: matchedUser[0].interests } },
             { new: true },
             (err, result) => {
-              console.log("finished updating db");
+              console.log("finished updating matched user's document");
             }
           );
 
