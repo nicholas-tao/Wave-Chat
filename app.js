@@ -98,10 +98,16 @@ async function match() {
         //to get it to work. Recommend running in debug mode node.js preview so you can see exactly whats
         //going on with the variables
 
+        console.log("matchedUser[0]: " + matchedUser[0]);
+
         console.log("matched user email: " + matchedUser[0].email);
 
         if (matchedUser[0] != undefined) {
           console.log("match found");
+          console.log(
+            "Common Interests: " +
+              intersect(matchedUser[0].interests, user[0].interests)
+          );
           foundMatch = true;
           break;
         }
@@ -137,4 +143,8 @@ function generateRoomID(length) {
     result += characters.charAt(Math.floor(Math.random() * charactersLength));
   }
   return result;
+}
+
+function intersect(a, b) {
+  return a.filter(Set.prototype.has, new Set(b));
 }
