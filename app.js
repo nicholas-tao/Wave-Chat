@@ -75,6 +75,8 @@ async function match() {
         //find the most recent user in queue
         var user = await Queue.find({}).sort({_id : -1}).limit(1)
 
+      var matchedUser
+
         //console logging to see if everything is working
         console.log("user: " + user[0])
         console.log("email: " + user[0].email)
@@ -87,7 +89,7 @@ async function match() {
             console.log("Interest Item: " + interestItem)
 
             //search the queue for another document containing the current interest item. Limited to 1 document return
-            var matchedUser = Queue.find({ interests: { $all : [interestItem]}}).limit(1)
+            matchedUser = await Queue.find({ interests: { $all : [interestItem]}}).limit(1)
 
             //NOTE
             //Queue.find typically returns a cursor object which is then iterated over to see each document
@@ -101,6 +103,7 @@ async function match() {
             console.log(matchedUser[0].email)
 
             if(matchedUser[0] != undefined){
+              console.log('match found')
                 foundMatch = true
                 break
             }
@@ -110,6 +113,14 @@ async function match() {
 
       if (foundMatch) {
         const roomID = generateRoomID(16);
+
+        console.log(roomID)
+
+        var matchEmail = matchedUser[0].email
+
+        await Queue.findOneAndUpdate({email : matchEmail}, {roomId : roomID})
+
+        await Queue.findOneAndUpdate({email : user.email}, {roomId : roomID})
 
         //update roomID for matched pair
       }
