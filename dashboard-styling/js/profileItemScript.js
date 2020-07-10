@@ -44,7 +44,7 @@
 
 
           if(sfaculty =="No Faculty Entered"){
-            console.log("nullllllll")
+           // console.log("nullllllll")
           faculty.options[0] = new Option('--Select--', "none") /*Option(text, value, defaultSelected, selected)*/
           }
           else{
