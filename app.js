@@ -108,6 +108,26 @@ async function match() {
             "Common Interests: " +
               intersect(matchedUser[0].interests, user[0].interests)
           );
+
+          //store each user's interests in a variable so we can use it to call intersect()
+          let matchedOGInterests = matchedUser[0].interests;
+          let userOGInterests = user[0].interests;
+
+          //set user and matched user's interests to their common interests which will be sent to chat page
+          user[0].interests = intersect(matchedOGInterests, userOGInterests);
+          matchedUser[0].interests = user[0].interests;
+
+          //store user[0].interests and matchedUser[0].interests to their document in the Queue collection
+          await Queue.findOneAndUpdate(
+            { email: matchEmail },
+            { interests: matchedUser[0].interests }
+          );
+
+          await Queue.findOneAndUpdate(
+            { email: user[0].email },
+            { interests: [user[0].interests] }
+          );
+
           foundMatch = true;
           break;
         }
