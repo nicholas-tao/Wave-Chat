@@ -98,6 +98,7 @@ async function match() {
           if (!queueUser.email === user[0].email) {
             matchedUser[0] = queueUser;
             console.log("matched with someone who's not you ");
+            break;
           }
         }
 
