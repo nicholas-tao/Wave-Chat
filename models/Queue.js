@@ -5,7 +5,7 @@ const QueueSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  roomId:{
+  roomId: {
     type: String,
     default: "roomLink",
   },
@@ -16,7 +16,7 @@ const QueueSchema = new mongoose.Schema({
 
   interests: {
     type: [String],
-    default: ["food"],
+    default: undefined,
   },
 
   program: {
@@ -30,6 +30,6 @@ const QueueSchema = new mongoose.Schema({
   },
 });
 
-const Queue = mongoose.model("Queue", QueueSchema, 'queue');
+const Queue = mongoose.model("Queue", QueueSchema, "queue");
 
 module.exports = Queue;

@@ -78,8 +78,8 @@ async function match() {
       var matchedUser;
 
       //console logging to see if everything is working
-      console.log("user: " + user[0]);
-      console.log("email: " + user[0].email);
+      //console.log("user: " + user[0]);
+      console.log("user email: " + user[0].email);
       console.log("interests: " + user[0].interests);
 
       //loop over the users interests
@@ -98,13 +98,14 @@ async function match() {
         //to get it to work. Recommend running in debug mode node.js preview so you can see exactly whats
         //going on with the variables
 
-        console.log("matchedUser[0]: " + matchedUser[0]);
+        // console.log("matchedUser[0]: " + matchedUser[0]);
 
         console.log("matched user email: " + matchedUser[0].email);
 
         if (matchedUser[0] != undefined) {
           //make sure user is not matched with themself
           if (matchedUser[0].email === user[0].email) {
+            console.log("you were matched with yourself LOL");
             continue;
           }
           console.log("match found");
@@ -122,14 +123,23 @@ async function match() {
           matchedUser[0].interests = user[0].interests;
 
           //store user[0].interests and matchedUser[0].interests to their document in the Queue collection (THIS DOESNT WORK idk why)
+
           await Queue.findOneAndUpdate(
             { email: matchEmail },
-            { interests: matchedUser[0].interests }
+            { $set: { interests: user[0].interests } },
+            { new: true },
+            (err, result) => {
+              console.log("finished updating db");
+            }
           );
 
           await Queue.findOneAndUpdate(
             { email: user[0].email },
-            { interests: [user[0].interests] }
+            { $set: { interests: matchedUser[0].interests } },
+            { new: true },
+            (err, result) => {
+              console.log("finished updating db");
+            }
           );
 
           foundMatch = true;
