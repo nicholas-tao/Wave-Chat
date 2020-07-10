@@ -199,13 +199,14 @@ Router.get("/dashboard/start", ensureAuthenticated, (req, res) => {
       }
 
       let userInQueue = Queue.findOne({ email: req.user.email });
-
+      /*
       while (true) {
-        if (!userInQueue.roomId.equals("roomLink")) {
+        if (!userInQueue.roomId === "roomLink") {
           console.log("we got a roomid: " + userInQueue.roomId);
           break;
         }
       }
+      */
 
       res.status(200).json({ inQueue: bool }); //send if in queue to browser
     });
