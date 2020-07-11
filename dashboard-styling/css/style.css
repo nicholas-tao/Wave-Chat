@@ -1,3 +1,38 @@
+.loader {
+  display: none;
+  top: 50%;
+  left: 50%;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.loading {
+  border: 6px solid #ccc;
+  width: 12vh;
+  height: 12vh;
+  border-radius: 50%;
+  border-top-color: #16c7ff;
+  border-left-color: #16c7ff;
+  animation: spin 1s infinite ease-in;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.matching {
+  font-size: 1.2rem;
+  font-weight: 500;
+  text-align: center;
+}
+
 .card {
   border-radius: 2rem;
 }

@@ -7,6 +7,9 @@ function startBtnClicked() {
   6. server does like "window.location = omeggu.herokuapp.com/?room={room-id}"
   7. also need to send user info - name/matching interests - to the chat room as well
   */
+  $(".page-wrapper").removeClass("toggled");
+
+  document.getElementsByClassName("loader")[0].style.display = "block";
 
   console.log("Start Chatting clicked");
   //send GET request serverside to put User into Queue
