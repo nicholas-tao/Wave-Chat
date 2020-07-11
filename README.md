@@ -5,7 +5,7 @@ This repo is for the dashboard/profile/login/landing portion of OmegU. It is aut
 
 [Demo Video](https://youtu.be/vcYK6IWm_Mg)
 
-[Live Vesion](https://omegu.tech)
+[Live Vesion](http://omegu.tech)
 
 ## Inspiration
 
