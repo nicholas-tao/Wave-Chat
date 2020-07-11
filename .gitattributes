@@ -2,4 +2,3 @@
 #* linguist-language
 #*.js linguist-vendored=false
 #*.ejs linguist-language=JavaScript
-*.html linguist-detectable=false
