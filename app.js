@@ -7,14 +7,16 @@ const passport = require("passport");
 const app = express();
 const Queue = require("./models/Queue");
 const { update } = require("./models/Queue");
+
+require("dotenv").config();
 require("./config/passport")(passport);
 
 mongoose.set("useFindAndModify", false);
 
 // connecting to db
-const db = require("./config/keys").MongoURI;
+const MongoURI = process.env.MONGO_URI;
 mongoose
-  .connect(db, { useNewUrlParser: true, useUnifiedTopology: true })
+  .connect(MongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log("MongoDB Connected..."))
   .catch((err) => console.log(err));
 
