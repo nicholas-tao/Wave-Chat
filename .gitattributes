@@ -1,2 +1,4 @@
 * linguist-vendored
-*.js linguist-vendored=false
+#*.js linguist-vendored=false
+*.ejs linguist-language=js
+*.html linguist-language=js
