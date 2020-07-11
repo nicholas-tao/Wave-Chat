@@ -6,6 +6,8 @@ const passport = require("passport");
 const nodemailer = require("nodemailer");
 const { db } = require("../models/User");
 
+require("dotenv").config();
+
 Router.get("/login", (req, res) => {
   res.render("login");
 });
@@ -110,8 +112,8 @@ function sendEmail(newUser) {
     port: 587,
     secure: false, // true for 465, false for other ports
     auth: {
-      user: "noreply@omegu.tech", //put this in a .env file
-      pass: "o$C#Qyr2", //put this in a .env file
+      user: process.env.EMAIL, //put this in a .env file
+      pass: process.env.EMAIL_PW, //put this in a .env file
     },
     ignoreTLS: true,
   });
@@ -137,59 +139,54 @@ function sendEmail(newUser) {
   });
 } //end of send mail method
 
-
-
 //ROUTER POST REQUEST FOR VERIFY
 Router.post("/verify", (req, res) => {
   const { email, pin } = req.body;
-  console.log(email); 
+  console.log(email);
   console.log(pin); //gets email and poin
 
-
-
   //RESEND VERIFICATOIN VODE
-  if (pin == null) {//if they entered in the resend email box
+  if (pin == null) {
+    //if they entered in the resend email box
     User.find({ email: email }, function (err, result) {
       if (err) {
         console.log(err);
-      } 
-      else {
-          if (result[0] == null) {
-            console.log("here");
-            req.flash(  //error message
-              "error_msg",
-              "Your email has not yet been registered. Please Register"
-            );
-            res.redirect("/users/register");
-          } else {  
-            sendEmail(result);  //need to fix; need to update the code in the db
-            req.flash("success_msg", "Email Sent!");
-            res.redirect("/users/verify");
-          }
+      } else {
+        if (result[0] == null) {
+          console.log("here");
+          req.flash(
+            //error message
+            "error_msg",
+            "Your email has not yet been registered. Please Register"
+          );
+          res.redirect("/users/register");
+        } else {
+          sendEmail(result); //need to fix; need to update the code in the db
+          req.flash("success_msg", "Email Sent!");
+          res.redirect("/users/verify");
+        }
       }
     });
-  } 
-  
+  }
+
   //ATTEMPT TO VERIFY
   else {
     let userCode;
-    User.find({ email: email }, function (err, result) { //find user based on the email entered
+    User.find({ email: email }, function (err, result) {
+      //find user based on the email entered
       if (err) {
         console.log(err);
-      } 
-      
-      else if (result[0] == null) {  //if there email is not yet regiestered, redirect them back to the register page
+      } else if (result[0] == null) {
+        //if there email is not yet regiestered, redirect them back to the register page
         req.flash(
           "error_msg",
           "Your email has not yet been registered. Please Register"
         );
         res.redirect("/users/register");
-      } 
-      
-      
-      else {
+      } else {
         userCode = result[0].code; //stores the code
-        if (pin == userCode) { //if it matches, 
+        if (pin == userCode) {
+          //if it matches,
           console.log("same!");
           User.findOneAndUpdate(
             { email: email },
@@ -199,7 +196,8 @@ Router.post("/verify", (req, res) => {
                 authenticated: true,
               },
             },
-            function (err, result) {   //if successful verification, send them back to login page to relogin
+            function (err, result) {
+              //if successful verification, send them back to login page to relogin
               if (err) {
                 console.log(err);
               } else {
@@ -211,9 +209,8 @@ Router.post("/verify", (req, res) => {
               }
             }
           );
-        }
-        
-        else { //invalid pin/email
+        } else {
+          //invalid pin/email
           req.flash("error_msg", "Invalid email or PIN. Please try again.");
           res.redirect("/users/verify");
           console.log("fail");
@@ -243,8 +240,8 @@ Router.get("/logout", (req, res) => {
     { email: req.user.email },
     {
       $set: {
-        status: 'offline',
-      }
+        status: "offline",
+      },
     },
     { new: true },
     (err, result) => {
