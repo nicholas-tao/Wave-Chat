@@ -3,56 +3,60 @@ const Router = express.Router();
 const { ensureAuthenticated } = require("../config/auth");
 const User = require("../models/User");
 const Queue = require("../models/Queue");
-var opn = require('opn');
-
+var opn = require("opn");
 
 Router.get("/", (req, res) => {
   res.render("welcome");
 });
 
-Router.get("/dashboard", ensureAuthenticated, (req, res, next) => {
-  //   console.log(req.user)
+Router.get(
+  "/dashboard",
+  ensureAuthenticated,
+  (req, res, next) => {
+    //   console.log(req.user)
 
-  console.log(req.session)
-  User.findOneAndUpdate(
-    { email: req.user.email },
-    {
-      $set: {
-        status: "online",
+    console.log(req.session);
+    User.findOneAndUpdate(
+      { email: req.user.email },
+      {
+        $set: {
+          status: "online",
+        },
       },
-    },
-    { new: true },
-    (err, result) => {
+      { new: true },
+      (err, result) => {
+        if (err) {
+          console.log(err);
+        }
+        console.log(result);
+      }
+    );
+
+    var count = 0;
+    User.find({ status: "online" }, function (err, result) {
       if (err) {
         console.log(err);
       }
-      console.log(result);
-    }
-  );
 
-  var count = 0;
-  User.find({ status: "online" }, function (err, result) {
-    if (err) {
-      console.log(err);
-    }
+      //console.log(result)
+      count = Object.keys(result).length;
+      console.log(count);
 
-    //console.log(result)
-    count = Object.keys(result).length;
-    console.log(count);
-
-    res.render("dashboard", {
-      name: req.user.name,
-      email: req.user.email,
-      onlineCount: count,
+      res.render("dashboard", {
+        name: req.user.name,
+        email: req.user.email,
+        onlineCount: count,
+      });
     });
-  });
-  next()
-}, function (req, res) {
-  var x = setTimeout(function() { 
-    console.log('hello world') 
-    opn('http://omegu.tech/users/logout');
-   }, 5000);
-});
+    next();
+  },
+  function (req, res) {
+    var x = setTimeout(function () {
+      //console.log("hello world");
+      opn("http://omegu.tech/users/logout");
+    }, 720000); //log user out after 720000ms = 2 hrs
+  }
+);
 
 Router.get("/dashboard/profile", ensureAuthenticated, (req, res) => {
   req.flash("contentCode", "profile");
