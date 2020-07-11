@@ -7,6 +7,8 @@ const nodemailer = require("nodemailer");
 const { db } = require("../models/User");
 const Queue = require("../models/Queue");
 
+require("dotenv").config();	
+
 Router.get("/login", (req, res) => {
   res.render("login");
 });
