@@ -111,8 +111,8 @@ function sendEmail(newUser) {
     port: 587,
     secure: false, // true for 465, false for other ports
     auth: {
-      user: "noreply@omegu.tech", //put this in a .env file
-      pass: "o$C#Qyr2", //put this in a .env file
+      user: process.env.EMAIL, //put this in a .env file	     
+      pass: process.env.EMAIL_PW
     },
     ignoreTLS: true,
   });
