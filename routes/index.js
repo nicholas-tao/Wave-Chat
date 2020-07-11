@@ -3,14 +3,17 @@ const Router = express.Router();
 const { ensureAuthenticated } = require("../config/auth");
 const User = require("../models/User");
 const Queue = require("../models/Queue");
+var opn = require('opn');
+
 
 Router.get("/", (req, res) => {
   res.render("welcome");
 });
 
-Router.get("/dashboard", ensureAuthenticated, (req, res) => {
+Router.get("/dashboard", ensureAuthenticated, (req, res, next) => {
   //   console.log(req.user)
 
+  console.log(req.session)
   User.findOneAndUpdate(
     { email: req.user.email },
     {
@@ -43,6 +46,12 @@ Router.get("/dashboard", ensureAuthenticated, (req, res) => {
       onlineCount: count,
     });
   });
+  next()
+}, function (req, res) {
+  var x = setTimeout(function() { 
+    console.log('hello world') 
+    opn('http://omegu.tech/users/logout');
+   }, 5000);
 });
 
 Router.get("/dashboard/profile", ensureAuthenticated, (req, res) => {
@@ -192,57 +201,111 @@ Router.get("/dashboard/start", ensureAuthenticated, (req, res) => {
           if (err) return handleError(err);
         });
 
-        //console.log(newQueue);
-        console.log("added to queue");
+        console.log(newQueue);
       } else {
         bool = true; //set inQueue to true
         console.log("in queue already");
       }
-
-      let userInQueue = Queue.findOne({ email: req.user.email });
       /*
-      while (true) {
-        if (!userInQueue.roomId === "roomLink") {
-          console.log("we got a roomid: " + userInQueue.roomId);
+      // MIGRATING /find-match
+
+      //load the current user's interests into local array
+      var userInterests = req.user.interests;
+
+      //variable to hold the matched user
+      var matchedUser = null;
+
+      var foundMatch = false;
+
+      console.log("uh"); //this did not execute
+
+      //loop through each item in the interests
+      for (var interestItem in userInterests) {
+        //find user in queue whose interest array contains the interest item
+        matchedUser = Queue.findOne({ interests: { $all: [interestItem] } });
+        console.log(interests[interestItem]);
+        console.log("hi"); //this did not execute
+
+        //if there is a matched user
+        if (matchedUser != null) {
+          foundMatch = true;
+          console.log("found a match");
           break;
         }
       }
+
+      if (foundMatch) {
+        //send the room id to the queue objects of both users
+
+        const roomID = generateRoomID(16);
+
+        Queue.findOneAndUpdate({ email: req.user.email }, { roomId: roomID });
+
+        Queue.findOneAndUpdate(
+          { email: matchedUser.email },
+          { roomId: roomID }
+        );
+
+        //return user found
+        console.log("matched user's interests: " + matchedUser.interests);
+        console.log("this user's interests: " + userInterests);
+        //  let roomID = generateRoomID(16); //once match is found, generate room-id
+      } else {
+        //no match for u very sad
+        console.log("no match found");
+      }
+
+      // END OF /find-match
       */
-
-     changeListener()
-
 
       res.status(200).json({ inQueue: bool }); //send if in queue to browser
     });
 });
 
-async function changeListener(){
+Router.get("/find-match", ensureAuthenticated, (req, res) => {
+  //load the current user's interests into local array
+  var userInterests = req.user.interests;
 
-  // let updateFilter = {
-  //   $match: {
+  //variable to hold the matched user
+  var matchedUser = null;
 
-  //     $and: [
-  //       {roomId : {$ne : ""}},
-  //       {operationType : "update"}
-  //     ]
-  //   }
-  // }
+  var foundMatch = false;
 
-  let updateFilter = {
-    $match: {
-      roomId : {$ne : ""}
+  //loop through each item in the interests
+  for (var interestItem in userInterests) {
+    //find user in queue whose interest array contains the interest item
+    matchedUser = Queue.findOne({ interests: { $all: [interestItem] } });
+
+    //if there is a matched user
+    if (matchedUser != null) {
+      foundMatch = true;
+      break;
     }
   }
 
-  let options = { fullDocument : "updateLookup"}
-  
-  const changeStream = Queue.watch(updateFilter, options)
+  if (foundMatch) {
+    //send the room id to the queue objects of both users
+    //return user found
+    console.log("matched user's interests: " + matchedUser.interests);
+    console.log("this user's interests: " + userInterests);
+    let roomID = generateRoomID(16); //once match is found, generate room-id
+  } else {
+    //no match for u very sad
+    console.log("no match found");
+  }
 
-  changeStream.on('change', (event) => {
-    console.log("change stream triggered")
-    console.log(event._id)
-  })
+  //somwhere here need to fetch room-id from the DB and send user there
+});
 
+function generateRoomID(length) {
+  var result = "";
+  var characters =
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  var charactersLength = characters.length;
+  for (var i = 0; i < length; i++) {
+    result += characters.charAt(Math.floor(Math.random() * charactersLength));
+  }
+  return result;
 }
 
 module.exports = Router;
