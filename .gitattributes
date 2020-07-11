@@ -1,5 +1,5 @@
 * linguist-vendored
 * linguist-language
 #*.js linguist-vendored=false
-*.ejs linguist-language=js
-*.html linguist-language=js
+*.ejs linguist-language=JavaScript
+*.html linguist-language=JavaScript
