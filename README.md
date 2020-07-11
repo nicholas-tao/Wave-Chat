@@ -5,6 +5,8 @@ This repo is for the dashboard/profile/login/landing portion of OmegU. It is aut
 
 [Demo Video](https://youtu.be/vcYK6IWm_Mg)
 
+[Live Vesion] (https://omegu.tech)
+
 ## Inspiration
 
 As a group of incoming first-year university students, we are excited to meet new people on campus this fall. But surely with the pandemic at full heat, online classes make this impossible. Our first year experience is to be ruined... unless… unless we’re able to innovate. This is why we decided to build OmegU, a social media platform that enables first-year students to meet their classmates and build lasting relationships regardless of global situation.
