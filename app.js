@@ -132,6 +132,7 @@ async function match() {
             console.log("Deleted user from Queue");
           });
 
+          //once match found, remove matched user from queue
           await Queue.findOneAndDelete({ email: matchedUser.email }, function (
             err
           ) {
@@ -181,6 +182,7 @@ async function match() {
 
           console.log("room id: " + roomID);
 
+          //store user and matched user's info to Room collection
           var newRoom = new Room({
             name1: user[0].name,
             name2: matchedUser.name,
