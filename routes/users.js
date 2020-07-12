@@ -148,7 +148,7 @@ Router.post("/verify", (req, res) => {
   console.log(email); 
   console.log(pin); //gets email and poin
 
-
+ 
 
   //RESEND VERIFICATOIN VODE
   if (pin == null) {//if they entered in the resend email box
@@ -164,12 +164,21 @@ Router.post("/verify", (req, res) => {
               "Your email has not yet been registered. Please Register"
             );
             res.redirect("/users/register");
-          } else {  
+          } 
+          else if(result[0].authenticated==true){
+            console.log('already verified')
+            req.flash(  //error message
+              "error_msg",
+              "Your email has already been verified! Please Login"
+            );
+            res.redirect("/users/login");
+          }
+          else {  
             req.flash("success_msg", "Email Sent!");
             let randomnum2 = 100000 + Math.floor(Math.random() * Math.floor(899999));
 
             User.findOneAndUpdate(
-              { email: result.email },
+              { email: result[0].email },
               {
                 $set: {
                   code: randomnum2,
@@ -180,7 +189,7 @@ Router.post("/verify", (req, res) => {
                   console.log(err);
                 }
                 else{
-                console.log(result);
+              //  console.log("THE CODE IN THE DB IS " + result.code); //the previous code? idk
                 let transport2 = nodemailer.createTransport({
                   host: "smtp.omegu.tech",
                   port: 587,
@@ -200,7 +209,7 @@ Router.post("/verify", (req, res) => {
                   subject: "Your Unique Verification Code", // Subject line
                   html:
                     "Hi, <br /> <br />Thanks for signing up with OmegU! <br /> Your unique verification code is <strong>" +
-                    randomnum +
+                    randomnum2 +
                     "</strong> <br /><br /> Best, <br /> OmegU Team",
                   //style it later
                 };
@@ -280,7 +289,8 @@ Router.post("/verify", (req, res) => {
 //account made, try to login --> says need to verify
 //try to verify, no account --> register
 //reverify, no account --> register
-//reverify, correct email -->  doesn't yet update the db
+//reverify, correct email -->  works
+//try to verify, already verified --> tells to login
 
 Router.post("/login", (req, res, next) => {
   passport.authenticate("local", {
