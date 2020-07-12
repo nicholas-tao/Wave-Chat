@@ -3,6 +3,7 @@ const Router = express.Router();
 const { ensureAuthenticated } = require("../config/auth");
 const User = require("../models/User");
 const Queue = require("../models/Queue");
+const Room = require("../models/Room")
 var opn = require("opn");
 
 Router.get("/", (req, res) => {
@@ -170,7 +171,7 @@ Router.get("/dashboard/load/profile", ensureAuthenticated, (req, res) => {
 Router.get("/dashboard/start", ensureAuthenticated, (req, res) => {
   //ADD USER TO QUEUE
   Queue.findOne({ email: req.user.email }) //check if user is in queue
-    .then((queueUser) => {
+    .then(async (queueUser) => {
       if (!queueUser) {
         //if not, make document for user in queue
 
@@ -187,7 +188,16 @@ Router.get("/dashboard/start", ensureAuthenticated, (req, res) => {
           if (err) return handleError(err);
         });
 
-        //console.log(newQueue);
+        //WAIT FOR NEW ROOM DOCUMENT TO BE CREATED WITH USER'S EMAIL
+        var watcher = Room.watch([], {fullDocument: "updateLookup"})
+        .on('change', (data) => {
+          console.log(data)
+          if(data.fullDocument.email1 == req.user.email || data.fullDocument.email2 == req.user.email) {
+            //REDIRECT GOES HERE
+            watcher.close()
+          }
+        })
+
         console.log("added to queue");
       } else {
         bool = true; //set inQueue to true
