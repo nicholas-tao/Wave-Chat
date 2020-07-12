@@ -157,19 +157,6 @@ Router.get("/dashboard/load", ensureAuthenticated, (req, res) => {
 
 //LOAD PROFILE DATA FROM DB
 Router.get("/dashboard/load/profile", ensureAuthenticated, (req, res) => {
-  // var data = {
-  //     "Profile-Info":{
-  //         "faculty": req.user.faculty,
-  //         "program": req.user.program,
-  //         "year": req.user.gradYear
-  //     }
-  // }
-
-  // var faculty = req.user.faculty
-  // var program = req.user.program
-  // var gradYear = req.user.gradYear
-
-  // var data = [faculty, program, gradYear]
 
   var data = {
     faculty: req.user.faculty,
@@ -177,9 +164,6 @@ Router.get("/dashboard/load/profile", ensureAuthenticated, (req, res) => {
     year: req.user.gradYear,
   };
 
-  // res.send(req.user.faculty, req.user.program, req.user.gradYear)
-  // console.log(res)
-  // res.send(JSON.stringify(data))
 
   res.send(JSON.stringify(data));
 });
@@ -210,58 +194,7 @@ Router.get("/dashboard/start", ensureAuthenticated, (req, res) => {
         bool = true; //set inQueue to true
         console.log("in queue already");
       }
-      /*
-      // MIGRATING /find-match
-
-      //load the current user's interests into local array
-      var userInterests = req.user.interests;
-
-      //variable to hold the matched user
-      var matchedUser = null;
-
-      var foundMatch = false;
-
-      console.log("uh"); //this did not execute
-
-      //loop through each item in the interests
-      for (var interestItem in userInterests) {
-        //find user in queue whose interest array contains the interest item
-        matchedUser = Queue.findOne({ interests: { $all: [interestItem] } });
-        console.log(interests[interestItem]);
-        console.log("hi"); //this did not execute
-
-        //if there is a matched user
-        if (matchedUser != null) {
-          foundMatch = true;
-          console.log("found a match");
-          break;
-        }
-      }
-
-      if (foundMatch) {
-        //send the room id to the queue objects of both users
-
-        const roomID = generateRoomID(16);
-
-        Queue.findOneAndUpdate({ email: req.user.email }, { roomId: roomID });
-
-        Queue.findOneAndUpdate(
-          { email: matchedUser.email },
-          { roomId: roomID }
-        );
-
-        //return user found
-        console.log("matched user's interests: " + matchedUser.interests);
-        console.log("this user's interests: " + userInterests);
-        //  let roomID = generateRoomID(16); //once match is found, generate room-id
-      } else {
-        //no match for u very sad
-        console.log("no match found");
-      }
-
-      // END OF /find-match
-      */
-
+     
       res.status(200).json({ inQueue: bool }); //send if in queue to browser
     });
 });
