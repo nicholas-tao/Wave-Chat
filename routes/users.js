@@ -103,7 +103,7 @@ Router.post("/register", (req, res) => {
 });
 //SEND EMAIL FUNCTION
 function sendEmail(newUser) {
-  let randomnum = 100000 + Math.floor(Math.random() * Math.floor(89999));
+  let randomnum = 100000 + Math.floor(Math.random() * Math.floor(899999));
   newUser.code = randomnum;
 
   console.log(newUser);
@@ -165,9 +165,58 @@ Router.post("/verify", (req, res) => {
             );
             res.redirect("/users/register");
           } else {  
-            sendEmail(result);  //need to fix; need to update the code in the db
             req.flash("success_msg", "Email Sent!");
-            res.redirect("/users/verify");
+            let randomnum2 = 100000 + Math.floor(Math.random() * Math.floor(899999));
+
+            User.findOneAndUpdate(
+              { email: result.email },
+              {
+                $set: {
+                  code: randomnum2,
+                }
+              },
+              (err, result) => {
+                if (err) {
+                  console.log(err);
+                }
+                else{
+                console.log(result);
+                let transport2 = nodemailer.createTransport({
+                  host: "smtp.omegu.tech",
+                  port: 587,
+                  secure: false, // true for 465, false for other ports
+                  auth: {
+                    user: process.env.EMAIL, //put this in a .env file	     
+                    pass: process.env.EMAIL_PW
+                  },
+                  ignoreTLS: true,
+                });
+              
+                // send mail with defined transport object
+                const message2 = {
+                  from: '"OmegU" <noreply@omegu.tech>', // Sender address
+                  //  to: newUser.email, this works
+                  to: "omegu.team@gmail.com", //uncomment this later     // List of recipients
+                  subject: "Your Unique Verification Code", // Subject line
+                  html:
+                    "Hi, <br /> <br />Thanks for signing up with OmegU! <br /> Your unique verification code is <strong>" +
+                    randomnum +
+                    "</strong> <br /><br /> Best, <br /> OmegU Team",
+                  //style it later
+                };
+                transport2.sendMail(message2, function (err, info) {
+                  if (err) {
+                    console.log(err);
+                  } else {
+                    console.log(info);
+                  }
+                });
+                res.redirect("/users/verify");
+                }
+              }
+            );
+             
+           
           }
       }
     });
@@ -226,7 +275,7 @@ Router.post("/verify", (req, res) => {
   }
 });
 
-//account made, correct verify --> login
+//account made, correct verify, authenticated = true --> login
 //account made, incorrect verify --> err message; verify again
 //account made, try to login --> says need to verify
 //try to verify, no account --> register
