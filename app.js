@@ -68,113 +68,111 @@ match();
 
 //Matching Algorithm
 async function match() {
-  let docNum = await Queue.countDocuments({}); //when first executed, get number of documents in queue (irl would probably be 0, right now is 3)
-  console.log("queue length: " + docNum);
-  while (true) {
-    const updateNum = await Queue.countDocuments({});
-    if (updateNum != docNum) {
-      //see if someone has added themselves to the queue basically
-      //execute algorithm --> we just compare anyone with everyone now instead of new user in queue with exisiting users right?
-      let foundMatch = false;
 
-      //find the most recent user in queue
-      var user = await Queue.find({}).sort({ _id: -1 }).limit(1);
+  //get num of docs in the queue
+  let docNum = await Queue.countDocuments({})
 
-      var matchedUser;
+  console.log("queue length: " + docNum)
 
-      //console logging to see if everything is working
-      //console.log("user: " + user[0]);
-      console.log("user email: " + user[0].email);
-      console.log("interests: " + user[0].interests);
+  while(true){
 
-      //loop over the users interests
-      for (const interestItem of user[0].interests) {
-        //log the interest item currently being checked
-        console.log("Interest Item: " + interestItem);
+    //update number of docs in queue
+    const updateNum = await Queue.countDocuments({})
 
-        queueUsers = await Queue.find({
-          interests: { $all: [interestItem] },
-        });
+    //if the updated num of docs is different than original
+    if(updateNum != docNum){
 
-        for (const queueUser of queueUsers) {
-          //make sure user is not matched with themself
-          if (!queueUser.email === user[0].email) {
-            matchedUser[0] = queueUser;
-            console.log("matched with someone who's not you ");
+      console.log("entered if statement")
+
+      //initialize found match to false
+      let foundMatch = false
+
+      //get the most recent document in queue as the user
+      var user = await Queue.find({}).sort({_id : -1}).limit(1)
+
+      //declare matched user
+      var matchedUser
+
+      //loop over user's interests to check if there are matches
+      for(const interestItem of user[0].interests){
+
+        console.log("interest item: " + interestItem)
+
+        //find all of the user's in the queue who have a common interest
+        queueUsers = await Queue.find({ interests : interestItem })
+
+        //loop over the other users in queue with the shared interest
+        for(const queueUser of queueUsers){
+
+          console.log("queue user email: " + queueUser.email)
+          console.log("user email: " + user[0].email)
+
+          //get emails of user and matcehd user
+          var matchEmail = queueUser.email
+          var userEmail = user[0].email
+
+          //check if emails are different so user doesn't match with themselves
+          if(matchEmail.localeCompare(userEmail) != 0){
+            matchedUser = queueUser
+            console.log("user: " + user[0].email)
+            console.log("match found: " + matchedUser.email)
+
+            //set found match to true and break out of the loop
+            foundMatch = true
             break;
           }
+
         }
 
-        //search the queue for another document containing the current interest item. Limited to 1 document return
+        //if the user found a match, generate room id and update the user and their match
+        if(foundMatch == true){
+          console.log("found match is true")
 
-        //NOTE
-        //Queue.find typically returns a cursor object which is then iterated over to see each document
-        //which was returned. I tried out this a little bit and played with the .limit but couldn't seem
-        //to get it to work. Recommend running in debug mode node.js preview so you can see exactly whats
-        //going on with the variables
+          //find the intersection of ALL of the two users interests
+          const commonInterests = intersect(matchedUser.interests, user[0].interests)
 
-        // console.log("matchedUser[0]: " + matchedUser[0]);
-
-        console.log("matched user email: " + matchedUser[0].email);
-
-        if (matchedUser[0] != undefined) {
-          console.log("match found");
-          console.log(
-            "Common Interests: " +
-              intersect(matchedUser[0].interests, user[0].interests)
-          );
-
-          //store each user's interests in a variable so we can use it to call intersect()
-          let matchedOGInterests = matchedUser[0].interests;
-          let userOGInterests = user[0].interests;
-
-          //set user and matched user's interests to their common interests which will be sent to chat page
-          user[0].interests = intersect(matchedOGInterests, userOGInterests);
-          matchedUser[0].interests = user[0].interests;
-
-          //store user[0].interests and matchedUser[0].interests to their document in the Queue collection (THIS DOESNT WORK idk why)
-
-          await Queue.findOneAndUpdate(
-            { email: matchEmail },
-            { $set: { interests: user[0].interests } },
-            { new: true },
-            (err, result) => {
-              console.log("finished updating user's document");
-            }
-          );
-
+          //update the users document
           await Queue.findOneAndUpdate(
             { email: user[0].email },
-            { $set: { interests: matchedUser[0].interests } },
+            { $set: { interests: commonInterests } },
             { new: true },
             (err, result) => {
               console.log("finished updating matched user's document");
             }
           );
+    
+          //update the matches document
+          await Queue.findOneAndUpdate(
+            { email: matchedUser.email },
+            { $set: { interests: commonInterests } },
+            { new: true },
+            (err, result) => {
+              console.log("finished updating matched matched user's document");
+            }
+          );
+    
+          //create the room id
+          const roomID = generateRoomID(16)
+          
+          console.log("room id: " + roomID)
+    
+          //update the matched users document with room id
+          await Queue.findOneAndUpdate({email : matchedUser.email}, {roomId : roomID})
+    
+          //update the users document with room id
+          await Queue.findOneAndUpdate({email : user[0].email}, {roomId : roomID})
+    
+          console.log('match found')
 
-          foundMatch = true;
-          break;
+          //break out of interest loop since match already found
+          break
         }
       }
 
-      if (foundMatch) {
-        const roomID = generateRoomID(16);
-
-        console.log("roomID: " + roomID);
-
-        var matchEmail = matchedUser[0].email;
-
-        await Queue.findOneAndUpdate({ email: matchEmail }, { roomId: roomID });
-
-        await Queue.findOneAndUpdate(
-          { email: user[0].email },
-          { roomId: roomID }
-        );
-        console.log("match found!");
-        //update roomID for matched pair
-      }
-      docNum = await Queue.countDocuments({}); //with proper document-count tracking in an algorithm this step can be obviated
     }
+
+    docNum = await Queue.countDocuments({})
+
   }
 }
 
