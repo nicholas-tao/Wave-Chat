@@ -6,6 +6,7 @@ const session = require("express-session");
 const passport = require("passport");
 const app = express();
 const Queue = require("./models/Queue");
+const Room = require("./models/Room");
 const { update } = require("./models/Queue");
 
 require("dotenv").config();
@@ -35,7 +36,7 @@ app.use(
     secret: "secret",
     resave: true,
     saveUninitialized: true,
-    cookie: { maxAge: 300000 }
+    cookie: { maxAge: 300000 },
   })
 );
 
@@ -68,69 +69,77 @@ match();
 
 //Matching Algorithm
 async function match() {
-
   //get num of docs in the queue
-  let docNum = await Queue.countDocuments({})
+  let docNum = await Queue.countDocuments({});
 
-  console.log("queue length: " + docNum)
+  console.log("queue length: " + docNum);
 
-  while(true){
-
+  while (true) {
     //update number of docs in queue
-    const updateNum = await Queue.countDocuments({})
+    const updateNum = await Queue.countDocuments({});
 
     //if the updated num of docs is different than original
-    if(updateNum != docNum){
-
-      console.log("entered if statement")
+    if (updateNum != docNum) {
+      console.log("entered if statement");
 
       //initialize found match to false
-      let foundMatch = false
+      let foundMatch = false;
 
       //get the most recent document in queue as the user
-      var user = await Queue.find({}).sort({_id : -1}).limit(1)
+      var user = await Queue.find({}).sort({ _id: -1 }).limit(1);
 
       //declare matched user
-      var matchedUser
+      var matchedUser;
 
       //loop over user's interests to check if there are matches
-      for(const interestItem of user[0].interests){
-
-        console.log("interest item: " + interestItem)
+      for (const interestItem of user[0].interests) {
+        console.log("interest item: " + interestItem);
 
         //find all of the user's in the queue who have a common interest
-        queueUsers = await Queue.find({ interests : interestItem })
+        queueUsers = await Queue.find({ interests: interestItem });
 
         //loop over the other users in queue with the shared interest
-        for(const queueUser of queueUsers){
-
-          console.log("queue user email: " + queueUser.email)
-          console.log("user email: " + user[0].email)
+        for (const queueUser of queueUsers) {
+          console.log("queue user email: " + queueUser.email);
+          console.log("user email: " + user[0].email);
 
           //get emails of user and matcehd user
-          var matchEmail = queueUser.email
-          var userEmail = user[0].email
+          var matchEmail = queueUser.email;
+          var userEmail = user[0].email;
 
           //check if emails are different so user doesn't match with themselves
-          if(matchEmail.localeCompare(userEmail) != 0){
-            matchedUser = queueUser
-            console.log("user: " + user[0].email)
-            console.log("match found: " + matchedUser.email)
+          if (matchEmail.localeCompare(userEmail) != 0) {
+            matchedUser = queueUser;
+            console.log("user: " + user[0].email);
+            console.log("match found: " + matchedUser.email);
 
             //set found match to true and break out of the loop
-            foundMatch = true
+            foundMatch = true;
             break;
           }
-
         }
 
         //if the user found a match, generate room id and update the user and their match
-        if(foundMatch == true){
-          console.log("found match is true")
+        if (foundMatch) {
+          console.log("found match is true");
+          console.log("match found");
 
-          //find the intersection of ALL of the two users interests
-          const commonInterests = intersect(matchedUser.interests, user[0].interests)
+          //once match is found, remove user from queue
+          await Queue.findOneAndDelete({ email: user[0].email }, function (
+            err
+          ) {
+            if (err) console.log(err);
+            console.log("Deleted user from Queue");
+          });
 
+          await Queue.findOneAndDelete({ email: matchedUser.email }, function (
+            err
+          ) {
+            if (err) console.log(err);
+            console.log("Deleted matched user from Queue");
+          });
+
+          /*
           //update the users document
           await Queue.findOneAndUpdate(
             { email: user[0].email },
@@ -140,7 +149,7 @@ async function match() {
               console.log("finished updating matched user's document");
             }
           );
-    
+
           //update the matches document
           await Queue.findOneAndUpdate(
             { email: matchedUser.email },
@@ -150,29 +159,50 @@ async function match() {
               console.log("finished updating matched matched user's document");
             }
           );
-    
-          //create the room id
-          const roomID = generateRoomID(16)
           
-          console.log("room id: " + roomID)
-    
           //update the matched users document with room id
-          await Queue.findOneAndUpdate({email : matchedUser.email}, {roomId : roomID})
-    
-          //update the users document with room id
-          await Queue.findOneAndUpdate({email : user[0].email}, {roomId : roomID})
-    
-          console.log('match found')
+          await Queue.findOneAndUpdate(
+            { email: matchedUser.email },
+            { roomId: roomID }
+          );
+            //update the users document with room id
+            await Queue.findOneAndUpdate(
+              { email: user[0].email },
+              { roomId: roomID }
+            );
+*/
+          //find the intersection of ALL of the two users interests
+          const commonInterests = intersect(
+            matchedUser.interests,
+            user[0].interests
+          );
+          //create the room id
+          const roomID = generateRoomID(16);
+
+          console.log("room id: " + roomID);
+
+          var newRoom = new Room({
+            name1: user[0].name,
+            name2: matchedUser.name,
+            email1: user[0].email,
+            email2: matchedUser.email,
+            program1: user[0].program,
+            program2: matchedUser.program,
+            commonInterests: commonInterests,
+            roomId: roomID,
+          });
+
+          await newRoom.save((err) => {
+            if (err) return handleError(err);
+          });
 
           //break out of interest loop since match already found
-          break
+          break;
         }
       }
-
     }
 
-    docNum = await Queue.countDocuments({})
-
+    docNum = await Queue.countDocuments({});
   }
 }
 

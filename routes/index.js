@@ -15,7 +15,7 @@ Router.get(
   (req, res, next) => {
     //   console.log(req.user)
 
-    console.log(req.session);
+    // console.log(req.session);
     User.findOneAndUpdate(
       { email: req.user.email },
       {
@@ -157,13 +157,11 @@ Router.get("/dashboard/load", ensureAuthenticated, (req, res) => {
 
 //LOAD PROFILE DATA FROM DB
 Router.get("/dashboard/load/profile", ensureAuthenticated, (req, res) => {
-
   var data = {
     faculty: req.user.faculty,
     program: req.user.program,
     year: req.user.gradYear,
   };
-
 
   res.send(JSON.stringify(data));
 });
@@ -189,12 +187,13 @@ Router.get("/dashboard/start", ensureAuthenticated, (req, res) => {
           if (err) return handleError(err);
         });
 
-        console.log(newQueue);
+        //console.log(newQueue);
+        console.log("added to queue");
       } else {
         bool = true; //set inQueue to true
         console.log("in queue already");
       }
-     
+
       res.status(200).json({ inQueue: bool }); //send if in queue to browser
     });
 });

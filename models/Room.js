@@ -1,7 +1,27 @@
 const mongoose = require("mongoose");
 
 const RoomSchema = new mongoose.Schema({
-  name: {
+  name1: {
+    type: String,
+    required: true,
+  },
+  name2: {
+    type: String,
+    required: true,
+  },
+  email1: {
+    type: String,
+    required: true,
+  },
+  email2: {
+    type: String,
+    required: true,
+  },
+  program1: {
+    type: String,
+    required: true,
+  },
+  program2: {
     type: String,
     required: true,
   },
@@ -9,21 +29,10 @@ const RoomSchema = new mongoose.Schema({
     type: String,
     default: "roomLink",
   },
-  email: {
-    type: String,
-    required: true,
-  },
-
   commonInterests: {
     type: [String],
     default: undefined,
   },
-
-  program: {
-    type: String,
-    default: "No Program Entered",
-  },
-
   date: {
     type: Date,
     default: Date.now,
