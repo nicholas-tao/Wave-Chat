@@ -3,7 +3,7 @@ const Router = express.Router();
 const { ensureAuthenticated } = require("../config/auth");
 const User = require("../models/User");
 const Queue = require("../models/Queue");
-const Room = require("../models/Room")
+const Room = require("../models/Room");
 var opn = require("opn");
 
 Router.get("/", (req, res) => {
@@ -29,7 +29,7 @@ Router.get(
         if (err) {
           console.log(err);
         }
-        console.log(result);
+        console.log("result: ", result);
       }
     );
 
@@ -41,7 +41,7 @@ Router.get(
 
       //console.log(result)
       count = Object.keys(result).length;
-      console.log(count);
+      console.log("count: ", count);
 
       res.render("dashboard", {
         name: req.user.name,
@@ -91,7 +91,7 @@ Router.post("/dashboard/profile", ensureAuthenticated, (req, res) => {
         if (err) {
           console.log(err);
         }
-        console.log(result);
+        //console.log(result);
       }
     );
   } else {
@@ -110,7 +110,7 @@ Router.post("/dashboard/profile", ensureAuthenticated, (req, res) => {
         if (err) {
           console.log(err);
         }
-        console.log(result);
+        //console.log(result);
       }
     );
   }
@@ -128,7 +128,7 @@ Router.post("/dashboard/append", ensureAuthenticated, (req, res) => {
       if (err) {
         console.log(err);
       }
-      console.log(result);
+      // console.log(result);
     }
   );
   res.sendStatus(200); //send relevant response code
@@ -145,7 +145,7 @@ Router.post("/dashboard/delete", ensureAuthenticated, (req, res) => {
       if (err) {
         console.log(err);
       }
-      console.log(result);
+      // console.log(result);
     }
   );
   res.sendStatus(200); //send relevant response code
@@ -189,14 +189,19 @@ Router.get("/dashboard/start", ensureAuthenticated, (req, res) => {
         });
 
         //WAIT FOR NEW ROOM DOCUMENT TO BE CREATED WITH USER'S EMAIL
-        var watcher = Room.watch([], {fullDocument: "updateLookup"})
-        .on('change', (data) => {
-          console.log(data)
-          if(data.fullDocument.email1 == req.user.email || data.fullDocument.email2 == req.user.email) {
-            //REDIRECT GOES HERE
-            watcher.close()
+        var watcher = Room.watch([], { fullDocument: "updateLookup" }).on(
+          "change",
+          (data) => {
+            console.log(data);
+            if (
+              data.fullDocument.email1 == req.user.email ||
+              data.fullDocument.email2 == req.user.email
+            ) {
+              //REDIRECT GOES HERE
+              watcher.close();
+            }
           }
-        })
+        );
 
         console.log("added to queue");
       } else {

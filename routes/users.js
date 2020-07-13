@@ -7,7 +7,7 @@ const nodemailer = require("nodemailer");
 const { db } = require("../models/User");
 const Queue = require("../models/Queue");
 
-require("dotenv").config();	
+require("dotenv").config();
 
 Router.get("/login", (req, res) => {
   res.render("login");
@@ -113,8 +113,8 @@ function sendEmail(newUser) {
     port: 587,
     secure: false, // true for 465, false for other ports
     auth: {
-      user: process.env.EMAIL, //put this in a .env file	     
-      pass: process.env.EMAIL_PW
+      user: process.env.EMAIL, //put this in a .env file
+      pass: process.env.EMAIL_PW,
     },
     ignoreTLS: true,
   });
@@ -140,67 +140,63 @@ function sendEmail(newUser) {
   });
 } //end of send mail method
 
-
-
 //ROUTER POST REQUEST FOR VERIFY
 Router.post("/verify", (req, res) => {
   const { email, pin } = req.body;
-  console.log(email); 
+  console.log(email);
   console.log(pin); //gets email and poin
 
- 
-
   //RESEND VERIFICATOIN VODE
-  if (pin == null) {//if they entered in the resend email box
+  if (pin == null) {
+    //if they entered in the resend email box
     User.find({ email: email }, function (err, result) {
       if (err) {
         console.log(err);
-      } 
-      else {
-          if (result[0] == null) {
-            console.log("here");
-            req.flash(  //error message
-              "error_msg",
-              "Your email has not yet been registered. Please Register"
-            );
-            res.redirect("/users/register");
-          } 
-          else if(result[0].authenticated==true){
-            console.log('already verified')
-            req.flash(  //error message
-              "error_msg",
-              "Your email has already been verified! Please Login"
-            );
-            res.redirect("/users/login");
-          }
-          else {  
-            req.flash("success_msg", "Email Sent!");
-            let randomnum2 = 100000 + Math.floor(Math.random() * Math.floor(899999));
+      } else {
+        if (result[0] == null) {
+          console.log("here");
+          req.flash(
+            //error message
+            "error_msg",
+            "Your email has not yet been registered. Please Register"
+          );
+          res.redirect("/users/register");
+        } else if (result[0].authenticated == true) {
+          console.log("already verified");
+          req.flash(
+            //error message
+            "error_msg",
+            "Your email has already been verified! Please Login"
+          );
+          res.redirect("/users/login");
+        } else {
+          req.flash("success_msg", "Email Sent!");
+          let randomnum2 =
+            100000 + Math.floor(Math.random() * Math.floor(899999));
 
-            User.findOneAndUpdate(
-              { email: result[0].email },
-              {
-                $set: {
-                  code: randomnum2,
-                }
+          User.findOneAndUpdate(
+            { email: result[0].email },
+            {
+              $set: {
+                code: randomnum2,
               },
-              (err, result) => {
-                if (err) {
-                  console.log(err);
-                }
-                else{
-              //  console.log("THE CODE IN THE DB IS " + result.code); //the previous code? idk
+            },
+            (err, result) => {
+              if (err) {
+                console.log(err);
+              } else {
+                //  console.log("THE CODE IN THE DB IS " + result.code); //the previous code? idk
                 let transport2 = nodemailer.createTransport({
                   host: "smtp.omegu.tech",
                   port: 587,
                   secure: false, // true for 465, false for other ports
                   auth: {
-                    user: process.env.EMAIL, //put this in a .env file	     
-                    pass: process.env.EMAIL_PW
+                    user: process.env.EMAIL, //put this in a .env file
+                    pass: process.env.EMAIL_PW,
                   },
                   ignoreTLS: true,
                 });
-              
+
                 // send mail with defined transport object
                 const message2 = {
                   from: '"OmegU" <noreply@omegu.tech>', // Sender address
@@ -221,36 +217,32 @@ Router.post("/verify", (req, res) => {
                   }
                 });
                 res.redirect("/users/verify");
-                }
               }
-            );
-             
-           
-          }
+            }
+          );
+        }
       }
     });
-  } 
-  
+  }
+
   //ATTEMPT TO VERIFY
   else {
     let userCode;
-    User.find({ email: email }, function (err, result) { //find user based on the email entered
+    User.find({ email: email }, function (err, result) {
+      //find user based on the email entered
       if (err) {
         console.log(err);
-      } 
-      
-      else if (result[0] == null) {  //if there email is not yet regiestered, redirect them back to the register page
+      } else if (result[0] == null) {
+        //if there email is not yet regiestered, redirect them back to the register page
         req.flash(
           "error_msg",
           "Your email has not yet been registered. Please Register"
         );
         res.redirect("/users/register");
-      } 
-      
-      
-      else {
+      } else {
         userCode = result[0].code; //stores the code
-        if (pin == userCode) { //if it matches, 
+        if (pin == userCode) {
+          //if it matches,
           console.log("same!");
           User.findOneAndUpdate(
             { email: email },
@@ -260,7 +252,8 @@ Router.post("/verify", (req, res) => {
                 authenticated: true,
               },
             },
-            function (err, result) {   //if successful verification, send them back to login page to relogin
+            function (err, result) {
+              //if successful verification, send them back to login page to relogin
               if (err) {
                 console.log(err);
               } else {
@@ -272,9 +265,8 @@ Router.post("/verify", (req, res) => {
               }
             }
           );
-        }
-        
-        else { //invalid pin/email
+        } else {
+          //invalid pin/email
           req.flash("error_msg", "Invalid email or PIN. Please try again.");
           res.redirect("/users/verify");
           console.log("fail");
@@ -301,8 +293,7 @@ Router.post("/login", (req, res, next) => {
 });
 
 Router.get("/logout", (req, res) => {
-
-/* do this for queue too
+  /* do this for queue too
   Queue.findOneAndUpdate(
     { email: req.user.email },
     {
@@ -323,15 +314,15 @@ Router.get("/logout", (req, res) => {
     { email: req.user.email },
     {
       $set: {
-        status: 'offline',
-      }
+        status: "offline",
+      },
     },
     { new: true },
     (err, result) => {
       if (err) {
         console.log(err);
       }
-      console.log(result);
+      console.log("result after logging out: ", result);
     }
   );
   req.logout();
