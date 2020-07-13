@@ -5,6 +5,7 @@ const User = require("../models/User");
 const Queue = require("../models/Queue");
 const Room = require("../models/Room");
 var opn = require("opn");
+const open = require("open");
 
 Router.get("/", (req, res) => {
   res.render("welcome");
@@ -198,6 +199,10 @@ Router.get("/dashboard/start", ensureAuthenticated, (req, res) => {
               data.fullDocument.email2 == req.user.email
             ) {
               //REDIRECT GOES HERE
+              const roomId = data.fullDocument.roomId;
+              const url = "https://omeguu.herokuapp.com/?room=" + roomId; //REPLACE with chat.omegu.tech once we get the SSL certficate
+              console.log("url: ", url);
+              open(url);
               watcher.close();
             }
           }
