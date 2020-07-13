@@ -325,9 +325,11 @@ Router.get("/logout", (req, res) => {
       console.log("result after logging out: ", result);
     }
   );
+  console.log("we logged out");
   req.logout();
   req.flash("success_msg", "You are logged out");
   res.redirect("/users/login");
+  console.log("we made it here");
 });
 
 Router.post("/dashboard", (req) => {

@@ -20,14 +20,15 @@ $("#show-sidebar").click(function () {
 window.onbeforeunload = closingCode();
 
 function closingCode() {
+  window.location.replace("/users/login");
+  /*
   const rawResponse = fetch("/users/logout", {
     method: "GET",
     headers: {
       Accept: "application/json",
     },
-  })
-    .then((response) => response.json())
-    .then((data) => data);
-
+  }).then((response) => response.json());
+  return "hiii";
+  */
   return null;
 }
