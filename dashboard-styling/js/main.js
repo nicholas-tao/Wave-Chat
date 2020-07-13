@@ -17,7 +17,7 @@ $("#show-sidebar").click(function () {
   $(".page-wrapper").addClass("toggled");
 });
 
-window.onbeforeunload = closingCode();
+/*window.onbeforeunload = closingCode();
 
 function closingCode() {
   window.location.replace("/users/login");
@@ -29,6 +29,11 @@ function closingCode() {
     },
   }).then((response) => response.json());
   return "hiii";
-  */
+  
   return null;
 }
+*/
+
+$(window).on("beforeunload", function () {
+  return "Your own message goes here...";
+});
