@@ -202,7 +202,8 @@ Router.get("/dashboard/start", ensureAuthenticated, (req, res) => {
               const roomId = data.fullDocument.roomId;
               const url = "https://omeguu.herokuapp.com/?room=" + roomId; //REPLACE with chat.omegu.tech once we get the SSL certficate
               console.log("url: ", url);
-              open(url);
+              //open(url);
+              res.redirect(url);
               watcher.close();
             }
           }
@@ -214,7 +215,7 @@ Router.get("/dashboard/start", ensureAuthenticated, (req, res) => {
         console.log("in queue already");
       }
 
-      res.status(200).json({ inQueue: bool }); //send if in queue to browser
+      //res.status(200).json({ inQueue: bool }); //send if in queue to browser
     });
 });
 
