@@ -22,9 +22,9 @@ function populateDropdowns() {
       loadFaculty = data["faculty"];
       loadProgram = data["program"];
       loadYear = data["year"];
-      console.log(loadFaculty);
-      console.log(loadProgram);
-      console.log(loadYear);
+      //console.log(loadFaculty);
+      //console.log(loadProgram);
+      //console.log(loadYear);
       //console.log('hi123456789');
       let sfaculty = loadFaculty.toString();
       // faculty.value = sfaculty
