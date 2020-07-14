@@ -1,4 +1,4 @@
-const express = require("express");
+fconst express = require("express");
 const Router = express.Router();
 const bcrypt = require("bcryptjs");
 const User = require("../models/User");
@@ -293,7 +293,15 @@ Router.post("/login", (req, res, next) => {
 });
 
 Router.get("/logout", (req, res) => {
-  /* do this for queue too
+  console.log(req.user.email)
+  Queue.deleteOne({ email: req.user.email  }, function(err, result) {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log(result);
+    }
+  });
+/* do this for queue too
   Queue.findOneAndUpdate(
     { email: req.user.email },
     {
@@ -314,22 +322,20 @@ Router.get("/logout", (req, res) => {
     { email: req.user.email },
     {
       $set: {
-        status: "offline",
-      },
+        status: 'offline',
+      }
     },
     { new: true },
     (err, result) => {
       if (err) {
         console.log(err);
       }
-      console.log("result after logging out: ", result);
+      console.log(result);
     }
   );
-  console.log("we logged out");
   req.logout();
   req.flash("success_msg", "You are logged out");
   res.redirect("/users/login");
-  console.log("we made it here");
 });
 
 Router.post("/dashboard", (req) => {
