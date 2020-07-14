@@ -24,6 +24,11 @@ function startBtnClicked() {
       if (data.inQueue) {
         console.log("in queue already");
       }
+
+      console.log(data.url)
+
+      window.location.href = data.url
+
     });
 
   // var email = document.getElementById("start-chatting").dataset.testValue;

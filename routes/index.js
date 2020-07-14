@@ -201,8 +201,12 @@ Router.get("/dashboard/start", ensureAuthenticated, (req, res) => {
               const roomId = data.fullDocument.roomId;
               const url = "https://omeguu.herokuapp.com/?room=" + roomId; //REPLACE with chat.omegu.tech once we get the SSL certficate
               console.log("url: ", url);
-              //open(url);
-              res.redirect(url);
+              // open(url);
+              // res.redirect(url);
+              // res.send(JSON.stringify(url))
+
+              res.status(200).json({ url : url})
+
               watcher.close();
             }
           }
