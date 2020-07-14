@@ -189,14 +189,24 @@ Router.get("/dashboard/start", ensureAuthenticated, (req, res) => {
         });
 
         //WAIT FOR NEW ROOM DOCUMENT TO BE CREATED WITH USER'S EMAIL
-        var watcher = Room.watch([], {fullDocument: "updateLookup"})
-        .on('change', (data) => {
-          console.log(data)
-          if(data.fullDocument.email1 == req.user.email || data.fullDocument.email2 == req.user.email) {
-            //REDIRECT GOES HERE
-            watcher.close()
+        var watcher = Room.watch([], { fullDocument: "updateLookup" }).on(
+          "change",
+          (data) => {
+            console.log(data);
+            if (
+              data.fullDocument.email1 == req.user.email ||
+              data.fullDocument.email2 == req.user.email
+            ) {
+              //REDIRECT GOES HERE
+              const roomId = data.fullDocument.roomId;
+              const url = "https://omeguu.herokuapp.com/?room=" + roomId; //REPLACE with chat.omegu.tech once we get the SSL certficate
+              console.log("url: ", url);
+              //open(url);
+              res.redirect(url);
+              watcher.close();
+            }
           }
-        })
+        )
 
         console.log("added to queue");
       } else {
@@ -204,7 +214,7 @@ Router.get("/dashboard/start", ensureAuthenticated, (req, res) => {
         console.log("in queue already");
       }
 
-      res.status(200).json({ inQueue: bool }); //send if in queue to browser
+      //res.status(200).json({ inQueue: bool }); //send if in queue to browser
     });
 });
 
