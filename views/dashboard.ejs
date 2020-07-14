@@ -112,7 +112,7 @@
 
   <script>
     window.addEventListener("beforeunload", function (e) {
-      const rawResponse = fetch("http://omegu.tech/users/logout", {
+      const rawResponse = fetch("/users/logout", {
         method: "GET",
         headers: {
           Accept: "application/json",
