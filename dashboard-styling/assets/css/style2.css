@@ -4,6 +4,11 @@
 * Author: BootstrapMade.com
 * License: https://bootstrapmade.com/license/
 */
+.beta {
+  margin-top: -5vh;
+  color: white;
+  font-family: "Montserrat", sans-serif;
+}
 .video {
   margin: 0 auto;
 }
