@@ -293,6 +293,8 @@ Router.post("/login", (req, res, next) => {
 });
 
 Router.get("/logout", (req, res) => {
+  try{
+
   console.log(req.user.email)
   Queue.deleteOne({ email: req.user.email  }, function(err, result) {
     if (err) {
@@ -333,7 +335,10 @@ Router.get("/logout", (req, res) => {
       console.log(result);
     }
   );
-  req.logout();
+    req.logout();
+  } catch(err){
+    console.log(err);
+  }
   req.flash("success_msg", "You are logged out");
   res.redirect("/users/login");
 });
