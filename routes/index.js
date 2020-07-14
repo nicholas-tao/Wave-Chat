@@ -3,9 +3,8 @@ const Router = express.Router();
 const { ensureAuthenticated } = require("../config/auth");
 const User = require("../models/User");
 const Queue = require("../models/Queue");
-const Room = require("../models/Room");
+const Room = require("../models/Room")
 var opn = require("opn");
-const open = require("open");
 
 Router.get("/", (req, res) => {
   res.render("welcome");
@@ -30,7 +29,7 @@ Router.get(
         if (err) {
           console.log(err);
         }
-        console.log("result: ", result);
+        console.log(result);
       }
     );
 
@@ -42,7 +41,7 @@ Router.get(
 
       //console.log(result)
       count = Object.keys(result).length;
-      console.log("count: ", count);
+      console.log(count);
 
       res.render("dashboard", {
         name: req.user.name,
@@ -92,7 +91,7 @@ Router.post("/dashboard/profile", ensureAuthenticated, (req, res) => {
         if (err) {
           console.log(err);
         }
-        //console.log(result);
+        console.log(result);
       }
     );
   } else {
@@ -111,7 +110,7 @@ Router.post("/dashboard/profile", ensureAuthenticated, (req, res) => {
         if (err) {
           console.log(err);
         }
-        //console.log(result);
+        console.log(result);
       }
     );
   }
@@ -129,7 +128,7 @@ Router.post("/dashboard/append", ensureAuthenticated, (req, res) => {
       if (err) {
         console.log(err);
       }
-      // console.log(result);
+      console.log(result);
     }
   );
   res.sendStatus(200); //send relevant response code
@@ -146,7 +145,7 @@ Router.post("/dashboard/delete", ensureAuthenticated, (req, res) => {
       if (err) {
         console.log(err);
       }
-      // console.log(result);
+      console.log(result);
     }
   );
   res.sendStatus(200); //send relevant response code
@@ -190,23 +189,14 @@ Router.get("/dashboard/start", ensureAuthenticated, (req, res) => {
         });
 
         //WAIT FOR NEW ROOM DOCUMENT TO BE CREATED WITH USER'S EMAIL
-        var watcher = Room.watch([], { fullDocument: "updateLookup" }).on(
-          "change",
-          (data) => {
-            console.log(data);
-            if (
-              data.fullDocument.email1 == req.user.email ||
-              data.fullDocument.email2 == req.user.email
-            ) {
-              //REDIRECT GOES HERE
-              const roomId = data.fullDocument.roomId;
-              const url = "https://omeguu.herokuapp.com/?room=" + roomId; //REPLACE with chat.omegu.tech once we get the SSL certficate
-              console.log("url: ", url);
-              open(url);
-              watcher.close();
-            }
+        var watcher = Room.watch([], {fullDocument: "updateLookup"})
+        .on('change', (data) => {
+          console.log(data)
+          if(data.fullDocument.email1 == req.user.email || data.fullDocument.email2 == req.user.email) {
+            //REDIRECT GOES HERE
+            watcher.close()
           }
-        );
+        })
 
         console.log("added to queue");
       } else {
@@ -218,40 +208,7 @@ Router.get("/dashboard/start", ensureAuthenticated, (req, res) => {
     });
 });
 
-Router.get("/find-match", ensureAuthenticated, (req, res) => {
-  //load the current user's interests into local array
-  var userInterests = req.user.interests;
 
-  //variable to hold the matched user
-  var matchedUser = null;
-
-  var foundMatch = false;
-
-  //loop through each item in the interests
-  for (var interestItem in userInterests) {
-    //find user in queue whose interest array contains the interest item
-    matchedUser = Queue.findOne({ interests: { $all: [interestItem] } });
-
-    //if there is a matched user
-    if (matchedUser != null) {
-      foundMatch = true;
-      break;
-    }
-  }
-
-  if (foundMatch) {
-    //send the room id to the queue objects of both users
-    //return user found
-    console.log("matched user's interests: " + matchedUser.interests);
-    console.log("this user's interests: " + userInterests);
-    let roomID = generateRoomID(16); //once match is found, generate room-id
-  } else {
-    //no match for u very sad
-    console.log("no match found");
-  }
-
-  //somwhere here need to fetch room-id from the DB and send user there
-});
 
 function generateRoomID(length) {
   var result = "";
