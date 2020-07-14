@@ -3,7 +3,7 @@ const Router = express.Router();
 const { ensureAuthenticated } = require("../config/auth");
 const User = require("../models/User");
 const Queue = require("../models/Queue");
-const Room = require("../models/Room")
+const Room = require("../models/Room");
 var opn = require("opn");
 
 Router.get("/", (req, res) => {
@@ -205,12 +205,12 @@ Router.get("/dashboard/start", ensureAuthenticated, (req, res) => {
               // res.redirect(url);
               // res.send(JSON.stringify(url))
 
-              res.status(200).json({ url : url})
+              res.status(200).json({ url: url });
 
               watcher.close();
             }
           }
-        )
+        );
 
         console.log("added to queue");
       } else {
@@ -221,18 +221,5 @@ Router.get("/dashboard/start", ensureAuthenticated, (req, res) => {
       //res.status(200).json({ inQueue: bool }); //send if in queue to browser
     });
 });
-
-
-
-function generateRoomID(length) {
-  var result = "";
-  var characters =
-    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-  var charactersLength = characters.length;
-  for (var i = 0; i < length; i++) {
-    result += characters.charAt(Math.floor(Math.random() * charactersLength));
-  }
-  return result;
-}
 
 module.exports = Router;
