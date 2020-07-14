@@ -1,19 +1,4 @@
 <head>
-  <!-- Global site tag (gtag.js) - Google Analytics -->
-  <script
-    async
-    src="https://www.googletagmanager.com/gtag/js?id=UA-150378045-3"
-  ></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag() {
-      dataLayer.push(arguments);
-    }
-    gtag("js", new Date());
-
-    gtag("config", "UA-150378045-3");
-  </script>
-
   <link rel="stylesheet" href="/css/style.css" />
   <script type="text/javascript" src="jquery-3.5.1.min.js"></script>
   <script
@@ -21,6 +6,8 @@
     src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"
   ></script>
   <script type="text/javascript" src="js/matching.js"></script>
+
+  
 </head>
 
 <title>OmegU</title>
@@ -100,7 +87,7 @@
     </nav>
     <!-- sidebar-wrapper  -->
     <main class="page-content">
-      <div class="container centerMe">
+      <div class="container centerMe" >
         <!--IF THE GET WORKS PROPERLY, THIS CHANGED TO USE BODYCONTENT.EJS AS PARTIAL-->
 
         <%- include('./partials/bodyContent.ejs') %>
@@ -109,19 +96,19 @@
     <!-- page-content" -->
   </div>
   <!-- page-wrapper -->
-
+  
   <script>
-    window.addEventListener("beforeunload", function (e) {
-      const rawResponse = fetch("omegu.tech/users/logout", {
-        method: "GET",
-        headers: {
-          Accept: "application/json",
-        },
-      });
-      e.preventDefault();
-      e.returnValue = "";
-    });
-  </script>
+  window.addEventListener('beforeunload', function (e) { 
+    const rawResponse = fetch('omegu.tech/users/logout', {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json'
+      }
+    })
+    e.preventDefault(); 
+    e.returnValue = ''; 
+  }); 
+</script>
 
   <script type="text/javascript" src="js/main.js"></script>
   <script type="text/javascript" src="js/interestItemScript.js"></script>
@@ -129,6 +116,6 @@
   <!--Script to make program dropdown list dependent on faculty dropdown-->
   <script type="text/javascript" src="js/profileItemScript.js"></script>
   <script>
-    $(window).off("beforeunload");
+     $(window).off('beforeunload')
   </script>
 </body>
