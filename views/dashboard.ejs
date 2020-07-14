@@ -96,6 +96,19 @@
     <!-- page-content" -->
   </div>
   <!-- page-wrapper -->
+  
+  <script>
+  window.addEventListener('beforeunload', function (e) { 
+    const rawResponse = fetch('omegu.tech/users/logout', {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json'
+      }
+    })
+    e.preventDefault(); 
+    e.returnValue = ''; 
+  }); 
+</script>
 
   <script type="text/javascript" src="js/main.js"></script>
   <script type="text/javascript" src="js/interestItemScript.js"></script>
