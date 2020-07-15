@@ -29,7 +29,7 @@ Router.get(
         if (err) {
           console.log(err);
         }
-        console.log(result);
+        console.log("logged in: ", result);
       }
     );
 
@@ -41,7 +41,7 @@ Router.get(
 
       //console.log(result)
       count = Object.keys(result).length;
-      console.log(count);
+      //console.log("users online: ", count);
 
       res.render("dashboard", {
         name: req.user.name,

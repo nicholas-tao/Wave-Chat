@@ -293,17 +293,16 @@ Router.post("/login", (req, res, next) => {
 });
 
 Router.get("/logout", (req, res) => {
-  try{
-
-  console.log(req.user.email)
-  Queue.deleteOne({ email: req.user.email  }, function(err, result) {
-    if (err) {
-      console.log(err);
-    } else {
-      console.log(result);
-    }
-  });
-/* do this for queue too
+  try {
+    console.log(req.user.email);
+    Queue.deleteOne({ email: req.user.email }, function (err, result) {
+      if (err) {
+        console.log(err);
+      } else {
+        //console.log(result);
+      }
+    });
+    /* do this for queue too
   Queue.findOneAndUpdate(
     { email: req.user.email },
     {
@@ -320,27 +319,26 @@ Router.get("/logout", (req, res) => {
     }
   );
 */
-  User.findOneAndUpdate(
-    { email: req.user.email },
-    {
-      $set: {
-        status: 'offline',
+    User.findOneAndUpdate(
+      { email: req.user.email },
+      {
+        $set: {
+          status: "offline",
+        },
+      },
+      { new: true },
+      (err, result) => {
+        if (err) {
+          console.log(err);
+        }
+        console.log(result);
       }
-    },
-    { new: true },
-    (err, result) => {
-      if (err) {
-        console.log(err);
-      }
-      console.log(result);
-    }
-  );
+    );
     //req.logout();
-    
-  } catch(err){
+  } catch (err) {
     console.log(err);
   }
-  
+
   req.flash("success_msg", "You are logged out");
   res.redirect("/users/login");
 });
