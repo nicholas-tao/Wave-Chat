@@ -543,12 +543,14 @@
   <hr />
 
   <div class="container">
+    <!--
     <div class="wrapper1">
       <div class="loader">
         <div class="loading"></div>
         <p class="matching">Matching</p>
       </div>
     </div>
+  -->
     <div class="row">
       <div class="intro col-12">
         <h1>Interests</h1>
@@ -884,6 +886,23 @@
         </div>
       </div>
     </div>
+    <div id="overlay" onclick="off()">
+      <div id="text">
+        <div class="wrapper1">
+          <div class="loader">
+            <div class="loading"></div>
+            <p class="matching">
+              Matching <br />You will be redirected shortly
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      function off() {
+        document.getElementById("overlay").style.display = "none";
+      }
+    </script>
 
     <%}%>
   </div>

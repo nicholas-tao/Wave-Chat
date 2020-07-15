@@ -7,6 +7,9 @@ function startBtnClicked() {
   6. server does like "window.location = omeggu.herokuapp.com/?room={room-id}"
   7. also need to send user info - name/matching interests - to the chat room as well
   */
+
+  on();
+
   $(".page-wrapper").removeClass("toggled");
 
   document.getElementsByClassName("loader")[0].style.display = "block";
@@ -25,11 +28,14 @@ function startBtnClicked() {
         console.log("in queue already");
       }
 
-      console.log(data.url)
+      console.log(data.url);
 
-      window.location.href = data.url
-
+      window.location.href = data.url;
     });
+
+  function on() {
+    document.getElementById("overlay").style.display = "block";
+  }
 
   // var email = document.getElementById("start-chatting").dataset.testValue;
 
