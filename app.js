@@ -73,82 +73,78 @@ matchBeta();
 
 //Matching Algorithm (simple)
 function matchBeta() {
-
   //params for watch
-  const matchPipeline = [
-      {$match: {operationType: 'insert'}}
-    ];
+  const matchPipeline = [{ $match: { operationType: "insert" } }];
   const matchOptions = {
-      fullDocument: "updateLookup"
-    }
-    
+    fullDocument: "updateLookup",
+  };
+  //since the algo matches ppl then executes some code, what if like 5 people join while that code is running?
+  //will 4 of those 5 ppl not get added to the queue? like does changelog only store 1 user or all 5 of them?
+  //need to test out what happens if we have like 10 people at once
   const matchWatcher = Queue.watch(matchPipeline, matchOptions)
     .on("change", async (changelog) => {
-      
-      var newUser = changelog.fullDocument
-      
-      let QueueCount = null;
-      
-      await Queue.countDocuments({}, (err, count) => {
+      var newUser = changelog.fullDocument;
 
+      let QueueCount = null;
+
+      await Queue.countDocuments({}, (err, count) => {
         QueueCount = count;
-        if(err) {
-          console.log(err)
+        if (err) {
+          console.log(err);
         }
       });
-      
-      if(QueueCount >= 2) {
-        
-        console.log("in here")
-        const matchedUserAggregate = await Queue.find({}).sort({ _id: 1 }).limit(1); //second user
-        var matchedUser = matchedUserAggregate[0]
-        
+
+      if (QueueCount >= 2) {
+        console.log("in here");
+        const matchedUserAggregate = await Queue.find({})
+          .sort({ _id: 1 })
+          .limit(1); //second user (oldest entry)
+        var matchedUser = matchedUserAggregate[0];
+
         //delete users from queue
-        Queue.findOneAndDelete({email: newUser.email}, (err) => {
-          if(err) {
-            console.log(err)
+        Queue.findOneAndDelete({ email: newUser.email }, (err) => {
+          if (err) {
+            console.log(err);
           }
         });
 
-        Queue.findOneAndDelete({email: matchedUser.email}, (err) => {
-          if(err) {
-            console.log(err)
+        Queue.findOneAndDelete({ email: matchedUser.email }, (err) => {
+          if (err) {
+            console.log(err);
           }
         });
 
         //intersect interest arrays
-        const commonInterests = intersect(newUser.interests, matchedUser.interests)
+        const commonInterests = intersect(
+          newUser.interests,
+          matchedUser.interests
+        );
 
         //generate roomid and room
-        const roomID = generateRoomID(16)
+        const roomID = generateRoomID(16);
         const newRoom = new Room({
-  
-            name1: newUser.name,
-            name2: matchedUser.name,
-            email1: newUser.email,
-            email2: matchedUser.email,
-            program1: newUser.program,
-            program2: matchedUser.program,
-            commonInterests: commonInterests,
-            roomId: roomID,
+          name1: newUser.name,
+          name2: matchedUser.name,
+          email1: newUser.email,
+          email2: matchedUser.email,
+          program1: newUser.program,
+          program2: matchedUser.program,
+          commonInterests: commonInterests,
+          roomId: roomID,
+        });
 
-        })
-      
         //append newRoom to room collection
         newRoom.save((err) => {
-          if(err) {
-            console.log(err)
+          if (err) {
+            console.log(err);
           }
-        })
-
+        });
       }
-
     })
     .on("error", (err) => {
-      console.log(err)
+      console.log(err);
       //matchBeta() (This seems like a useful command if the watch ever breaks; it'll just restart the algo, but everything should work before implementing it)
-    })
-
+    });
 }
 
 //Matching Algorithm (the sophisticated one)
