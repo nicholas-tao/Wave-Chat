@@ -64,13 +64,36 @@ const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, console.log(`Server started on port ${PORT}`));
 
-match();
+matchBeta();
+//match();
 
 //var matchedUser;
 
 //////////////////////////////////////////////////////////
 
-//Matching Algorithm
+//Matching Algorithm (simple)
+async function matchBeta() {
+
+  //params for watch
+  const matchPipeline = [];
+  const matchOptions = {
+      fullDocument: "updateLookup"
+    }
+    
+  const matchWatcher = Queue.watch(matchPipeline, matchOptions)
+    .on("change", (changelog) => {
+      const newUser = changelog.fullDocument
+      console.log(changelog)
+      console.log(newUser)
+    })
+    .on("error", (err) => {
+      console.log(err)
+      //matchBeta() (This seems like a useful command if the watch ever breaks; it'll just restart the algo, but everything should work before implementing it)
+    })
+
+}
+
+//Matching Algorithm (the sophisticated one)
 async function match() {
   //get num of docs in the queue
   let docNum = await Queue.countDocuments({});
