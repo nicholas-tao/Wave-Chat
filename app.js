@@ -120,7 +120,7 @@ function matchBeta() {
         const commonInterests = intersect(newUser.interests, matchedUser.interests)
 
         //generate roomid and room
-        const roomID = generateRoomID()
+        const roomID = generateRoomID(16)
         const newRoom = new Room({
   
             name1: newUser.name,
@@ -356,7 +356,7 @@ async function match() {
   }
 }
 
-function generateRoomID(length=16) {
+function generateRoomID(length) {
   var result = "";
   var characters =
     "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
