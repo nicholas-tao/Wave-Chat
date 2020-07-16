@@ -113,12 +113,13 @@ function matchBeta() {
             console.log(err);
           }
         });
-
+        /*
         //intersect interest arrays
         const commonInterests = intersect(
           newUser.interests,
           matchedUser.interests
         );
+        */
 
         //generate roomid and room
         const roomID = generateRoomID(16);
