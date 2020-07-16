@@ -292,6 +292,18 @@ Router.post("/login", (req, res, next) => {
   })(req, res, next);
 });
 
+
+Router.get("/leaveQueue", (req,res) =>{
+  Queue.deleteOne({ email: req.user.email }, function (err, result) {
+    if (err) {
+      console.log(err);
+    } else {
+      //console.log(result);
+    }
+  });
+
+})
+
 Router.get("/logout", (req, res) => {
   try {
     console.log(req.user.email);
