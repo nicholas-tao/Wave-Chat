@@ -375,7 +375,7 @@ Router.get("/logout", (req, res) => {
         console.log(result);
       }
     );
-    req.logout();
+    //req.logout();
   } catch (err) {
     console.log(err);
   }
