@@ -33,22 +33,24 @@ Router.get(
       }
     );
 
-    var count = 0;
-    User.find({ status: "online" }, function (err, result) {
-      if (err) {
-        console.log(err);
-      }
+    var x = setTimeout(function () {
+      var count = 0;
+      User.find({ status: "online" }, function (err, result) {
+        if (err) {
+          console.log(err);
+        }
 
-      //console.log(result)
-      count = Object.keys(result).length;
-      //console.log("users online: ", count);
+        //console.log(result)
+        count = Object.keys(result).length;
+        //console.log("users online: ", count);
 
-      res.render("dashboard", {
-        name: req.user.name,
-        email: req.user.email,
-        onlineCount: count,
+        res.render("dashboard", {
+          name: req.user.name,
+          email: req.user.email,
+          onlineCount: count,
+        });
       });
-    });
+    }, 1000); 
     next();
   },
   function (req, res) {
