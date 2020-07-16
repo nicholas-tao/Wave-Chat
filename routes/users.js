@@ -113,7 +113,7 @@ function sendEmail(newUser) {
     port: 587,
     secure: false, // true for 465, false for other ports
     auth: {
-      user: process.env.EMAIL, //put this in a .env file
+      user: process.env.EMAIL,
       pass: process.env.EMAIL_PW,
     },
     ignoreTLS: true,
@@ -122,8 +122,8 @@ function sendEmail(newUser) {
   // send mail with defined transport object
   const message = {
     from: '"OmegU" <noreply@omegu.tech>', // Sender address
-    //  to: newUser.email, this works
-    to: "omegu.team@gmail.com", //uncomment this later     // List of recipients
+    to: newUser.email, //this works
+    //to: "omegu.team@gmail.com", //uncomment this later     // List of recipients
     subject: "Your Unique Verification Code", // Subject line
     html:
       "Hi, <br /> <br />Thanks for signing up with OmegU! <br /> Your unique verification code is <strong>" +
