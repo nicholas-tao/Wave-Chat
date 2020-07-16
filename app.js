@@ -72,7 +72,7 @@ matchBeta();
 //////////////////////////////////////////////////////////
 
 //Matching Algorithm (simple)
-async function matchBeta() {
+function matchBeta() {
 
   //params for watch
   const matchPipeline = [
@@ -83,10 +83,66 @@ async function matchBeta() {
     }
     
   const matchWatcher = Queue.watch(matchPipeline, matchOptions)
-    .on("change", (changelog) => {
-      const newUser = changelog.fullDocument
-      console.log(changelog)
-      console.log(newUser)
+    .on("change", async (changelog) => {
+      
+      var newUser = changelog.fullDocument
+      
+      let QueueCount = null;
+      
+      await Queue.countDocuments({}, (err, count) => {
+
+        QueueCount = count;
+        if(err) {
+          console.log(err)
+        }
+      });
+      
+      if(QueueCount >= 2) {
+        
+        console.log("in here")
+        const matchedUserAggregate = await Queue.find({}).sort({ _id: 1 }).limit(1); //second user
+        var matchedUser = matchedUserAggregate[0]
+        
+        //delete users from queue
+        Queue.findOneAndDelete({email: newUser.email}, (err) => {
+          if(err) {
+            console.log(err)
+          }
+        });
+
+        Queue.findOneAndDelete({email: matchedUser.email}, (err) => {
+          if(err) {
+            console.log(err)
+          }
+        });
+
+        //intersect interest arrays
+        const commonInterests = intersect(newUser.interests, matchedUser.interests)
+
+        //generate roomid and room
+        const roomID = generateRoomID()
+        const newRoom = new Room({
+  
+            name1: newUser.name,
+            name2: matchedUser.name,
+            email1: newUser.email,
+            email2: matchedUser.email,
+            program1: newUser.program,
+            program2: matchedUser.program,
+            commonInterests: commonInterests,
+            roomId: roomID,
+
+        })
+      
+        //append newRoom to room collection
+        newRoom.save((err) => {
+          if(err) {
+            console.log(err)
+          }
+        })
+
+      }
+
     })
     .on("error", (err) => {
       console.log(err)
@@ -300,7 +356,7 @@ async function match() {
   }
 }
 
-function generateRoomID(length) {
+function generateRoomID(length=16) {
   var result = "";
   var characters =
     "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
