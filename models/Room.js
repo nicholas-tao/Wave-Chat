@@ -29,7 +29,17 @@ const RoomSchema = new mongoose.Schema({
     type: String,
     default: "roomLink",
   },
+  /*
   commonInterests: {
+    type: [String],
+    default: undefined,
+  },
+  */
+  interests1: {
+    type: [String],
+    default: undefined,
+  },
+  interests2: {
     type: [String],
     default: undefined,
   },

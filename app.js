@@ -129,7 +129,9 @@ function matchBeta() {
           email2: matchedUser.email,
           program1: newUser.program,
           program2: matchedUser.program,
-          commonInterests: commonInterests,
+          interests1: newUser.interests,
+          interests2: matchedUser.interests,
+          //commonInterests: commonInterests,
           roomId: roomID,
         });
 
