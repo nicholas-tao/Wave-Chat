@@ -39,4 +39,10 @@ function on() {
 
 function off() {
   document.getElementById("overlay").style.display = "none";
+  const rawResponse = fetch("/users/leaveQueue", {
+    method: "GET",
+    headers: {
+      Accept: "application/json",
+    },
+  });
 }
