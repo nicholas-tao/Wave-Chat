@@ -191,7 +191,7 @@ Router.get("/dashboard/start", ensureAuthenticated, (req, res) => {
         });
 
         //WAIT FOR NEW ROOM DOCUMENT TO BE CREATED WITH USER'S EMAIL
-        var watcher = Room.watch([], { fullDocument: "updateLookup" }).on(
+        var watcher = Room.watch([{ $match: { operationType: "insert" } }], { fullDocument: "updateLookup" }).on(
           "change",
           (data) => {
             console.log(data);
