@@ -75,7 +75,9 @@ matchBeta();
 async function matchBeta() {
 
   //params for watch
-  const matchPipeline = [];
+  const matchPipeline = [
+      {$match: {operationType: 'insert'}}
+    ];
   const matchOptions = {
       fullDocument: "updateLookup"
     }
