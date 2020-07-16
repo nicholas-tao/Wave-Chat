@@ -112,7 +112,7 @@
 
   <script>
     window.addEventListener("beforeunload", function (e) {
-      const rawResponse = fetch("/users/logout", {
+      const rawResponse = fetch("/users/closeTab", {
         method: "GET",
         headers: {
           Accept: "application/json",
