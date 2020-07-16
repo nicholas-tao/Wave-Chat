@@ -304,6 +304,35 @@ Router.get("/leaveQueue", (req,res) =>{
 
 })
 
+Router.get("/closeTab", (req,res) =>{
+  Queue.deleteOne({ email: req.user.email }, function (err, result) {
+    if (err) {
+      console.log(err);
+    } else {
+      //console.log(result);
+    }
+  });
+
+  User.findOneAndUpdate(
+    { email: req.user.email },
+    {
+      $set: {
+        status: "offline",
+      },
+    },
+    { new: true },
+    (err, result) => {
+      if (err) {
+        console.log(err);
+      }
+      console.log(result);
+    }
+  );
+  
+
+})
+
+
 Router.get("/logout", (req, res) => {
   try {
     console.log(req.user.email);
@@ -346,7 +375,7 @@ Router.get("/logout", (req, res) => {
         console.log(result);
       }
     );
-    //req.logout();
+    req.logout();
   } catch (err) {
     console.log(err);
   }
