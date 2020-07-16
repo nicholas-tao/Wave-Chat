@@ -52,10 +52,10 @@ Router.get(
     next();
   },
   function (req, res) {
-    var x = setTimeout(function () {
+    //var x = setTimeout(function () {
       //console.log("hello world");
-      opn("http://omegu.tech/users/logout");
-    }, 720000); //log user out after 720000ms = 2 hrs
+      //opn("http://omegu.tech/users/logout");
+   // }, 720000); //log user out after 720000ms = 2 hrs
   }
 );
 
