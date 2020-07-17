@@ -13,7 +13,7 @@ Router.get("/", (req, res) => {
 Router.get(
   "/dashboard",
   ensureAuthenticated,
-  (req, res, next) => {
+  (req, res) => {
     //   console.log(req.user)
 
     // console.log(req.session);
@@ -50,15 +50,21 @@ Router.get(
           onlineCount: count,
         });
       });
-    }, 1000); 
-    next();
-  },
+    }, 1000);
+
+    if (req.user.program.localeCompare("No Program Entered") === 0) {
+      console.log("No program entered");
+      //req.flash("contentCode", "profile"); //this doesnt work
+    }
+  }
+  /*
   function (req, res) {
     //var x = setTimeout(function () {
-      //console.log("hello world");
-      //opn("http://omegu.tech/users/logout");
-   // }, 720000); //log user out after 720000ms = 2 hrs
+    //console.log("hello world");
+    //opn("http://omegu.tech/users/logout");
+    // }, 720000); //log user out after 720000ms = 2 hrs
   }
+  */
 );
 
 Router.get("/dashboard/profile", ensureAuthenticated, (req, res) => {
@@ -191,28 +197,27 @@ Router.get("/dashboard/start", ensureAuthenticated, (req, res) => {
         });
 
         //WAIT FOR NEW ROOM DOCUMENT TO BE CREATED WITH USER'S EMAIL
-        var watcher = Room.watch([{ $match: { operationType: "insert" } }], { fullDocument: "updateLookup" }).on(
-          "change",
-          (data) => {
-            console.log(data);
-            if (
-              data.fullDocument.email1 == req.user.email ||
-              data.fullDocument.email2 == req.user.email
-            ) {
-              //REDIRECT GOES HERE
-              const roomId = data.fullDocument.roomId;
-              const url = "https://omeguu.herokuapp.com/?room=" + roomId; //REPLACE with chat.omegu.tech once we get the SSL certficate
-              console.log("url: ", url);
-              // open(url);
-              // res.redirect(url);
-              // res.send(JSON.stringify(url))
+        var watcher = Room.watch([{ $match: { operationType: "insert" } }], {
+          fullDocument: "updateLookup",
+        }).on("change", (data) => {
+          console.log(data);
+          if (
+            data.fullDocument.email1 == req.user.email ||
+            data.fullDocument.email2 == req.user.email
+          ) {
+            //REDIRECT GOES HERE
+            const roomId = data.fullDocument.roomId;
+            const url = "https://omeguu.herokuapp.com/?room=" + roomId; //REPLACE with chat.omegu.tech once we get the SSL certficate
+            console.log("url: ", url);
+            // open(url);
+            // res.redirect(url);
+            // res.send(JSON.stringify(url))
 
-              res.status(200).json({ url: url });
+            res.status(200).json({ url: url });
 
-              watcher.close();
-            }
+            watcher.close();
           }
-        );
+        });
 
         console.log("added to queue");
       } else {
