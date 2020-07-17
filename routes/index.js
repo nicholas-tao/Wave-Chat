@@ -50,33 +50,32 @@ Router.get(
         //   onlineCount: count,
         // });
 
-        if((req.user.program).localeCompare("No Program Entered") === 0){
-          
-          console.log("no program selected")
+        if (
+          req.user.program.localeCompare("No Program Entered") === 0 ||
+          req.user.program.localeCompare("--Select a Program--") === 0
+        ) {
+          console.log("no program selected");
           req.flash("contentCode", "no-program");
 
           res.render("dashboard", {
-            contentCode : req.flash("contentCode"),
+            contentCode: req.flash("contentCode"),
             name: req.user.name,
             email: req.user.email,
-            onlineCount: count
-          })
-
+            onlineCount: count,
+          });
         } else {
           res.render("dashboard", {
             name: req.user.name,
             email: req.user.email,
             onlineCount: count,
           });
-
         }
-
       });
     }, 1000);
 
     // if (req.user.program.localeCompare("No Program Entered") === 0) {
-      // console.log("No program entered");
-      //req.flash("contentCode", "profile"); //this doesnt work
+    // console.log("No program entered");
+    //req.flash("contentCode", "profile"); //this doesnt work
     // }
   }
   /*
