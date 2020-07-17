@@ -83,10 +83,25 @@
               <span>Actions</span>
             </li>
             <li>
-              <a href="/dashboard/home">
+              <!-- <a href="/dashboard/home">
                 <i class="fa fa-home"></i>
                 <span>Home</span>
-              </a>
+              </a> -->
+
+              <%if (contentCode === "no-program"){ %>
+                <a onclick="(function alertMessage(){
+                  alert('test')  
+                }); alertMessage()">
+                  <i class="fa fa-home"></i>
+                  <span>Home</span>
+                </a>
+              <%} else {%>
+                <a href="/dashboard/home">
+                  <i class="fa fa-home"></i>
+                  <span>Home</span>
+                </a>
+              <%}%>
+
             </li>
             <li>
               <a href="/users/logout">

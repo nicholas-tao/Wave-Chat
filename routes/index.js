@@ -44,18 +44,40 @@ Router.get(
         count = Object.keys(result).length;
         //console.log("users online: ", count);
 
-        res.render("dashboard", {
-          name: req.user.name,
-          email: req.user.email,
-          onlineCount: count,
-        });
+        // res.render("dashboard", {
+        //   name: req.user.name,
+        //   email: req.user.email,
+        //   onlineCount: count,
+        // });
+
+        if((req.user.program).localeCompare("No Program Entered") === 0){
+          
+          console.log("no program selected")
+          req.flash("contentCode", "no-program");
+
+          res.render("dashboard", {
+            contentCode : req.flash("contentCode"),
+            name: req.user.name,
+            email: req.user.email,
+            onlineCount: count
+          })
+
+        } else {
+          res.render("dashboard", {
+            name: req.user.name,
+            email: req.user.email,
+            onlineCount: count,
+          });
+
+        }
+
       });
     }, 1000);
 
-    if (req.user.program.localeCompare("No Program Entered") === 0) {
-      console.log("No program entered");
+    // if (req.user.program.localeCompare("No Program Entered") === 0) {
+      // console.log("No program entered");
       //req.flash("contentCode", "profile"); //this doesnt work
-    }
+    // }
   }
   /*
   function (req, res) {
