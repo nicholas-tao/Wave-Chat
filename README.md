@@ -1,9 +1,10 @@
 # OmegU
+
 This repo is for the dashboard/profile/login/landing portion of OmegU. It is automatically deployed on Heroku.
 
 [Devpost Page](https://devpost.com/software/omegu)
 
-[Demo Video](https://youtu.be/vcYK6IWm_Mg)
+[Demo Video](https://www.youtube.com/watch?v=6X2woerXQD4)
 
 [Live Vesion](http://omegu.tech)
 
@@ -21,16 +22,17 @@ The login and registration is built with passport.js on an express.js server con
 
 ## Challenges we ran into
 
-When building the application, we initially built the login and registration components on their own server. On a separate server, we built the video call and text chat components. This led into some complications down the line as we tried to integrate the two portions to run on a single server. 
+When building the application, we initially built the login and registration components on their own server. On a separate server, we built the video call and text chat components. This led into some complications down the line as we tried to integrate the two portions to run on a single server.
 
 Additionally, we ran into troubles combining each individual's work into the central github repository. Within the first few hours on the first day, the repository had to be restarted several times in order to fix unintentional changes and issues which came up. However, we quickly adapted and there were no more issues for the rest of the project.
 
 ## Accomplishments that we're proud of
-* Forming a remote team with incoming first-year students at our university
-* Identifying a problem as a result of the current situation and designing a real-life solution
-* Effectively performing requirement analysis, testing, documentation, and version controls
-* Completed development of software modules individually and integrated modules successfully
-* Delivered a functioning solution, learning new programming skills and languages along the way
+
+- Forming a remote team with incoming first-year students at our university
+- Identifying a problem as a result of the current situation and designing a real-life solution
+- Effectively performing requirement analysis, testing, documentation, and version controls
+- Completed development of software modules individually and integrated modules successfully
+- Delivered a functioning solution, learning new programming skills and languages along the way
 
 All of these accomplishments and milestones made us very proud as a team, as we are progressing towards the production of an application which could genuinely help many students around the world.
 
@@ -41,8 +43,3 @@ We learned a lot throughout this project. Going into the project, we were not su
 ## What's next for OmegU
 
 After the completion of this hacktahon, we plan to implement a confirmation feature where an email is sent to the email a user registers with, in order to confirm that it is their email. We are planning on working towards polishing the UI, before marketing the web application for student use.
-
-
-
-
-
