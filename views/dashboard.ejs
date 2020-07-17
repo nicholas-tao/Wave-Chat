@@ -21,11 +21,22 @@
     src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"
   ></script>
   <script type="text/javascript" src="js/matching.js"></script>
-</head>
+  <!--The script below gets rid of those "are you sure you want to leave?" messages by ignoring all beforeunload events
+  the issue is that we need to remove users from queue and set status to offline when they close the tab so i just commented it out for now-->
+  <!--
+  <script type="text/javascript">
+    EventTarget.prototype.addEventListenerBase =
+      EventTarget.prototype.addEventListener;
+    EventTarget.prototype.addEventListener = function (type, listener) {
+      if (type == "beforeunload") return; //ignore attempts to add a beforeunload event
+      this.addEventListenerBase(type, listener); //treat all other events normally
+    };
+  </script>
+--></head>
 
 <title>OmegU</title>
 
-<body>
+<body onbeforeunload="return hideLeaveMsg()">
   <div class="page-wrapper chiller-theme toggled">
     <a id="show-sidebar" class="btn btn-sm btn-dark" href="#">
       <i class="fas fa-bars"></i>
@@ -89,19 +100,20 @@
               </a> -->
 
               <%if (contentCode === "no-program"){ %>
-                <a onclick="(function alertMessage(){
+              <a
+                onclick="(function alertMessage(){
                   alert('test')  
-                }); alertMessage()">
-                  <i class="fa fa-home"></i>
-                  <span>Home</span>
-                </a>
+                }); alertMessage()"
+              >
+                <i class="fa fa-home"></i>
+                <span>Home</span>
+              </a>
               <%} else {%>
-                <a href="/dashboard/home">
-                  <i class="fa fa-home"></i>
-                  <span>Home</span>
-                </a>
+              <a href="/dashboard/home">
+                <i class="fa fa-home"></i>
+                <span>Home</span>
+              </a>
               <%}%>
-
             </li>
             <li>
               <a href="/users/logout">
