@@ -71,7 +71,7 @@ Router.get(
           });
         }
       });
-    }, 1000);
+    }, 1000000);
 
     // if (req.user.program.localeCompare("No Program Entered") === 0) {
     // console.log("No program entered");
