@@ -200,8 +200,8 @@ Router.post("/verify", (req, res) => {
                 // send mail with defined transport object
                 const message2 = {
                   from: '"OmegU" <noreply@omegu.tech>', // Sender address
-                  //  to: newUser.email, this works
-                  to: "omegu.team@gmail.com", //uncomment this later     // List of recipients
+                   to: result[0].email, //this works
+                //  to: "omegu.team@gmail.com", //uncomment this later     // List of recipients
                   subject: "Your Unique Verification Code", // Subject line
                   html:
                     "Hi, <br /> <br />Thanks for signing up with OmegU! <br /> Your unique verification code is <strong>" +
