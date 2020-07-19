@@ -83,6 +83,7 @@ function matchBeta() {
   //need to test out what happens if we have like 10 people at once
   const matchWatcher = Queue.watch(matchPipeline, matchOptions)
     .on("change", async (changelog) => {
+      console.log("detected a new user in queue");
       var newUser = changelog.fullDocument;
 
       let QueueCount = null;

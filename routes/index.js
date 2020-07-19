@@ -13,7 +13,7 @@ Router.get("/", (req, res) => {
 Router.get(
   "/dashboard",
   ensureAuthenticated,
-  (req, res) => {
+  (req, res, next) => {
     //   console.log(req.user)
 
     // console.log(req.session);
@@ -73,19 +73,15 @@ Router.get(
       });
     }, 1000);
 
-    // if (req.user.program.localeCompare("No Program Entered") === 0) {
-    // console.log("No program entered");
-    //req.flash("contentCode", "profile"); //this doesnt work
-    // }
-  }
-  /*
+    next();
+  },
+
   function (req, res) {
     //var x = setTimeout(function () {
     //console.log("hello world");
     //opn("http://omegu.tech/users/logout");
     // }, 720000); //log user out after 720000ms = 2 hrs
   }
-  */
 );
 
 Router.get("/dashboard/profile", ensureAuthenticated, (req, res) => {

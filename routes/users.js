@@ -200,8 +200,8 @@ Router.post("/verify", (req, res) => {
                 // send mail with defined transport object
                 const message2 = {
                   from: '"OmegU" <noreply@omegu.tech>', // Sender address
-                   to: result[0].email, //this works
-                //  to: "omegu.team@gmail.com", //uncomment this later     // List of recipients
+                  to: result[0].email, //this works
+                  //  to: "omegu.team@gmail.com", //uncomment this later     // List of recipients
                   subject: "Your Unique Verification Code", // Subject line
                   html:
                     "Hi, <br /> <br />Thanks for signing up with OmegU! <br /> Your unique verification code is <strong>" +
@@ -292,8 +292,7 @@ Router.post("/login", (req, res, next) => {
   })(req, res, next);
 });
 
-
-Router.get("/leaveQueue", (req,res) =>{
+Router.get("/leaveQueue", (req, res) => {
   Queue.deleteOne({ email: req.user.email }, function (err, result) {
     if (err) {
       console.log(err);
@@ -301,10 +300,9 @@ Router.get("/leaveQueue", (req,res) =>{
       //console.log(result);
     }
   });
+});
 
-})
-
-Router.get("/closeTab", (req,res) =>{
+Router.get("/closeTab", (req, res) => {
   Queue.deleteOne({ email: req.user.email }, function (err, result) {
     if (err) {
       console.log(err);
@@ -328,14 +326,11 @@ Router.get("/closeTab", (req,res) =>{
       console.log(result);
     }
   );
-  
-
-})
-
+});
 
 Router.get("/logout", (req, res) => {
   try {
-    console.log(req.user.email);
+    //console.log(req.user.email);
     Queue.deleteOne({ email: req.user.email }, function (err, result) {
       if (err) {
         console.log(err);
@@ -375,6 +370,7 @@ Router.get("/logout", (req, res) => {
         console.log(result);
       }
     );
+    console.log("logging out: ", req.user.email); //this did not print when i was on chat page and clicked "Leave" (but the leave btn brought be back to the dashboard and i was logged out)
     req.logout();
   } catch (err) {
     console.log(err);
