@@ -30,7 +30,7 @@ function startBtnClicked() {
 
       console.log(data.url);
 
-      window.location.href(data.url);
+      window.location.replace(data.url);
     });
 }
 function on() {
