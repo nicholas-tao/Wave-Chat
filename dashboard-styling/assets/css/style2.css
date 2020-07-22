@@ -42,7 +42,7 @@ body {
   padding-right: 0 !important;
 }
 .beta {
-  margin-bottom: 4vh;
+  margin-bottom: 3vh;
   color: white;
   font-family: "Montserrat", sans-serif;
 }
@@ -61,6 +61,31 @@ body {
 .demo-title {
   color: #010483;
 }
+
+.video-container {
+  position: relative;
+  padding-bottom: 56.25%;
+  padding-top: 30px;
+  height: 0;
+  overflow: hidden;
+  width: 100%;
+}
+
+.video-container iframe,
+.video-container object,
+.video-container embed {
+  position: absolute;
+  top: 0;
+  left: 10vw;
+  width: 80vw;
+  height: 80vh;
+}
+
+.inner-div {
+  width: 50%;
+  margin: 0 auto;
+}
+
 /*--------------------------------------------------------------
 # General
 --------------------------------------------------------------*/
@@ -68,9 +93,6 @@ body {
   font-family: "Open Sans", sans-serif !important;
   color: #444444;
   overflow-x: hidden; /* Hide horizontal scrollbar */
-}
-.body {
-  width: 100%;
 }
 
 p {
@@ -481,7 +503,7 @@ h6 {
 # Hero Section
 --------------------------------------------------------------*/
 #hero {
-  width: 100vw;
+  /*width: 100vw;*/
   /*margin-left: -13.5vw; */ /*THIS WORKS ON LAPTOP BUT NOT MOBILE */
   background: url("../img/hero-bg.jpg");
   position: relative;
@@ -528,6 +550,7 @@ h6 {
   transition: 0.5s;
   color: #fff;
   background: #1acc8d;
+  margin-top: 2vh;
 }
 
 #hero .animated {
@@ -789,8 +812,8 @@ section {
 --------------------------------------------------------------*/
 .about {
   padding: 40px 0 0 0;
-  width: 145%;
-  margin-left: -16rem;
+  /*width: 145%;
+  margin-left: -16rem;*/
 }
 
 .about .icon-boxes h3 {
@@ -994,11 +1017,12 @@ section {
 /*--------------------------------------------------------------
 # Details
 --------------------------------------------------------------*/
-
+/*
 .details {
   width: 145%;
-  margin-left: -16rem;
+  margin-left: -16rem; 
 }
+*/
 .details .content + .content {
   margin-top: 100px;
 }
@@ -1033,8 +1057,10 @@ section {
 --------------------------------------------------------------*/
 .team {
   background: #fff;
+  /*
   width: 145%;
   margin-left: -16rem;
+  */
 }
 
 .team .member {
