@@ -4,6 +4,16 @@
 * Author: BootstrapMade.com
 * License: https://bootstrapmade.com/license/
 */
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+}
+
+.container {
+  padding-left: 0 !important;
+}
 .beta {
   margin-bottom: 4vh;
   color: white;
@@ -444,8 +454,8 @@ h6 {
 # Hero Section
 --------------------------------------------------------------*/
 #hero {
-  width: 145%;
-  margin-left: -16rem;
+  width: 100vw;
+  margin: 0;
   background: url("../img/hero-bg.jpg");
   position: relative;
   padding: 120px 0 0 0;
