@@ -11,23 +11,48 @@ body {
   margin: 0;
 }
 
-/* large devices */
-@media (min-width: 1200px) {
-  .container {
-    max-width: 1200px;
-  }
-}
 /* larger devices */
-@media (min-width: 1536px) {
+/*
+ @media (width: 1536px) {
   .container {
-    max-width: 1536px;
+    width: 1536px;
   }
 }
-/* extra large devices */
-@media screen and (min-width: 1800px) {
+
+@media (width: 1920px) {
   .container {
-    max-width: 1800px;
+    width: 1920px;
   }
+}
+
+@media (width: 1366px) {
+  .container {
+    width: 1366px;
+  }
+}
+
+@media (width: 1440px) {
+  .container {
+    width: 1440px;
+  }
+}
+
+@media (width: 2560px) {
+  .container {
+    width: 2560px;
+  }
+}
+
+@media (width: 1680px) {
+  .container {
+    width: 1680px;
+  }
+}
+ */
+
+.container {
+  padding-left: 0 !important;
+  min-width: 100vw !important;
 }
 
 .wrapper2 {
@@ -37,10 +62,6 @@ body {
   /*margin-left: -13.5vw;*/
 }
 
-.container {
-  padding-left: 0 !important;
-  padding-right: 0 !important;
-}
 .beta {
   margin-bottom: 3vh;
   color: white;
@@ -68,7 +89,6 @@ body {
   padding-top: 30px;
   height: 0;
   overflow: hidden;
-  width: 100%;
 }
 
 .video-container iframe,
@@ -76,9 +96,9 @@ body {
 .video-container embed {
   position: absolute;
   top: 0;
-  left: 10vw;
-  width: 80vw;
-  height: 80vh;
+  left: 0;
+  width: 100%;
+  height: 100%;
 }
 
 .inner-div {
@@ -1147,8 +1167,10 @@ section {
   padding: 0 0 30px 0;
   color: #fff;
   font-size: 14px;
+  /*
   width: 145%;
   margin-left: -16rem;
+  */
 }
 
 #footer .footer-top {
