@@ -55,6 +55,11 @@ body {
   min-width: 100vw !important;
 }
 
+.container-fluid {
+  padding-left: 4vw;
+  padding-right: 3vw;
+}
+
 .wrapper2 {
   width: 100vw;
   display: flex;
