@@ -11,6 +11,13 @@ body {
   margin: 0;
 }
 
+.wrapper2 {
+  width: 100%;
+  display: flex;
+  align-items: flex-end;
+  /*margin-left: -13.5vw;*/
+}
+
 .container {
   padding-left: 0 !important;
   padding-right: 0 !important;
