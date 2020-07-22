@@ -11,8 +11,27 @@ body {
   margin: 0;
 }
 
+/* large devices */
+@media (min-width: 1200px) {
+  .container {
+    max-width: 1200px;
+  }
+}
+/* larger devices */
+@media (min-width: 1536px) {
+  .container {
+    max-width: 1536px;
+  }
+}
+/* extra large devices */
+@media screen and (min-width: 1800px) {
+  .container {
+    max-width: 1800px;
+  }
+}
+
 .wrapper2 {
-  width: 100%;
+  width: 100vw;
   display: flex;
   align-items: flex-end;
   /*margin-left: -13.5vw;*/
@@ -463,7 +482,6 @@ h6 {
 --------------------------------------------------------------*/
 #hero {
   width: 100vw;
-  margin: 0;
   /*margin-left: -13.5vw; */ /*THIS WORKS ON LAPTOP BUT NOT MOBILE */
   background: url("../img/hero-bg.jpg");
   position: relative;
