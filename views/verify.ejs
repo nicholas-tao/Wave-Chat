@@ -25,13 +25,13 @@
 </head>
 
 <title>OmegU</title>
-<body style="background-color: #0093e9; font-family: 'Poppins', sans-serif;"
+<body style="background-color: rgba(2, 5, 161, 0.91); font-family: 'Poppins', sans-serif;"
 <!-- ======= Header ======= -->
   <header
     id="header"
     class="fixed-top d-flex align-items-center header-transparent"
   >
-    <div class="container d-flex align-items-center">
+    <div class="container-fluid d-flex align-items-center">
       <div class="logo mr-auto">
         <!-- <h1 class="text-light"><a href="index.html"><span>OmegU</span></a></h1> -->
 
@@ -58,7 +58,7 @@
     </div>
   </header>
   <!-- End Header -->
-  <h2 id="title">
+  <h2 id="title" style = "color: white">
     <br /><br />
     We have sent a verification code to your email. <br />Please check your
     email and enter the code here. <br /><br />
@@ -67,7 +67,7 @@
     <form id="innerform" action="/users/verify" method="POST">
       <div class="form-group" style="text-align: left;">
         <%- include('./partials/messages.ejs') %>
-        <label for="email">Email</label>
+        <label for="email" style = "color: white">Email</label>
         <input
           type="email"
           id="email"
@@ -77,7 +77,7 @@
         />
       </div>
       <div class="form-group" style="text-align: left;">
-        <label for="password">Verification Code</label>
+        <label for="password" style = "color: white">Verification Code</label>
         <input
           type="pin"
           id="pin"
@@ -102,7 +102,7 @@
 
     <form id="bottom-form" action="/users/verify" method="POST">
       <div class="form-group">
-        <label for="email">Didn't get the Code? </label>
+        <label for="email" style = "color: white">Didn't get the Code? </label>
         <input
           type="email"
           id="email"
