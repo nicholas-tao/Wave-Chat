@@ -4,6 +4,7 @@ const { ensureAuthenticated } = require("../config/auth");
 const User = require("../models/User");
 const Queue = require("../models/Queue");
 const Room = require("../models/Room");
+const QueueModule = require("../QueueModule");
 var opn = require("opn");
 
 Router.get("/", (req, res) => {
@@ -193,57 +194,37 @@ Router.get("/dashboard/load/profile", ensureAuthenticated, (req, res) => {
 });
 
 //START CHATTING
+
 Router.get("/dashboard/start", ensureAuthenticated, (req, res) => {
-  //ADD USER TO QUEUE
-  Queue.findOne({ email: req.user.email }) //check if user is in queue
-    .then(async (queueUser) => {
-      if (!queueUser) {
-        //if not, make document for user in queue
+  
+  if(!QueueModule.uList.includes(req.user)) {
+    QueueModule.addUser(req.user);
+    
+    var watcher = Room.watch(
+      [{ $match: { operationType: "insert" } }], 
+      {
+      fullDocument: "updateLookup",
+      })
+      .on("change", (data) => {
+        console.log(data);
+        if (
+          data.fullDocument.email1 == req.user.email ||
+          data.fullDocument.email2 == req.user.email
+        ) {
+          
+          const roomId = data.fullDocument.roomId;
+          const url = "https://omeguu.herokuapp.com/?room=" + roomId; //REPLACE with chat.omegu.tech once we get the SSL certficate
+          console.log("url: ", url);
+          res.status(200).json({ url: url });
+          watcher.close();
+        }
+      });
 
-        bool = false; //set inQueue to false
-
-        var newQueue = new Queue({
-          name: req.user.name,
-          email: req.user.email,
-          interests: req.user.interests,
-          program: req.user.program,
-        });
-
-        newQueue.save((err) => {
-          if (err) return handleError(err);
-        });
-
-        //WAIT FOR NEW ROOM DOCUMENT TO BE CREATED WITH USER'S EMAIL
-        var watcher = Room.watch([{ $match: { operationType: "insert" } }], {
-          fullDocument: "updateLookup",
-        }).on("change", (data) => {
-          console.log(data);
-          if (
-            data.fullDocument.email1 == req.user.email ||
-            data.fullDocument.email2 == req.user.email
-          ) {
-            //REDIRECT GOES HERE
-            const roomId = data.fullDocument.roomId;
-            const url = "https://omeguu.herokuapp.com/?room=" + roomId; //REPLACE with chat.omegu.tech once we get the SSL certficate
-            console.log("url: ", url);
-            // open(url);
-            // res.redirect(url);
-            // res.send(JSON.stringify(url))
-
-            res.status(200).json({ url: url });
-
-            watcher.close();
-          }
-        });
-
-        console.log("added to queue");
-      } else {
-        bool = true; //set inQueue to true
-        console.log("in queue already");
-      }
-
-      //res.status(200).json({ inQueue: bool }); //send if in queue to browser
-    });
+  }
+  else {
+    console.log("in queue already")
+    res.status(200)
+  }
 });
 
 module.exports = Router;

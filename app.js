@@ -8,6 +8,7 @@ const app = express();
 const Queue = require("./models/Queue");
 const Room = require("./models/Room");
 const { update } = require("./models/Queue");
+const QueueModule = require("./QueueModule")
 
 //If you ever want to delete all the rooms or users:
 //Room.deleteMany({}, function (err) {});
@@ -63,92 +64,53 @@ const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, console.log(`Server started on port ${PORT}`));
 
-matchBeta();
-//match();
+matchFunction = function(newUser) {
+  if(this.uList.length > 1) {
+    const matchedUser = this.uList[0];
+    this.uList.splice(0, 1); //simultaneously remove matchedUser from the array and store matchedUser in matchedUser.
+    console.log(matchedUser)
+    console.log(matchedUser.email)
+    
+  /*
+    //intersect interest arrays
+    const commonInterests = intersect(
+    newUser.interests,
+    matchedUser.interests
+    );
+  */
 
-//var matchedUser;
+   //generate roomid and room
+    const roomID = generateRoomID(16);
+    const newRoom = new Room({
+      name1: newUser.name,
+      name2: matchedUser.name,
+      email1: newUser.email,
+      email2: matchedUser.email,
+      program1: newUser.program,
+      program2: matchedUser.program,
+      interests1: newUser.interests,
+      interests2: matchedUser.interests,
+      //commonInterests: commonInterests,
+      roomId: roomID,
+    });
+    console.log(newRoom)
 
-//////////////////////////////////////////////////////////
-
-//Matching Algorithm (simple)
-function matchBeta() {
-  //params for watch
-  const matchPipeline = [{ $match: { operationType: "insert" } }];
-  const matchOptions = {
-    fullDocument: "updateLookup",
-  };
-  //since the algo matches ppl then executes some code, what if like 5 people join while that code is running?
-  //will 4 of those 5 ppl not get added to the queue? like does changelog only store 1 user or all 5 of them?
-  //need to test out what happens if we have like 10 people at once
-  const matchWatcher = Queue.watch(matchPipeline, matchOptions)
-    .on("change", async (changelog) => {
-      console.log("detected a new user in queue");
-      var newUser = changelog.fullDocument;
-
-      let QueueCount = null;
-
-      await Queue.countDocuments({}, (err, count) => {
-        QueueCount = count;
+    //append newRoom to room collection
+       newRoom.save((err) => {
         if (err) {
           console.log(err);
         }
       });
+  }
+};
 
-      if (QueueCount >= 2) {
-        console.log("in here");
-        const matchedUserAggregate = await Queue.find({})
-          .sort({ _id: 1 })
-          .limit(1); //second user (oldest entry)
-        var matchedUser = matchedUserAggregate[0];
+QueueModule.registerOnAdd(matchFunction);
 
-        //delete users from queue
-        Queue.findOneAndDelete({ email: newUser.email }, (err) => {
-          if (err) {
-            console.log(err);
-          }
-        });
 
-        Queue.findOneAndDelete({ email: matchedUser.email }, (err) => {
-          if (err) {
-            console.log(err);
-          }
-        });
-        /*
-        //intersect interest arrays
-        const commonInterests = intersect(
-          newUser.interests,
-          matchedUser.interests
-        );
-        */
 
-        //generate roomid and room
-        const roomID = generateRoomID(16);
-        const newRoom = new Room({
-          name1: newUser.name,
-          name2: matchedUser.name,
-          email1: newUser.email,
-          email2: matchedUser.email,
-          program1: newUser.program,
-          program2: matchedUser.program,
-          interests1: newUser.interests,
-          interests2: matchedUser.interests,
-          //commonInterests: commonInterests,
-          roomId: roomID,
-        });
+//////////////////////////////////////////////////////////
 
-        //append newRoom to room collection
-        newRoom.save((err) => {
-          if (err) {
-            console.log(err);
-          }
-        });
-      }
-    })
-    .on("error", (err) => {
-      console.log(err);
-      //matchBeta() (This seems like a useful command if the watch ever breaks; it'll just restart the algo, but everything should work before implementing it)
-    });
-}
+//Matching Algorithm (simple)
 
 //Matching Algorithm (the sophisticated one)
 async function match() {
