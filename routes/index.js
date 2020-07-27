@@ -199,8 +199,9 @@ Router.get("/dashboard/start", ensureAuthenticated, (req, res) => {
   
   if(!QueueModule.uList.includes(req.user)) {
     QueueModule.addUser(req.user);
+    res.status(200).json({added: true})
     
-    var watcher = Room.watch(
+/*     var watcher = Room.watch(
       [{ $match: { operationType: "insert" } }], 
       {
       fullDocument: "updateLookup",
@@ -218,13 +219,25 @@ Router.get("/dashboard/start", ensureAuthenticated, (req, res) => {
           res.status(200).json({ url: url });
           watcher.close();
         }
-      });
+      }); */
 
   }
   else {
     console.log("in queue already")
-    res.status(200)
+    res.status(200).json({added: false})
   }
 });
+
+Router.get("/dashboard/ping", ensureAuthenticated, async (req, res) => {
+
+  const roomDoc =  QueueModule.rList.find((room) => room.email1 == req.user.email || room.email2 == req.user.email);
+  if(roomDoc) {
+    console.log("roomLink found")
+    res.status(200).json({roomLink: roomDoc.roomId});
+  }
+  else {
+    res.status(200).json({roomLink: null})
+  }
+})
 
 module.exports = Router;

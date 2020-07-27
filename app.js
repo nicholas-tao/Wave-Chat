@@ -8,7 +8,8 @@ const app = express();
 const Queue = require("./models/Queue");
 const Room = require("./models/Room");
 const { update } = require("./models/Queue");
-const QueueModule = require("./QueueModule")
+const QueueModule = require("./QueueModule");
+const { rList } = require("./QueueModule");
 
 //If you ever want to delete all the rooms or users:
 //Room.deleteMany({}, function (err) {});
@@ -93,7 +94,7 @@ matchFunction = function(newUser) {
       //commonInterests: commonInterests,
       roomId: roomID,
     });
-    console.log(newRoom)
+    QueueModule.rList.push(newRoom);
 
     //append newRoom to room collection
        newRoom.save((err) => {

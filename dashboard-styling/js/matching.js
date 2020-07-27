@@ -1,13 +1,5 @@
+var addedtoQueue = false;
 function startBtnClicked() {
-  /*1.get user info, add them to Queue and update to "active: true"
-  2. compare ARRAY (program, interests) of user with 1st person in queue and see if any elements exist in both arrays --> if no match, compare with 2nd, etc.about
-  3. once match is found, generate a random string (ie 5b7n2k7a8fb2)
-  4. add string to BOTH users' db entries ("link: 5b7n2k7a8fb2" or "room-id: 5b7n2k7a8fb2")
-  5. server waits for this to be completed and searches for the room-id (or we have a function that returns the link) that both users should be sent to
-  6. server does like "window.location = omeggu.herokuapp.com/?room={room-id}"
-  7. also need to send user info - name/matching interests - to the chat room as well
-  */
-
   on();
 
   $(".page-wrapper").removeClass("toggled");
@@ -16,7 +8,8 @@ function startBtnClicked() {
 
   console.log("Start Chatting clicked");
   //send GET request serverside to put User into Queue
-  const startFetch = fetch("/dashboard/start", {
+  
+  fetch("/dashboard/start", {
     method: "GET",
     headers: {
       Accept: "application/json",
@@ -24,25 +17,47 @@ function startBtnClicked() {
   })
     .then((response) => response.json())
     .then((data) => {
-      if (data.inQueue) {
-        console.log("in queue already");
+      if (data.added) {
+        ping(); //this starts the pinging process to the server
       }
-
-      console.log(data.url);
-
-      window.location.replace(data.url);
+      else {
+        alert("You're already in queue. Technically, you shouldn't be seeing this alert so if you do please notify us. Leave the page and reopen it to try to match again.")
+      }
     });
-}
-function on() {
-  document.getElementById("overlay").style.display = "block";
-}
+  
 
-function off() {
-  document.getElementById("overlay").style.display = "none";
-  const rawResponse = fetch("/users/leaveQueue", {
-    method: "GET",
-    headers: {
-      Accept: "application/json",
-    },
-  });
+  function on() {
+    document.getElementById("overlay").style.display = "block";
+  }
+
+  function off() {
+    document.getElementById("overlay").style.display = "none";
+    const rawResponse = fetch("/users/leaveQueue", {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+      },
+    });
+  }
+
+  function ping() {
+    const periodicPing = setInterval(async () => {
+      await fetch("/dashboard/ping", {
+        method: "GET",
+        headers: {
+          Accept: "application/json",
+        },
+      })
+        .then((r) => r.json())
+          .then((d) => {
+            if (d.roomLink) {
+              clearInterval(periodicPing)
+              window.location.replace("https://omeguu.herokuapp.com/?room=" + d.roomLink)
+            }
+          })
+    }, 1000);
+  }
+
+//I'm not sure if using async/await in that context is best practice ^.
+
 }
