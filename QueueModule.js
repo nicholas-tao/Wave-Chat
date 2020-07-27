@@ -12,4 +12,10 @@ var Queue = module.exports = {
         this.uList.push(newUser)
         this.onAdd(newUser);
     },
+    delUser: function(user) {
+        let index = this.uList.findIndex(user);
+        if(index >= 0) {
+            this.uList.splice(index, 1);
+        }
+    }
 }
