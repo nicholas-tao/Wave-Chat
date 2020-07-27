@@ -198,46 +198,34 @@ Router.get("/dashboard/load/profile", ensureAuthenticated, (req, res) => {
 Router.get("/dashboard/start", ensureAuthenticated, (req, res) => {
   
   if(!QueueModule.uList.includes(req.user)) {
+    
     QueueModule.addUser(req.user);
     res.status(200).json({added: true})
-    
-/*     var watcher = Room.watch(
-      [{ $match: { operationType: "insert" } }], 
-      {
-      fullDocument: "updateLookup",
-      })
-      .on("change", (data) => {
-        console.log(data);
-        if (
-          data.fullDocument.email1 == req.user.email ||
-          data.fullDocument.email2 == req.user.email
-        ) {
-          
-          const roomId = data.fullDocument.roomId;
-          const url = "https://omeguu.herokuapp.com/?room=" + roomId; //REPLACE with chat.omegu.tech once we get the SSL certficate
-          console.log("url: ", url);
-          res.status(200).json({ url: url });
-          watcher.close();
-        }
-      }); */
 
   }
   else {
-    console.log("in queue already")
+
     res.status(200).json({added: false})
+
   }
 });
 
+const roomModule = require('../roomModule')
 Router.get("/dashboard/ping", ensureAuthenticated, async (req, res) => {
 
-  const roomDoc =  QueueModule.rList.find((room) => room.email1 == req.user.email || room.email2 == req.user.email);
-  if(roomDoc) {
-    console.log("roomLink found")
-    res.status(200).json({roomLink: roomDoc.roomId});
+  const roomDocIndex = roomModule.roomDocList.findIndex(roomDoc => roomDoc.room.email1 == req.user.email || roomDoc.room.email2 == req.user.email);
+
+  if(roomDocIndex >= 0) {
+
+    res.status(200).json({roomLink: roomModule.roomDocList[roomDocIndex].room.roomId});
+    roomModule.roomDocList[roomDocIndex].count = roomModule.roomDocList[roomDocIndex].count + 1;
+    
   }
+
   else {
     res.status(200).json({roomLink: null})
   }
+
 })
 
 module.exports = Router;

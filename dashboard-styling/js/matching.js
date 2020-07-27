@@ -21,7 +21,7 @@ function startBtnClicked() {
         ping(); //this starts the pinging process to the server
       }
       else {
-        alert("You're already in queue. Technically, you shouldn't be seeing this alert so if you do please notify us. Leave the page and reopen it to try to match again.")
+        alert("You're already in queue. Technically, you shouldn't be seeing this alert so if you do please notify us. Leave this page and reopen it to try to match again.")
       }
     });
   

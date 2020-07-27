@@ -9,7 +9,7 @@ const Queue = require("./models/Queue");
 const Room = require("./models/Room");
 const { update } = require("./models/Queue");
 const QueueModule = require("./QueueModule");
-const { rList } = require("./QueueModule");
+const roomModule = require("./roomModule");
 
 //If you ever want to delete all the rooms or users:
 //Room.deleteMany({}, function (err) {});
@@ -69,9 +69,8 @@ matchFunction = function(newUser) {
   if(this.uList.length > 1) {
     const matchedUser = this.uList[0];
     this.uList.splice(0, 1); //simultaneously remove matchedUser from the array and store matchedUser in matchedUser.
-    console.log(matchedUser)
-    console.log(matchedUser.email)
-    
+    const i = this.uList.indexOf(newUser);
+    this.uList.splice(i, 1)
   /*
     //intersect interest arrays
     const commonInterests = intersect(
@@ -94,7 +93,8 @@ matchFunction = function(newUser) {
       //commonInterests: commonInterests,
       roomId: roomID,
     });
-    QueueModule.rList.push(newRoom);
+    const roomDoc = new roomModule.roomDoc(newRoom);
+    
 
     //append newRoom to room collection
        newRoom.save((err) => {
