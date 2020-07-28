@@ -1,3 +1,4 @@
+var sslRedirect = require("heroku-ssl-redirect");
 const express = require("express");
 const expressLayouts = require("express-ejs-layouts");
 const mongoose = require("mongoose");
@@ -10,6 +11,8 @@ const Room = require("./models/Room");
 const { update } = require("./models/Queue");
 const QueueModule = require("./QueueModule");
 const roomModule = require("./roomModule");
+
+app.use(sslRedirect());
 
 //If you ever want to delete all the rooms or users:
 //Room.deleteMany({}, function (err) {});
@@ -65,13 +68,13 @@ const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, console.log(`Server started on port ${PORT}`));
 
-matchFunction = function(newUser) {
-  if(this.uList.length > 1) {
+matchFunction = function (newUser) {
+  if (this.uList.length > 1) {
     const matchedUser = this.uList[0];
     this.uList.splice(0, 1); //simultaneously remove matchedUser from the array and store matchedUser in matchedUser.
     const i = this.uList.indexOf(newUser);
-    this.uList.splice(i, 1)
-  /*
+    this.uList.splice(i, 1);
+    /*
     //intersect interest arrays
     const commonInterests = intersect(
     newUser.interests,
@@ -79,7 +82,7 @@ matchFunction = function(newUser) {
     );
   */
 
-   //generate roomid and room
+    //generate roomid and room
     const roomID = generateRoomID(16);
     const newRoom = new Room({
       name1: newUser.name,
@@ -94,20 +97,17 @@ matchFunction = function(newUser) {
       roomId: roomID,
     });
     const roomDoc = new roomModule.roomDoc(newRoom);
-    
 
     //append newRoom to room collection
-       newRoom.save((err) => {
-        if (err) {
-          console.log(err);
-        }
-      });
+    newRoom.save((err) => {
+      if (err) {
+        console.log(err);
+      }
+    });
   }
 };
 
 QueueModule.registerOnAdd(matchFunction);
-
-
 
 //////////////////////////////////////////////////////////
 
