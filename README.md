@@ -8,7 +8,7 @@ OmegU is a web platform that connects incoming first-year university students fr
 
 [Demo Video](https://www.youtube.com/watch?v=6X2woerXQD4)
 
-[Live Version](http://www.omegu.tech)
+[Live Version](https://www.omegu.tech)
 
 ## Inspiration
 
