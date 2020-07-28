@@ -8,7 +8,7 @@ function startBtnClicked() {
 
   console.log("Start Chatting clicked");
   //send GET request serverside to put User into Queue
-  
+
   fetch("/dashboard/start", {
     method: "GET",
     headers: {
@@ -19,12 +19,12 @@ function startBtnClicked() {
     .then((data) => {
       if (data.added) {
         ping(); //this starts the pinging process to the server
-      }
-      else {
-        alert("You're already in queue. Technically, you shouldn't be seeing this alert so if you do please notify us. Leave this page and reopen it to try to match again.")
+      } else {
+        alert(
+          "You're already in queue. Technically, you shouldn't be seeing this alert so if you do please notify us. Leave this page and reopen it to try to match again."
+        );
       }
     });
-  
 
   function on() {
     document.getElementById("overlay").style.display = "block";
@@ -49,15 +49,16 @@ function startBtnClicked() {
         },
       })
         .then((r) => r.json())
-          .then((d) => {
-            if (d.roomLink) {
-              clearInterval(periodicPing)
-              window.location.replace("https://omeguu.herokuapp.com/?room=" + d.roomLink)
-            }
-          })
+        .then((d) => {
+          if (d.roomLink) {
+            clearInterval(periodicPing);
+            window.location.replace(
+              "https://chat.omegu.tech/?room=" + d.roomLink
+            );
+          }
+        });
     }, 1000);
   }
 
-//I'm not sure if using async/await in that context is best practice ^.
-
+  //I'm not sure if using async/await in that context is best practice ^.
 }
