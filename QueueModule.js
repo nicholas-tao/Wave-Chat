@@ -8,9 +8,11 @@ var Queue = module.exports = {
         console.log("onAdd successfully registered.")
     },
     addUser: function(newUser) {
-        console.log("adding user!")
-        this.uList.push(newUser)
-        this.onAdd(newUser);
+        if(!this.uList.includes(newUser)) {
+            console.log("adding user!")
+            this.uList.push(newUser)
+            this.onAdd(newUser);
+        }
     },
     delUser: function(user) {
         let index = this.uList.findIndex(user);
