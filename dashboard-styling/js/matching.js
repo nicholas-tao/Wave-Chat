@@ -30,6 +30,8 @@ function startBtnClicked() {
     document.getElementById("overlay").style.display = "block";
   }
 
+  document.getElementById("overlay").addEventListener("click", off);
+
   function off() {
     document.getElementById("overlay").style.display = "none";
     const rawResponse = fetch("/users/leaveQueue", {
