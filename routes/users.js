@@ -8,7 +8,6 @@ const { db } = require("../models/User");
 const Queue = require("../models/Queue");
 const QueueModule = require("../QueueModule");
 
-
 require("dotenv").config();
 
 Router.get("/login", (req, res) => {
@@ -294,7 +293,6 @@ Router.post("/login", (req, res, next) => {
   })(req, res, next);
 });
 
-
 Router.get("/leaveQueue", (req, res) => {
   /*
   Queue.deleteOne({ email: req.user.email }, function (err, result) {
@@ -305,8 +303,9 @@ Router.get("/leaveQueue", (req, res) => {
     }
   });
   */
-  QueueModule.delUser(req.user);
+  //console.log("req.user: ", req.user);
 
+  QueueModule.delUser(req.user);
 });
 
 Router.get("/closeTab", (req, res) => {
@@ -319,7 +318,7 @@ Router.get("/closeTab", (req, res) => {
     }
   });
   */
- QueueModule.delUser(req.user);
+  QueueModule.delUser(req.user);
 
   User.findOneAndUpdate(
     { email: req.user.email },
@@ -366,7 +365,7 @@ Router.get("/logout", (req, res) => {
     }
   );
 */
-    
+
     QueueModule.delUser(req.user);
 
     User.findOneAndUpdate(

@@ -39,7 +39,7 @@ function startBtnClicked() {
       headers: {
         Accept: "application/json",
       },
-    });
+    }).then((response) => response.json());
   }
 
   function ping() {
