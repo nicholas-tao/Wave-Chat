@@ -306,6 +306,7 @@ Router.get("/leaveQueue", (req, res) => {
   //console.log("req.user: ", req.user);
 
   QueueModule.delUser(req.user);
+  console.log("made it here");
   res.sendStatus(200);
 });
 

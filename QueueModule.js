@@ -15,10 +15,13 @@ var Queue = (module.exports = {
     }
   },
   delUser: function (user) {
-    //console.log("user: ", user);
-    let index = this.uList.findIndex((s) => s.value == user);
+    //console.log("user: ", user); //this works fine
+    let index = this.uList.findIndex((s) => s.email == user.email); //find user from uList
+    //console.log("uList[0]: ", this.uList[0]);
+    // console.log("index: ", index);
     if (index >= 0) {
       this.uList.splice(index, 1);
+      //console.log("removing the user now");
     }
   },
 });
