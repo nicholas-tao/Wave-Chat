@@ -1,4 +1,7 @@
 var addedtoQueue = false;
+var audio = new Audio(
+  "https://freesound.org/data/previews/234/234524_4019029-lq.mp3"
+);
 function startBtnClicked() {
   on();
 
@@ -54,6 +57,7 @@ function startBtnClicked() {
         .then((d) => {
           if (d.roomLink) {
             clearInterval(periodicPing);
+            audio.play();
             window.location.replace(
               "https://chat.omegu.tech/?room=" + d.roomLink
             );
