@@ -307,7 +307,6 @@ Router.get("/leaveQueue", (req, res) => {
 
   QueueModule.delUser(req.user);
   res.sendStatus(200);
-
 });
 
 Router.get("/closeTab", (req, res) => {
@@ -338,7 +337,6 @@ Router.get("/closeTab", (req, res) => {
     }
   );
   res.sendStatus(200);
-
 });
 
 Router.get("/logout", (req, res) => {
@@ -409,7 +407,6 @@ Router.post("/dashboard", (req) => {
       console.log("finished updating db");
     }
   );
-  
 });
 
 module.exports = Router;

@@ -143,14 +143,15 @@
 
   <script>
     window.addEventListener("beforeunload", function (e) {
+      e.preventDefault();
+      e.returnValue = "";
+
       const rawResponse = fetch("/users/closeTab", {
         method: "GET",
         headers: {
           Accept: "application/json",
         },
       });
-      e.preventDefault();
-      e.returnValue = "";
     });
   </script>
 
@@ -161,6 +162,6 @@
   <script type="text/javascript" src="js/profileItemScript.js"></script>
   <script>
     //$(window).off("beforeunload");
-    window.onbeforeunload = () => {};
+    // window.onbeforeunload = () => {};
   </script>
 </body>
