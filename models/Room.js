@@ -43,16 +43,20 @@ const RoomSchema = new mongoose.Schema({
     type: [String],
     default: undefined,
   },
-  /*
+
   date: {
     type: Date,
     default: Date.now,
+    index: {
+      expires: "60m",
+    },
   },
-  */
+  /*
   createdAt: {
-    type: new Date(),
+    type: Date,
     expires: 3600,
   },
+  */
 });
 
 const Room = mongoose.model("Room", RoomSchema, "rooms");
