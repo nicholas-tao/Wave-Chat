@@ -49,7 +49,10 @@ const RoomSchema = new mongoose.Schema({
     default: Date.now,
   },
   */
-  createdAt: { type: Date, expires: 3600 },
+  createdAt: {
+    type: new Date(),
+    expires: 3600,
+  },
 });
 
 const Room = mongoose.model("Room", RoomSchema, "rooms");
