@@ -1,24 +1,46 @@
-.h2{
-    text-align:center;
+html {
+  overflow: scroll;
+  overflow-y: hidden;
+}
+::-webkit-scrollbar {
+  width: 0px; /* Remove scrollbar space */
+  background: transparent; /* Optional: just make scrollbar invisible */
+}
+/* Optional: show position indicator in red */
+::-webkit-scrollbar-thumb {
+  background: #ff0000;
 }
 
-#title{
-    text-align:center;
+.h4 {
+  text-align: center;
 }
 
-#form{
-    text-align:center;
+.col {
+  margin-top: 4vh;
 }
 
-#innerform{
-    width:50%;
-    display:inline-block;
+.ree {
+  margin-top: 5vh;
 }
 
-#bottom-form{
-    display:inline-block;
-    /* width:50%; */
-    position:absolute;
-    bottom:10px;
-    right:10px;
+#title {
+  text-align: center;
+}
+
+#form {
+  text-align: center;
+}
+
+#innerform {
+  width: 50%;
+  display: inline-block;
+  margin-top: 3vh;
+}
+
+#bottom-form {
+  display: inline-block;
+  /* width:50%; */
+  position: absolute;
+  bottom: 9vh;
+  right: 2vw;
 }

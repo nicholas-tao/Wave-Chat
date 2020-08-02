@@ -1,16 +1,20 @@
 <html lang="en"></html>
 <head>
-
   <!-- Global site tag (gtag.js) - Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-150378045-3"></script>
+  <script
+    async
+    src="https://www.googletagmanager.com/gtag/js?id=UA-150378045-3"
+  ></script>
   <script>
     window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    gtag("js", new Date());
 
-    gtag('config', 'UA-150378045-3');
+    gtag("config", "UA-150378045-3");
   </script>
-  
+
   <script type="text/javascript" src="jquery-3.5.1.min.js"></script>
   <script
     type="text/javascript"
@@ -25,16 +29,19 @@
 </head>
 
 <title>OmegU</title>
-<body style="background-color: rgba(2, 5, 161, 0.91); font-family: 'Poppins', sans-serif;"
-<!-- ======= Header ======= -->
+<body
+  style="
+    background-color: rgba(2, 5, 161, 0.91);
+    font-family: 'Poppins', sans-serif;
+  "
+>
+  <!-- ======= Header ======= -->
   <header
     id="header"
     class="fixed-top d-flex align-items-center header-transparent"
   >
     <div class="container-fluid d-flex align-items-center">
       <div class="logo mr-auto">
-        <!-- <h1 class="text-light"><a href="index.html"><span>OmegU</span></a></h1> -->
-
         <a href="/"
           ><img src="/assets/img/logo3.png" alt="" class="img-fluid"
         /></a>
@@ -58,62 +65,76 @@
     </div>
   </header>
   <!-- End Header -->
-  <h2 id="title" style = "color: white">
-    <br /><br />
-    We have sent a verification code to your email. <br />Please check your
-    email and enter the code here. <br /><br />
-  </h2>
-  <div id="form">
-    <form id="innerform" action="/users/verify" method="POST">
-      <div class="form-group" style="text-align: left;">
-        <%- include('./partials/messages.ejs') %>
-        <label for="email" style = "color: white">Email</label>
-        <input
-          type="email"
-          id="email"
-          name="email"
-          class="form-control"
-          placeholder="Re-enter Your Email"
-        />
-      </div>
-      <div class="form-group" style="text-align: left;">
-        <label for="password" style = "color: white">Verification Code</label>
-        <input
-          type="pin"
-          id="pin"
-          name="pin"
-          class="form-control"
-          placeholder="Enter Your 6 Digit Code Here"
-        />
-      </div>
-      <button
-        type="submit"
-        class="btn btn-primary btn-block"
-        style="
-          font-size: 1.2rem;
-          margin-top: 2rem !important;
-          width: 25%;
-          margin: 0 auto;
-        "
-      >
-        Verify
-      </button>
-    </form>
 
-    <form id="bottom-form" action="/users/verify" method="POST">
-      <div class="form-group">
-        <label for="email" style = "color: white">Didn't get the Code? </label>
-        <input
-          type="email"
-          id="email"
-          name="email"
-          class="form-control"
-          placeholder="Enter your email"
-        />
+  <div class="container">
+    <div class="row">
+      <div class="col reee">
+        <img src="/assets/img/omeguiconlight.png" class="img-fluid" alt="" />
       </div>
-      <button type="submit" class="btn btn-primary btn-block">
-        Re-send Verification Code
-      </button>
-    </form>
+      <div class="col ree">
+        <h4 id="title" style="color: white;">
+          <br /><br />
+          We have sent a verification code to your email. <br />Please check
+          your email and enter the code here. <br /><br />
+        </h4>
+        <div id="form">
+          <form id="innerform" action="/users/verify" method="POST">
+            <div class="form-group" style="text-align: left;">
+              <%- include('./partials/messages.ejs') %>
+              <label for="email" style="color: white;">Email</label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                class="form-control"
+                placeholder="Re-enter Your Email"
+              />
+            </div>
+            <div class="form-group" style="text-align: left;">
+              <label for="password" style="color: white;"
+                >Verification Code</label
+              >
+              <input
+                type="pin"
+                id="pin"
+                name="pin"
+                class="form-control"
+                placeholder="Enter Your 6 Digit Code Here"
+              />
+            </div>
+            <button
+              type="submit"
+              class="btn btn-primary btn-block"
+              style="
+                font-size: 1.2rem;
+                margin-top: 2rem !important;
+                width: 25%;
+                margin: 0 auto;
+              "
+            >
+              Verify
+            </button>
+          </form>
+
+          <form id="bottom-form" action="/users/verify" method="POST">
+            <div class="form-group">
+              <label for="email" style="color: white;"
+                >Didn't get the Code?
+              </label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                class="form-control"
+                placeholder="Enter your email"
+              />
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">
+              Re-send Verification Code
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
   </div>
 </body>
