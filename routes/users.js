@@ -53,7 +53,7 @@ Router.post("/register", (req, res) => {
 
     errors.push({
       msg:
-        "OmegU is only available to UWaterloo students at the moment. Please use your uwaterloo.ca email.",
+        "Wave is only available to UWaterloo students at the moment. Please use your uwaterloo.ca email.",
     });
   }
 
@@ -184,7 +184,7 @@ function sendEmail(newUser) {
   console.log(newUser);
 
   let transport = nodemailer.createTransport({
-    host: "smtp.omegu.tech",
+    host: "smtp.wavechat.tech",
     port: 587,
     secure: false, // true for 465, false for other ports
     auth: {
@@ -196,14 +196,13 @@ function sendEmail(newUser) {
 
   // send mail with defined transport object
   const message = {
-    from: '"OmegU" <noreply@omegu.tech>', // Sender address
+    from: '"Wave" <noreply@wavechat.tech>', // Sender address
     to: newUser.email, //this works
-    //to: "omegu.team@gmail.com", //uncomment this later     // List of recipients
     subject: "Your Unique Verification Code", // Subject line
     html:
-      "Hi, <br /> <br />Thanks for signing up with OmegU! <br /> Your unique verification code is <strong>" +
+      "Hi, <br /> <br />Thanks for signing up with Wave! <br /> Your unique verification code is <strong>" +
       randomnum +
-      "</strong> <br /><br /> Best, <br /> OmegU Team",
+      "</strong> <br /><br /> Best, <br /> Wave Team",
     //style it later
   };
   transport.sendMail(message, function (err, info) {
@@ -262,7 +261,7 @@ Router.post("/verify", (req, res) => {
               } else {
                 //  console.log("THE CODE IN THE DB IS " + result.code); //the previous code? idk
                 let transport2 = nodemailer.createTransport({
-                  host: "smtp.omegu.tech",
+                  host: "smtp.wavechat.tech",
                   port: 587,
                   secure: false, // true for 465, false for other ports
                   auth: {
@@ -274,14 +273,13 @@ Router.post("/verify", (req, res) => {
 
                 // send mail with defined transport object
                 const message2 = {
-                  from: '"OmegU" <noreply@omegu.tech>', // Sender address
+                  from: '"Wave" <noreply@wavechat.tech>', // Sender address
                   to: result[0].email, //this works
-                  //  to: "omegu.team@gmail.com", //uncomment this later     // List of recipients
                   subject: "Your Unique Verification Code", // Subject line
                   html:
-                    "Hi, <br /> <br />Thanks for signing up with OmegU! <br /> Your unique verification code is <strong>" +
+                    "Hi, <br /> <br />Thanks for signing up with Wave! <br /> Your unique verification code is <strong>" +
                     randomnum2 +
-                    "</strong> <br /><br /> Best, <br /> OmegU Team",
+                    "</strong> <br /><br /> Best, <br /> Wave Team",
                   //style it later
                 };
                 transport2.sendMail(message2, function (err, info) {

@@ -59,7 +59,7 @@ function startBtnClicked() {
             clearInterval(periodicPing);
             audio.play();
             window.location.replace(
-              "https://chat.omegu.tech/?room=" + d.roomLink
+              "https://chat.wave.tech/?room=" + d.roomLink
             );
           }
         });
