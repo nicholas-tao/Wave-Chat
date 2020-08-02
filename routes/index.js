@@ -95,6 +95,11 @@ Router.get("/dashboard/home", ensureAuthenticated, (req, res) => {
   res.redirect("/dashboard");
 });
 
+Router.get("/dashboard/settings", ensureAuthenticated, (req, res) => {
+  req.flash("contentCode", "settings");
+  res.redirect("/dashboard");
+});
+
 Router.use(express.json()); //FOR PARSING POST REQUESTS
 
 ///////////////////////////////////////

@@ -102,6 +102,80 @@ Router.post("/register", (req, res) => {
     });
   }
 });
+
+Router.post("/change-password", (req, res) => {
+
+  //get the passwords from the form submitted
+  
+  const oldPass = req.body.password
+
+  const newPass1 = req.body.newPassword
+
+  const newPass2 = req.body.confirmNewPassword
+
+  console.log(oldPass)
+  console.log(newPass1)
+  console.log(newPass2)
+
+  console.log(req.user.password)
+
+  //check if the old password is correct
+  bcrypt.compare(oldPass, req.user.password, function(err, res){
+    if(err){
+      //handle error
+    }
+    if(res){
+      //response if pass match
+      console.log("success")
+
+      if(newPass1.localeCompare(newPass2) === 0){
+        //hash password and update db
+
+        //if old pass is correct and both new passwords match create the new password
+        bcrypt.genSalt(10, (err, salt) => 
+          bcrypt.hash(newPass1, salt, (err, hash) => {
+            if(err){
+              console.log("error hit")
+            }
+
+            console.log("new pass: " + hash)
+
+            //update the db with the new password
+            User.findOneAndUpdate(
+              {email : req.user.email}, 
+              { $set : {password : hash}}, 
+              function(error, response){
+                if(error){
+                  console.log("something went wrong")
+                }
+              }
+            )
+
+
+
+          })        
+        ) 
+
+        console.log("password updated")
+
+
+      }
+      else{
+        //if there is error output to user
+      }
+
+    }
+    else {
+      //if the new passwords don't match, add error msg and output to user
+    }
+  })
+
+  res.redirect("/dashboard/home")
+
+})
+
+
+
 //SEND EMAIL FUNCTION
 function sendEmail(newUser) {
   let randomnum = 100000 + Math.floor(Math.random() * Math.floor(899999));

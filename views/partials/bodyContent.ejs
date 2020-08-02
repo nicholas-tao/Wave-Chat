@@ -1,658 +1,14 @@
 <% if(contentCode == "home"){%>
-<h2>Welcome to OmegU, <span class="colorz" id="colorz"><%=name%></span></h2>
-<div class="online">
-  <h4><%=onlineCount%> online</h4>
-</div>
-<hr />
-<div class="online">
-  <h4><%=onlineCount%> online</h4>
-</div>
-
-<div class="container">
-  <div class="row">
-    <div class="intro col-12">
-      <h1>Interests</h1>
-      <div>
-        <div class="border1"></div>
-      </div>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="helpText col-12">
-      <p>
-        Please enter your interests so we can match you with other students with
-        similar interests!
-      </p>
-    </div>
-  </div>
-
-  <div>
-    <ul class="cont">
-      <li>
-        <input
-          class="tickbox"
-          type="checkbox"
-          id="anything-box"
-          name="anything"
-          value="anything"
-        /><label class="anythingBox" for="anything-box">Anything</label>
-      </li>
-      <li>
-        <input
-          class="tickbox"
-          type="checkbox"
-          id="music-general-box"
-          name="music-general"
-          value="music-general"
-        /><label for="music-general-box">Music General</label>
-      </li>
-      <li>
-        <input
-          class="tickbox"
-          type="checkbox"
-          id="pop-music-box"
-          name="pop-music"
-          value="pop-music"
-        /><label for="pop-music-box">Pop Music</label>
-      </li>
-      <li>
-        <input
-          class="tickbox"
-          type="checkbox"
-          id="rap-music-box"
-          name="rap-music"
-          value="rap-music"
-        /><label for="rap-music-box">Rap Music</label>
-      </li>
-      <li>
-        <input
-          class="tickbox"
-          type="checkbox"
-          id="k-pop-box"
-          name="k-pop"
-          value="k-pop"
-        /><label for="k-pop-box">K-Pop</label>
-      </li>
-      <li>
-        <input
-          class="tickbox"
-          type="checkbox"
-          id="sports-general-box"
-          name="sports-general"
-          value="sports-general"
-        /><label for="sports-general-box">Sports General</label>
-      </li>
-      <li>
-        <input
-          class="tickbox"
-          type="checkbox"
-          id="basketball-box"
-          name="basketball"
-          value="basketball"
-        /><label for="basketball-box">Basketball</label>
-      </li>
-      <li>
-        <input
-          class="tickbox"
-          type="checkbox"
-          id="soccer-box"
-          name="soccer"
-          value="soccer"
-        /><label for="soccer-box">Soccer</label>
-      </li>
-      <li>
-        <input
-          class="tickbox"
-          type="checkbox"
-          id="volleyball-box"
-          name="volleyball"
-          value="volleyball"
-        /><label for="volleyball-box">Volleyball</label>
-      </li>
-      <li>
-        <input
-          class="tickbox"
-          type="checkbox"
-          id="badminton-box"
-          name="badminton"
-          value="badminton"
-        /><label for="badminton-box">Badminton</label>
-      </li>
-      <li>
-        <input
-          class="tickbox"
-          type="checkbox"
-          id="working-out-box"
-          name="working-out"
-          value="working-out"
-        /><label for="working-out-box">Working Out</label>
-      </li>
-      <li>
-        <input
-          class="tickbox"
-          type="checkbox"
-          id="consumer-technology-box"
-          name="consumer-technology"
-          value="consumer-technology"
-        /><label for="consumer-technology-box">Consumer Technology</label>
-      </li>
-      <li>
-        <input
-          class="tickbox"
-          type="checkbox"
-          id="coding-box"
-          name="coding"
-          value="coding"
-        /><label for="coding-box">Coding</label>
-      </li>
-      <li>
-        <input
-          class="tickbox"
-          type="checkbox"
-          id="food-box"
-          name="food"
-          value="food"
-        /><label for="food-box">Food</label>
-      </li>
-      <li>
-        <input
-          class="tickbox"
-          type="checkbox"
-          id="arts-box"
-          name="arts"
-          value="arts"
-        /><label for="arts-box">Arts</label>
-      </li>
-      <li>
-        <input
-          class="tickbox"
-          type="checkbox"
-          id="cars-box"
-          name="cars"
-          value="cars"
-        /><label for="cars-box">Cars</label>
-      </li>
-      <li>
-        <input
-          class="tickbox"
-          type="checkbox"
-          id="gaming-box"
-          name="gaming"
-          value="gaming"
-        /><label for="gaming-box">Gaming</label>
-      </li>
-      <li>
-        <input
-          class="tickbox"
-          type="checkbox"
-          id="fashion-box"
-          name="fashion"
-          value="fashion"
-        /><label for="fashion-box">Fashion</label>
-      </li>
-      <li>
-        <input
-          class="tickbox"
-          type="checkbox"
-          id="anime-box"
-          name="anime"
-          value="anime"
-        /><label for="anime-box">Anime</label>
-      </li>
-      <li>
-        <input
-          class="tickbox"
-          type="checkbox"
-          id="tv-shows-box"
-          name="tv-shows"
-          value="tv-shows"
-        /><label for="tv-shows-box">TV Shows</label>
-      </li>
-      <li>
-        <input
-          class="tickbox"
-          type="checkbox"
-          id="movies-box"
-          name="movies"
-          value="movies"
-        /><label for="movies-box">Movies</label>
-      </li>
-      <li>
-        <input
-          class="tickbox"
-          type="checkbox"
-          id="cooking/baking-box"
-          name="cooking/baking"
-          value="cooking/baking"
-        /><label for="cooking/baking-box">Cooking/Baking</label>
-      </li>
-      <li>
-        <input
-          class="tickbox"
-          type="checkbox"
-          id="reading-box"
-          name="reading"
-          value="reading"
-        /><label for="reading-box">Reading</label>
-      </li>
-      <li>
-        <input
-          class="tickbox"
-          type="checkbox"
-          id="sleeping-box"
-          name="sleeping"
-          value="sleeping"
-        /><label for="sleeping-box">Sleeping</label>
-      </li>
-      <li>
-        <input
-          class="tickbox"
-          type="checkbox"
-          id="travelling-box"
-          name="travelling"
-          value="travelling"
-        /><label for="travelling-box">Travelling</label>
-      </li>
-      <li>
-        <input
-          class="tickbox"
-          type="checkbox"
-          id="politics-box"
-          name="politics"
-          value="politics"
-        /><label for="politics-box">Politics</label>
-      </li>
-      <li>
-        <input
-          class="tickbox"
-          type="checkbox"
-          id="outdoor-activities-box"
-          name="outdoor-activities"
-          value="outdoor-activities"
-        /><label for="outdoor-activities-box">Outdoor Activities</label>
-      </li>
-      <li>
-        <input
-          class="tickbox"
-          type="checkbox"
-          id="pets-box"
-          name="pets"
-          value="pets"
-        /><label for="pets-box">Pets</label>
-      </li>
-      <li>
-        <input
-          class="tickbox"
-          type="checkbox"
-          id="advice-box"
-          name="advice"
-          value="advice"
-        /><label for="advice-box">Advice</label>
-      </li>
-      <li>
-        <input
-          class="tickbox"
-          type="checkbox"
-          id="university-related-box"
-          name="university-related"
-          value="university-related"
-        /><label for="university-related-box">University Related</label>
-      </li>
-      <li>
-        <input
-          class="tickbox"
-          type="checkbox"
-          id="outdoors-box"
-          name="outdoors"
-          value="outdoors"
-        /><label for="outdoors-box">Outdoors</label>
-      </li>
-      <li>
-        <input
-          class="tickbox"
-          type="checkbox"
-          id="crafts-box"
-          name="crafts"
-          value="crafts"
-        /><label for="crafts-box">Crafts</label>
-      </li>
-      <li>
-        <input
-          class="tickbox"
-          type="checkbox"
-          id="dance-box"
-          name="dance"
-          value="dance"
-        /><label for="dance-box">Dance</label>
-      </li>
-    </ul>
-  </div>
-
-  <div class="centerMe">
-    <div class="displayMe">
-      <div class="leftMe">
-        <button
-          type="button"
-          class="button chatButton"
-          id="start-chatting"
-          data-test-value="<%=email%>"
-          onclick="startBtnClicked()"
-        >
-          <!-- old version- this was in the button tag: onclick="window.location.href='https://omeguu.herokuapp.com/?room=d4a-7g4-v2m'"
-  -->
-          Start Chatting!
-        </button>
-      </div>
-    </div>
-  </div>
-  <div id="overlay">
-    <div id="text">
-      <div class="wrapper1">
-        <div class="loader">
-          <div class="loading"></div>
-          <p class="matching">
-            Matching... <br />You will be redirected shortly <br />Your browser
-            may ask if you want to leave the site. Please click "Leave"
-          </p>
-        </div>
-      </div>
-    </div>
-  </div>
-  <%} else if(contentCode == "profile"){%>
-  <div class="container containerA">
-    <h2><span class="colorz"><%=name%>'s</span> Profile</h2>
-  </div>
-
-  <div class="container containerB">
-    <div class="row">
-      <div class="col">
-        <label class="profileList">Name</label> <br />
-        <input
-          type="text"
-          placeHolder="<%=name%>"
-          id="name"
-          name="name"
-          readonly
-        />
-      </div>
-      <div class="col">
-        <label class="profileList">Email</label> <br />
-        <input
-          type="text"
-          placeHolder="<%=email%>"
-          id="email"
-          name="Email"
-          readonly
-        />
-      </div>
-    </div>
-    <div class="row rowA">
-      <div class="col">
-        <label class="profileList">University</label> <br />
-        <input
-          type="text"
-          placeHolder="University of Waterloo"
-          id="university"
-          name="university"
-          readonly
-        />
-      </div>
-      <!-- <div class="col">
-          <label class = "profileList">University</label> <br />
-          <select id="university" name="university" class="changeWidth">
-            <option value="University of Waterloo">University of Waterloo</option>
-            <option value="University of Waterloo">University of Ottawa</option>
-            <option value="University of Waterloo">Queen's University</option>
-            <option value="University of Waterloo">University of Toronto</option>
-            <option value="University of Waterloo">Carleton Univsersity</option>
-          </select>
-        </div> -->
-      <div class="col">
-        <label class="profileList">Faculty</label> <br />
-        <select
-          class="custom-select custom-select-sm changeWidth"
-          id="faculty"
-          name="faculty"
-        >
-          <option value="Faculty of Applied Health Sciences"
-            >Faculty of Applied Health Sciences</option
-          >
-          <option value="Faculty of Arts">Faculty of Arts</option>
-          <option value="Faculty of Engineering">Faculty of Engineering</option>
-          <option value="Faculty of Environment">Faculty of Environment</option>
-          <option value="Faculty of Mathematics">Faculty of Mathematics</option>
-          <option value="Faculty of Science">Faculty of Science</option>
-        </select>
-      </div>
-    </div>
-    <div class="row rowA">
-      <div class="col">
-        <label class="profileList">Program</label> <br />
-        <select
-          id="program"
-          name="program"
-          class="custom-select custom-select-sm selectA"
-        >
-          <!--Applied health sci programs-->
-          <!-- <option value="placeholder">Health Studies</option> -->
-          <!-- <option value="placeholder">Kinesiology</option> -->
-          <!-- <option value="placeholder">Public Health</option> -->
-          <!-- <option value="placeholder">Recreation and Leisure Studies</option> -->
-
-          <!--Arts programs-->
-          <!-- <option value="placeholder">Honours Arts</option> -->
-          <!-- <option value="placeholder">Honours Arts and Business</option> -->
-          <!-- <option value="placeholder">Global Business and Digital Arts</option> -->
-          <!-- <option value="placeholder">Social Development Studies</option> -->
-          <!-- <option value="placeholder">Accounting and Financial Management</option> -->
-          <!-- <option value="placeholder">Computing and Financial Management</option> -->
-
-          <!--Engineering programs-->
-          <!-- <option value="placeholder">Architectural Engineering</option> -->
-          <!-- <option value="placeholder">Architecture</option> -->
-          <!-- <option value="placeholder">Biomedical Engineering</option> -->
-          <!-- <option value="placeholder">Chemical Engineering</option> -->
-          <!-- <option value="placeholder">Civil Engineering</option> -->
-          <!-- <option value="placeholder">Computer Engineering</option> -->
-          <!-- <option value="placeholder">Electrical Engineering</option> -->
-          <!-- <option value="placeholder">Environmental Engineering</option> -->
-          <!-- <option value="placeholder">Geological Engineering</option> -->
-          <!-- <option value="placeholder">Management Engineering</option> -->
-          <!-- <option value="placeholder">Mechanical Engineering</option> -->
-          <!-- <option value="placeholder">Mechatronics Engineering</option> -->
-          <!-- <option value="placeholder">Nanotechnology Engineering</option> -->
-          <!-- <option value="placeholder">Software Engineering</option> -->
-          <!-- <option value="placeholder">Systems Design Engineering</option> -->
-
-          <!--Environment Programs-->
-          <!-- <option value="placeholder">Environment and Business</option> -->
-          <!-- <option value="placeholder">Environment, Resources and Sustainability</option> -->
-          <!-- <option value="placeholder">Geography and Aviation</option> -->
-          <!-- <option value="placeholder">Geography and Environmental Management</option> -->
-          <!-- <option value="placeholder">Geomatics</option> -->
-          <!-- <option value="placeholder">International Development</option> -->
-          <!-- <option value="placeholder">Knowledge Integration</option> -->
-          <!-- <option value="placeholder">Planning</option> -->
-
-          <!--Math Programs-->
-          <!-- <option value="placeholder">Business Administration and Computer Science Double Degree</option> -->
-          <!-- <option value="placeholder">Business Administration and Mathematics Double Degree</option> -->
-          <!-- <option value="placeholder">Computer Science</option> -->
-          <!-- <option value="placeholder">Computing and Financial Management</option> -->
-          <!-- <option value="placeholder">Honours Mathematics</option> -->
-          <!-- <option value="placeholder">Mathematics/Business Administration</option> -->
-          <!-- <option value="placeholder">Mathematics/Chartered Professional Accountancy</option> -->
-          <!-- <option value="placeholder">Mathematics/Financial Analysis and Risk Management</option> -->
-
-          <!--Honours Math Majors-->
-          <!--
-              <option value="placeholder">Actuarial Science</option>
-              <option value="placeholder">Applied Mathematics</option>
-              <option value="placeholder">Biostatistics</option>
-              <option value="placeholder">Combinatorics and Optimization</option>
-              <option value="placeholder">Computational Mathematics</option>
-              <option value="placeholder">Data Science (BCS)</option>
-              <option value="placeholder">Data Science (BMath)</option>
-              <option value="placeholder">Mathematical Economics</option>
-              <option value="placeholder">Mathematical Finance</option>
-              <option value="placeholder">Mathematical Optimization</option>
-              <option value="placeholder">Mathematical Physics</option>
-              <option value="placeholder">Mathematical Studies</option>
-              <option value="placeholder">Mathematics/Teaching</option>
-              <option value="placeholder">Pure Mathematics</option>
-              <option value="placeholder">Statistics</option>
-            -->
-
-          <!--Science Programs-->
-          <!-- <option value="placeholder">Biochemistry</option> -->
-          <!-- <option value="placeholder">Biology</option> -->
-          <!-- <option value="placeholder">Biotechnology/Chartered Professional Accountancy</option> -->
-          <!-- <option value="placeholder">Biotechnology/Economics</option> -->
-          <!-- <option value="placeholder">Chemistry</option> -->
-          <!-- <option value="placeholder">Conditional Admission to Pharmacy</option> -->
-          <!-- <option value="placeholder">Earth Sciences</option> -->
-          <!-- <option value="placeholder">Environmental Science</option> -->
-          <!-- <option value="placeholder">Honours Science</option> -->
-          <!-- <option value="placeholder">Life Physics</option> -->
-          <!-- <option value="placeholder">Materials and Nanosciences</option> -->
-          <!-- <option value="placeholder">Mathematical Physics</option> -->
-          <!-- <option value="placeholder">Medicinal Chemistry</option> -->
-          <!-- <option value="placeholder">Physics</option> -->
-          <!-- <option value="placeholder">Physics and Astronomy</option> -->
-          <!-- <option value="placeholder">Psychology</option> -->
-          <!-- <option value="placeholder">Science and Aviation</option> -->
-          <!-- <option value="placeholder">Science and Business</option> -->
-        </select>
-      </div>
-      <div class="col">
-        <label class="profileList">Graduating Year</label> <br />
-        <select
-          id="year"
-          name="year"
-          class="custom-select custom-select-sm selectA"
-        >
-          <option value="2020">2020</option>
-          <option value="2021">2021</option>
-          <option value="2022">2022</option>
-          <option value="2023">2023</option>
-          <option value="2024">2024</option>
-          <option value="2025">2025</option>
-        </select>
-      </div>
-    </div>
-  </div>
-
-  <button type="button" class="button saveButton" id="save">
-    Save Profile
-  </button>
-
-  <%} else if(contentCode == "no-program"){%>
-  <div class="container containerA">
-    <h2><span class="colorz"><%=name%>'s</span> Profile</h2>
-  </div>
-
-  <div class="container containerB">
-    <div class="row">
-      <div class="col">
-        <label class="profileList">Name</label> <br />
-        <input
-          type="text"
-          placeHolder="<%=name%>"
-          id="name"
-          name="name"
-          readonly
-        />
-      </div>
-      <div class="col">
-        <label class="profileList">Email</label> <br />
-        <input
-          type="text"
-          placeHolder="<%=email%>"
-          id="email"
-          name="Email"
-          readonly
-        />
-      </div>
-    </div>
-    <div class="row rowA">
-      <div class="col">
-        <label class="profileList">University</label> <br />
-        <input
-          type="text"
-          placeHolder="University of Waterloo"
-          id="university"
-          name="university"
-          readonly
-        />
-      </div>
-
-      <div class="col">
-        <label class="profileList">Faculty</label> <br />
-        <select
-          class="custom-select custom-select-sm changeWidth"
-          id="faculty"
-          name="faculty"
-        >
-          <option value="Faculty of Applied Health Sciences"
-            >Faculty of Applied Health Sciences</option
-          >
-          <option value="Faculty of Arts">Faculty of Arts</option>
-          <option value="Faculty of Engineering">Faculty of Engineering</option>
-          <option value="Faculty of Environment">Faculty of Environment</option>
-          <option value="Faculty of Mathematics">Faculty of Mathematics</option>
-          <option value="Faculty of Science">Faculty of Science</option>
-        </select>
-      </div>
-    </div>
-    <div class="row rowA">
-      <div class="col">
-        <label class="profileList">Program</label> <br />
-        <select
-          id="program"
-          name="program"
-          class="custom-select custom-select-sm selectA"
-        >
-        </select>
-      </div>
-      <div class="col">
-        <label class="profileList">Graduating Year</label> <br />
-        <select
-          id="year"
-          name="year"
-          class="custom-select custom-select-sm selectA"
-        >
-          <option value="2020">2020</option>
-          <option value="2021">2021</option>
-          <option value="2022">2022</option>
-          <option value="2023">2023</option>
-          <option value="2024">2024</option>
-          <option value="2025">2025</option>
-        </select>
-      </div>
-    </div>
-  </div>
-
-  <button type="button" class="button saveButton" id="save">
-    Save Profile
-  </button>
-  <%} else {%>
-
   <h2>Welcome to OmegU, <span class="colorz" id="colorz"><%=name%></span></h2>
   <div class="online">
     <h4><%=onlineCount%> online</h4>
   </div>
   <hr />
-
+  <div class="online">
+    <h4><%=onlineCount%> online</h4>
+  </div>
+  
   <div class="container">
-    <!--
-      <div class="wrapper1">
-        <div class="loader">
-          <div class="loading"></div>
-          <p class="matching">Matching</p>
-        </div>
-      </div>
-    -->
     <div class="row">
       <div class="intro col-12">
         <h1>Interests</h1>
@@ -661,16 +17,16 @@
         </div>
       </div>
     </div>
-
+  
     <div class="row">
-      <div class="helpText col-12 helpText">
+      <div class="helpText col-12">
         <p>
-          Please enter your interests so we can match you with other students
-          with similar interests!
+          Please enter your interests so we can match you with other students with
+          similar interests!
         </p>
       </div>
     </div>
-
+  
     <div>
       <ul class="cont">
         <li>
@@ -972,7 +328,7 @@
         </li>
       </ul>
     </div>
-
+  
     <div class="centerMe">
       <div class="displayMe">
         <div class="leftMe">
@@ -983,6 +339,8 @@
             data-test-value="<%=email%>"
             onclick="startBtnClicked()"
           >
+            <!-- old version- this was in the button tag: onclick="window.location.href='https://omeguu.herokuapp.com/?room=d4a-7g4-v2m'"
+    -->
             Start Chatting!
           </button>
         </div>
@@ -994,26 +352,700 @@
           <div class="loader">
             <div class="loading"></div>
             <p class="matching">
-              Matching... <br />You will be redirected shortly <br />Your
-              browser may ask if you want to leave the site. <br />Please click
-              "Leave" <br />
-              <!--
-              <br />
-              <br />
-              <br />
-              <br />
-              <br />
-              -->
+              Matching... <br />You will be redirected shortly <br />Your browser
+              may ask if you want to leave the site. Please click "Leave"
             </p>
           </div>
         </div>
       </div>
-      <div class="msg">
-        If you are sent to an empty room, the other user may have already left.
-        <br />
-        If so, leave the room and click "Start Chatting" again.
+    </div>
+    <%} else if(contentCode == "profile"){%>
+    <div class="container containerA">
+      <h2><span class="colorz"><%=name%>'s</span> Profile</h2>
+    </div>
+  
+    <div class="container containerB">
+      <div class="row">
+        <div class="col">
+          <label class="profileList">Name</label> <br />
+          <input
+            type="text"
+            placeHolder="<%=name%>"
+            id="name"
+            name="name"
+            readonly
+          />
+        </div>
+        <div class="col">
+          <label class="profileList">Email</label> <br />
+          <input
+            type="text"
+            placeHolder="<%=email%>"
+            id="email"
+            name="Email"
+            readonly
+          />
+        </div>
+      </div>
+      <div class="row rowA">
+        <div class="col">
+          <label class="profileList">University</label> <br />
+          <input
+            type="text"
+            placeHolder="University of Waterloo"
+            id="university"
+            name="university"
+            readonly
+          />
+        </div>
+        <!-- <div class="col">
+            <label class = "profileList">University</label> <br />
+            <select id="university" name="university" class="changeWidth">
+              <option value="University of Waterloo">University of Waterloo</option>
+              <option value="University of Waterloo">University of Ottawa</option>
+              <option value="University of Waterloo">Queen's University</option>
+              <option value="University of Waterloo">University of Toronto</option>
+              <option value="University of Waterloo">Carleton Univsersity</option>
+            </select>
+          </div> -->
+        <div class="col">
+          <label class="profileList">Faculty</label> <br />
+          <select
+            class="custom-select custom-select-sm changeWidth"
+            id="faculty"
+            name="faculty"
+          >
+            <option value="Faculty of Applied Health Sciences"
+              >Faculty of Applied Health Sciences</option
+            >
+            <option value="Faculty of Arts">Faculty of Arts</option>
+            <option value="Faculty of Engineering">Faculty of Engineering</option>
+            <option value="Faculty of Environment">Faculty of Environment</option>
+            <option value="Faculty of Mathematics">Faculty of Mathematics</option>
+            <option value="Faculty of Science">Faculty of Science</option>
+          </select>
+        </div>
+      </div>
+      <div class="row rowA">
+        <div class="col">
+          <label class="profileList">Program</label> <br />
+          <select
+            id="program"
+            name="program"
+            class="custom-select custom-select-sm selectA"
+          >
+            <!--Applied health sci programs-->
+            <!-- <option value="placeholder">Health Studies</option> -->
+            <!-- <option value="placeholder">Kinesiology</option> -->
+            <!-- <option value="placeholder">Public Health</option> -->
+            <!-- <option value="placeholder">Recreation and Leisure Studies</option> -->
+  
+            <!--Arts programs-->
+            <!-- <option value="placeholder">Honours Arts</option> -->
+            <!-- <option value="placeholder">Honours Arts and Business</option> -->
+            <!-- <option value="placeholder">Global Business and Digital Arts</option> -->
+            <!-- <option value="placeholder">Social Development Studies</option> -->
+            <!-- <option value="placeholder">Accounting and Financial Management</option> -->
+            <!-- <option value="placeholder">Computing and Financial Management</option> -->
+  
+            <!--Engineering programs-->
+            <!-- <option value="placeholder">Architectural Engineering</option> -->
+            <!-- <option value="placeholder">Architecture</option> -->
+            <!-- <option value="placeholder">Biomedical Engineering</option> -->
+            <!-- <option value="placeholder">Chemical Engineering</option> -->
+            <!-- <option value="placeholder">Civil Engineering</option> -->
+            <!-- <option value="placeholder">Computer Engineering</option> -->
+            <!-- <option value="placeholder">Electrical Engineering</option> -->
+            <!-- <option value="placeholder">Environmental Engineering</option> -->
+            <!-- <option value="placeholder">Geological Engineering</option> -->
+            <!-- <option value="placeholder">Management Engineering</option> -->
+            <!-- <option value="placeholder">Mechanical Engineering</option> -->
+            <!-- <option value="placeholder">Mechatronics Engineering</option> -->
+            <!-- <option value="placeholder">Nanotechnology Engineering</option> -->
+            <!-- <option value="placeholder">Software Engineering</option> -->
+            <!-- <option value="placeholder">Systems Design Engineering</option> -->
+  
+            <!--Environment Programs-->
+            <!-- <option value="placeholder">Environment and Business</option> -->
+            <!-- <option value="placeholder">Environment, Resources and Sustainability</option> -->
+            <!-- <option value="placeholder">Geography and Aviation</option> -->
+            <!-- <option value="placeholder">Geography and Environmental Management</option> -->
+            <!-- <option value="placeholder">Geomatics</option> -->
+            <!-- <option value="placeholder">International Development</option> -->
+            <!-- <option value="placeholder">Knowledge Integration</option> -->
+            <!-- <option value="placeholder">Planning</option> -->
+  
+            <!--Math Programs-->
+            <!-- <option value="placeholder">Business Administration and Computer Science Double Degree</option> -->
+            <!-- <option value="placeholder">Business Administration and Mathematics Double Degree</option> -->
+            <!-- <option value="placeholder">Computer Science</option> -->
+            <!-- <option value="placeholder">Computing and Financial Management</option> -->
+            <!-- <option value="placeholder">Honours Mathematics</option> -->
+            <!-- <option value="placeholder">Mathematics/Business Administration</option> -->
+            <!-- <option value="placeholder">Mathematics/Chartered Professional Accountancy</option> -->
+            <!-- <option value="placeholder">Mathematics/Financial Analysis and Risk Management</option> -->
+  
+            <!--Honours Math Majors-->
+            <!--
+                <option value="placeholder">Actuarial Science</option>
+                <option value="placeholder">Applied Mathematics</option>
+                <option value="placeholder">Biostatistics</option>
+                <option value="placeholder">Combinatorics and Optimization</option>
+                <option value="placeholder">Computational Mathematics</option>
+                <option value="placeholder">Data Science (BCS)</option>
+                <option value="placeholder">Data Science (BMath)</option>
+                <option value="placeholder">Mathematical Economics</option>
+                <option value="placeholder">Mathematical Finance</option>
+                <option value="placeholder">Mathematical Optimization</option>
+                <option value="placeholder">Mathematical Physics</option>
+                <option value="placeholder">Mathematical Studies</option>
+                <option value="placeholder">Mathematics/Teaching</option>
+                <option value="placeholder">Pure Mathematics</option>
+                <option value="placeholder">Statistics</option>
+              -->
+  
+            <!--Science Programs-->
+            <!-- <option value="placeholder">Biochemistry</option> -->
+            <!-- <option value="placeholder">Biology</option> -->
+            <!-- <option value="placeholder">Biotechnology/Chartered Professional Accountancy</option> -->
+            <!-- <option value="placeholder">Biotechnology/Economics</option> -->
+            <!-- <option value="placeholder">Chemistry</option> -->
+            <!-- <option value="placeholder">Conditional Admission to Pharmacy</option> -->
+            <!-- <option value="placeholder">Earth Sciences</option> -->
+            <!-- <option value="placeholder">Environmental Science</option> -->
+            <!-- <option value="placeholder">Honours Science</option> -->
+            <!-- <option value="placeholder">Life Physics</option> -->
+            <!-- <option value="placeholder">Materials and Nanosciences</option> -->
+            <!-- <option value="placeholder">Mathematical Physics</option> -->
+            <!-- <option value="placeholder">Medicinal Chemistry</option> -->
+            <!-- <option value="placeholder">Physics</option> -->
+            <!-- <option value="placeholder">Physics and Astronomy</option> -->
+            <!-- <option value="placeholder">Psychology</option> -->
+            <!-- <option value="placeholder">Science and Aviation</option> -->
+            <!-- <option value="placeholder">Science and Business</option> -->
+          </select>
+        </div>
+        <div class="col">
+          <label class="profileList">Graduating Year</label> <br />
+          <select
+            id="year"
+            name="year"
+            class="custom-select custom-select-sm selectA"
+          >
+            <option value="2020">2020</option>
+            <option value="2021">2021</option>
+            <option value="2022">2022</option>
+            <option value="2023">2023</option>
+            <option value="2024">2024</option>
+            <option value="2025">2025</option>
+          </select>
+        </div>
       </div>
     </div>
-    <%}%>
+  
+    <button type="button" class="button saveButton" id="save">
+      Save Profile
+    </button>
+  
+    <%} else if(contentCode == "no-program"){%>
+    <div class="container containerA">
+      <h2><span class="colorz"><%=name%>'s</span> Profile</h2>
+    </div>
+  
+    <div class="container containerB">
+      <div class="row">
+        <div class="col">
+          <label class="profileList">Name</label> <br />
+          <input
+            type="text"
+            placeHolder="<%=name%>"
+            id="name"
+            name="name"
+            readonly
+          />
+        </div>
+        <div class="col">
+          <label class="profileList">Email</label> <br />
+          <input
+            type="text"
+            placeHolder="<%=email%>"
+            id="email"
+            name="Email"
+            readonly
+          />
+        </div>
+      </div>
+      <div class="row rowA">
+        <div class="col">
+          <label class="profileList">University</label> <br />
+          <input
+            type="text"
+            placeHolder="University of Waterloo"
+            id="university"
+            name="university"
+            readonly
+          />
+        </div>
+  
+        <div class="col">
+          <label class="profileList">Faculty</label> <br />
+          <select
+            class="custom-select custom-select-sm changeWidth"
+            id="faculty"
+            name="faculty"
+          >
+            <option value="Faculty of Applied Health Sciences"
+              >Faculty of Applied Health Sciences</option
+            >
+            <option value="Faculty of Arts">Faculty of Arts</option>
+            <option value="Faculty of Engineering">Faculty of Engineering</option>
+            <option value="Faculty of Environment">Faculty of Environment</option>
+            <option value="Faculty of Mathematics">Faculty of Mathematics</option>
+            <option value="Faculty of Science">Faculty of Science</option>
+          </select>
+        </div>
+      </div>
+      <div class="row rowA">
+        <div class="col">
+          <label class="profileList">Program</label> <br />
+          <select
+            id="program"
+            name="program"
+            class="custom-select custom-select-sm selectA"
+          >
+          </select>
+        </div>
+        <div class="col">
+          <label class="profileList">Graduating Year</label> <br />
+          <select
+            id="year"
+            name="year"
+            class="custom-select custom-select-sm selectA"
+          >
+            <option value="2020">2020</option>
+            <option value="2021">2021</option>
+            <option value="2022">2022</option>
+            <option value="2023">2023</option>
+            <option value="2024">2024</option>
+            <option value="2025">2025</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  
+    <button type="button" class="button saveButton" id="save">
+      Save Profile
+    </button>
+  
+    
+    <%} else if (contentCode == "settings") {%>
+  
+      <h2>Settings</h2>
+  
+      <form action="/users/change-password" method="POST">
+  
+        <div style="padding-top: 5vh; width: 5vh; margin: 0 auto;">
+          <!-- <div class="row"> -->
+            <!-- <div class="col" style="width: 50%;"> -->
+              <!-- <label class="profileList">Old Password</label>  -->
+              <!-- <br/> -->
+              <input type="password" placeHolder="Old Password" id="password" name="password" style="margin: 2vh; margin-left: -4vh;"/>
+              <br/>
+    
+              <!-- <label class="profileList">New Password</label>  -->
+              <!-- <br/> -->
+              <input type="password" placeHolder="New Password" id="newPassword" name="newPassword" style="margin: 2vh; margin-left: -4vh;"/>
+              <br/>
+    
+              <!-- <label class="profileList">Confirm New Password</label>  -->
+              <!-- <br/> -->
+              <input type="password" placeHolder="Confirm New Password" id="confirmNewPassword" name="confirmNewPassword" style="margin: 2vh; margin-left: -4vh;"/>
+    
+            <!-- </div> -->
+          <!-- </div> -->
+        </div>
+      
+  
+      <button type="button" class="button saveButton" id="cancel" style="margin-right: 0.5vh;" onclick="location.href='/dashboard/home'">
+        Cancel
+      </button>
+  
+  
+      <button type="submit" class="button saveButton" id="save-settings" style="margin-left: 0.5vh;">
+        Save Changes
+      </button>
+  
+    </form>
+  
+    
+    <%} else {%>
+  
+    <h2>Welcome to OmegU, <span class="colorz" id="colorz"><%=name%></span></h2>
+    <div class="online">
+      <h4><%=onlineCount%> online</h4>
+    </div>
+    <hr />
+  
+    <div class="container">
+      <!--
+        <div class="wrapper1">
+          <div class="loader">
+            <div class="loading"></div>
+            <p class="matching">Matching</p>
+          </div>
+        </div>
+      -->
+      <div class="row">
+        <div class="intro col-12">
+          <h1>Interests</h1>
+          <div>
+            <div class="border1"></div>
+          </div>
+        </div>
+      </div>
+  
+      <div class="row">
+        <div class="helpText col-12 helpText">
+          <p>
+            Please enter your interests so we can match you with other students
+            with similar interests!
+          </p>
+        </div>
+      </div>
+  
+      <div>
+        <ul class="cont">
+          <li>
+            <input
+              class="tickbox"
+              type="checkbox"
+              id="anything-box"
+              name="anything"
+              value="anything"
+            /><label class="anythingBox" for="anything-box">Anything</label>
+          </li>
+          <li>
+            <input
+              class="tickbox"
+              type="checkbox"
+              id="music-general-box"
+              name="music-general"
+              value="music-general"
+            /><label for="music-general-box">Music General</label>
+          </li>
+          <li>
+            <input
+              class="tickbox"
+              type="checkbox"
+              id="pop-music-box"
+              name="pop-music"
+              value="pop-music"
+            /><label for="pop-music-box">Pop Music</label>
+          </li>
+          <li>
+            <input
+              class="tickbox"
+              type="checkbox"
+              id="rap-music-box"
+              name="rap-music"
+              value="rap-music"
+            /><label for="rap-music-box">Rap Music</label>
+          </li>
+          <li>
+            <input
+              class="tickbox"
+              type="checkbox"
+              id="k-pop-box"
+              name="k-pop"
+              value="k-pop"
+            /><label for="k-pop-box">K-Pop</label>
+          </li>
+          <li>
+            <input
+              class="tickbox"
+              type="checkbox"
+              id="sports-general-box"
+              name="sports-general"
+              value="sports-general"
+            /><label for="sports-general-box">Sports General</label>
+          </li>
+          <li>
+            <input
+              class="tickbox"
+              type="checkbox"
+              id="basketball-box"
+              name="basketball"
+              value="basketball"
+            /><label for="basketball-box">Basketball</label>
+          </li>
+          <li>
+            <input
+              class="tickbox"
+              type="checkbox"
+              id="soccer-box"
+              name="soccer"
+              value="soccer"
+            /><label for="soccer-box">Soccer</label>
+          </li>
+          <li>
+            <input
+              class="tickbox"
+              type="checkbox"
+              id="volleyball-box"
+              name="volleyball"
+              value="volleyball"
+            /><label for="volleyball-box">Volleyball</label>
+          </li>
+          <li>
+            <input
+              class="tickbox"
+              type="checkbox"
+              id="badminton-box"
+              name="badminton"
+              value="badminton"
+            /><label for="badminton-box">Badminton</label>
+          </li>
+          <li>
+            <input
+              class="tickbox"
+              type="checkbox"
+              id="working-out-box"
+              name="working-out"
+              value="working-out"
+            /><label for="working-out-box">Working Out</label>
+          </li>
+          <li>
+            <input
+              class="tickbox"
+              type="checkbox"
+              id="consumer-technology-box"
+              name="consumer-technology"
+              value="consumer-technology"
+            /><label for="consumer-technology-box">Consumer Technology</label>
+          </li>
+          <li>
+            <input
+              class="tickbox"
+              type="checkbox"
+              id="coding-box"
+              name="coding"
+              value="coding"
+            /><label for="coding-box">Coding</label>
+          </li>
+          <li>
+            <input
+              class="tickbox"
+              type="checkbox"
+              id="food-box"
+              name="food"
+              value="food"
+            /><label for="food-box">Food</label>
+          </li>
+          <li>
+            <input
+              class="tickbox"
+              type="checkbox"
+              id="arts-box"
+              name="arts"
+              value="arts"
+            /><label for="arts-box">Arts</label>
+          </li>
+          <li>
+            <input
+              class="tickbox"
+              type="checkbox"
+              id="cars-box"
+              name="cars"
+              value="cars"
+            /><label for="cars-box">Cars</label>
+          </li>
+          <li>
+            <input
+              class="tickbox"
+              type="checkbox"
+              id="gaming-box"
+              name="gaming"
+              value="gaming"
+            /><label for="gaming-box">Gaming</label>
+          </li>
+          <li>
+            <input
+              class="tickbox"
+              type="checkbox"
+              id="fashion-box"
+              name="fashion"
+              value="fashion"
+            /><label for="fashion-box">Fashion</label>
+          </li>
+          <li>
+            <input
+              class="tickbox"
+              type="checkbox"
+              id="anime-box"
+              name="anime"
+              value="anime"
+            /><label for="anime-box">Anime</label>
+          </li>
+          <li>
+            <input
+              class="tickbox"
+              type="checkbox"
+              id="tv-shows-box"
+              name="tv-shows"
+              value="tv-shows"
+            /><label for="tv-shows-box">TV Shows</label>
+          </li>
+          <li>
+            <input
+              class="tickbox"
+              type="checkbox"
+              id="movies-box"
+              name="movies"
+              value="movies"
+            /><label for="movies-box">Movies</label>
+          </li>
+          <li>
+            <input
+              class="tickbox"
+              type="checkbox"
+              id="cooking/baking-box"
+              name="cooking/baking"
+              value="cooking/baking"
+            /><label for="cooking/baking-box">Cooking/Baking</label>
+          </li>
+          <li>
+            <input
+              class="tickbox"
+              type="checkbox"
+              id="reading-box"
+              name="reading"
+              value="reading"
+            /><label for="reading-box">Reading</label>
+          </li>
+          <li>
+            <input
+              class="tickbox"
+              type="checkbox"
+              id="sleeping-box"
+              name="sleeping"
+              value="sleeping"
+            /><label for="sleeping-box">Sleeping</label>
+          </li>
+          <li>
+            <input
+              class="tickbox"
+              type="checkbox"
+              id="travelling-box"
+              name="travelling"
+              value="travelling"
+            /><label for="travelling-box">Travelling</label>
+          </li>
+          <li>
+            <input
+              class="tickbox"
+              type="checkbox"
+              id="politics-box"
+              name="politics"
+              value="politics"
+            /><label for="politics-box">Politics</label>
+          </li>
+          <li>
+            <input
+              class="tickbox"
+              type="checkbox"
+              id="outdoor-activities-box"
+              name="outdoor-activities"
+              value="outdoor-activities"
+            /><label for="outdoor-activities-box">Outdoor Activities</label>
+          </li>
+          <li>
+            <input
+              class="tickbox"
+              type="checkbox"
+              id="pets-box"
+              name="pets"
+              value="pets"
+            /><label for="pets-box">Pets</label>
+          </li>
+          <li>
+            <input
+              class="tickbox"
+              type="checkbox"
+              id="advice-box"
+              name="advice"
+              value="advice"
+            /><label for="advice-box">Advice</label>
+          </li>
+          <li>
+            <input
+              class="tickbox"
+              type="checkbox"
+              id="university-related-box"
+              name="university-related"
+              value="university-related"
+            /><label for="university-related-box">University Related</label>
+          </li>
+          <li>
+            <input
+              class="tickbox"
+              type="checkbox"
+              id="outdoors-box"
+              name="outdoors"
+              value="outdoors"
+            /><label for="outdoors-box">Outdoors</label>
+          </li>
+          <li>
+            <input
+              class="tickbox"
+              type="checkbox"
+              id="crafts-box"
+              name="crafts"
+              value="crafts"
+            /><label for="crafts-box">Crafts</label>
+          </li>
+          <li>
+            <input
+              class="tickbox"
+              type="checkbox"
+              id="dance-box"
+              name="dance"
+              value="dance"
+            /><label for="dance-box">Dance</label>
+          </li>
+        </ul>
+      </div>
+  
+      <div class="centerMe">
+        <div class="displayMe">
+          <div class="leftMe">
+            <button
+              type="button"
+              class="button chatButton"
+              id="start-chatting"
+              data-test-value="<%=email%>"
+              onclick="startBtnClicked()"
+            >
+              Start Chatting!
+            </button>
+          </div>
+        </div>
+      </div>
+      <div id="overlay">
+        <div id="text">
+          <div class="wrapper1">
+            <div class="loader">
+              <div class="loading"></div>
+              <p class="matching">
+                Matching... <br />You will be redirected shortly <br />Your
+                browser may ask if you want to leave the site. Please click
+                "Leave"
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+      <%}%>
+    </div>
   </div>
-</div>
+  
