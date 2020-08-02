@@ -186,7 +186,6 @@ function sendEmail(newUser) {
   const message = {
     from: '"Wave" <noreply@wavechat.tech>', // Sender address
     to: newUser.email, //this works
-    //to: "omegu.team@gmail.com", //uncomment this later     // List of recipients
     subject: "Your Unique Verification Code", // Subject line
     html:
       "Hi, <br /> <br />Thanks for signing up with Wave! <br /> Your unique verification code is <strong>" +
@@ -264,7 +263,6 @@ Router.post("/verify", (req, res) => {
                 const message2 = {
                   from: '"Wave" <noreply@wavechat.tech>', // Sender address
                   to: result[0].email, //this works
-                  //  to: "omegu.team@gmail.com", //uncomment this later     // List of recipients
                   subject: "Your Unique Verification Code", // Subject line
                   html:
                     "Hi, <br /> <br />Thanks for signing up with Wave! <br /> Your unique verification code is <strong>" +

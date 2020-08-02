@@ -59,7 +59,11 @@ function startBtnClicked() {
             clearInterval(periodicPing);
             audio.play();
             window.location.replace(
+<<<<<<< HEAD
               "https://chat.wavechat.tech/?room=" + d.roomLink
+=======
+              "https://chat.wave.tech/?room=" + d.roomLink
+>>>>>>> 9d5246e2145280a3a000d1d769d882dd94d71322
             );
           }
         });
