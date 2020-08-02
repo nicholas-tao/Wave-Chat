@@ -18,7 +18,7 @@ function populateDropdowns() {
   })
     .then((response) => response.json())
     .then((data) => {
-      console.log(data);
+      //console.log(data);
       loadFaculty = data["faculty"];
       loadProgram = data["program"];
       loadYear = data["year"];
@@ -75,23 +75,20 @@ function populateDropdowns() {
         "Faculty of Science"
       );
 
-
       //set the default value of the dropdown to what the user selected
       var i;
-      var temp
+      var temp;
       for (i = 0; i < faculty.options.length; i++) {
+        temp = faculty.options[i].value;
 
-        temp = faculty.options[i].value
+        console.log("temp: " + temp);
 
-        console.log("temp: " + temp)
-
-        if((temp).localeCompare(sfaculty) === 0){
-          console.log("i made it here 8008")
-          faculty.selectedIndex = i
-          break
+        if (temp.localeCompare(sfaculty) === 0) {
+          console.log("i made it here 8008");
+          faculty.selectedIndex = i;
+          break;
         }
       }
-
 
       var selectedFaculty = $('select[name="faculty"]').val();
 
@@ -277,10 +274,7 @@ function populateDropdowns() {
           "Environmental Science",
           "Environmental Science"
         );
-        programs.options[9] = new Option(
-          "Honours Science",
-          "Honours Science"
-        );
+        programs.options[9] = new Option("Honours Science", "Honours Science");
         programs.options[10] = new Option("Life Physics", "Life Physics");
         programs.options[11] = new Option(
           "Materials and Nanosciences",
@@ -315,19 +309,16 @@ function populateDropdowns() {
       var j;
       var temp2;
       for (j = 0; j < programs.options.length; j++) {
+        temp2 = programs.options[j].value;
 
-        temp2 = programs.options[j].value
+        console.log("temp2: " + temp2);
 
-        console.log("temp2: " + temp2)
-
-        if((temp2).localeCompare(sprograms) === 0){
-          console.log("i made it here 9009")
-          programs.selectedIndex = j
-          break
+        if (temp2.localeCompare(sprograms) === 0) {
+          console.log("i made it here 9009");
+          programs.selectedIndex = j;
+          break;
         }
       }
-
-
 
       // programs.options.length = 0;
       // if (sprograms == "No Program Entered") {
@@ -365,10 +356,6 @@ function populateDropdowns() {
       //     break
       //   }
       // }
-
-
-      
-
 
       //function which checks which faculty is selected and populates program dropdown accordingly
       $('select[name="faculty"]').change(function () {
@@ -596,18 +583,16 @@ function populateDropdowns() {
         var j;
         var temp2;
         for (j = 0; j < programs.options.length; j++) {
-  
-          temp2 = programs.options[j].value
-  
-          console.log("temp2: " + temp2)
-  
-          if((temp2).localeCompare(sprograms) === 0){
-            console.log("i made it here 9009")
-            programs.selectedIndex = j
-            break
+          temp2 = programs.options[j].value;
+
+          console.log("temp2: " + temp2);
+
+          if (temp2.localeCompare(sprograms) === 0) {
+            console.log("i made it here 9009");
+            programs.selectedIndex = j;
+            break;
           }
         }
-
       });
 
       // if (syear == "0") {
@@ -623,23 +608,19 @@ function populateDropdowns() {
       year.options[4] = new Option("2024", "2024");
       year.options[5] = new Option("2025", "2025");
 
-
       var k;
       var temp3;
       for (k = 0; k < year.options.length; k++) {
+        temp3 = year.options[k].value;
 
-        temp3 = year.options[k].value
+        console.log("temp2: " + temp3);
 
-        console.log("temp2: " + temp3)
-
-        if((temp3).localeCompare(syear) === 0){
-          console.log("i made it here 9009")
-          year.selectedIndex = k
-          break
+        if (temp3.localeCompare(syear) === 0) {
+          console.log("i made it here 9009");
+          year.selectedIndex = k;
+          break;
         }
       }
-
-
     });
 }
 
