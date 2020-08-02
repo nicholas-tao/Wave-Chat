@@ -53,7 +53,7 @@ Router.post("/register", (req, res) => {
 
     errors.push({
       msg:
-        "OmegU is only available to UWaterloo students at the moment. Please use your uwaterloo.ca email.",
+        "Wave is only available to UWaterloo students at the moment. Please use your uwaterloo.ca email.",
     });
   }
 
@@ -104,77 +104,65 @@ Router.post("/register", (req, res) => {
 });
 
 Router.post("/change-password", (req, res) => {
-
   //get the passwords from the form submitted
-  
-  const oldPass = req.body.password
 
-  const newPass1 = req.body.newPassword
+  const oldPass = req.body.password;
 
-  const newPass2 = req.body.confirmNewPassword
+  const newPass1 = req.body.newPassword;
 
-  console.log(oldPass)
-  console.log(newPass1)
-  console.log(newPass2)
+  const newPass2 = req.body.confirmNewPassword;
 
-  console.log(req.user.password)
+  console.log(oldPass);
+  console.log(newPass1);
+  console.log(newPass2);
+
+  console.log(req.user.password);
 
   //check if the old password is correct
-  bcrypt.compare(oldPass, req.user.password, function(err, res){
-    if(err){
+  bcrypt.compare(oldPass, req.user.password, function (err, res) {
+    if (err) {
       //handle error
     }
-    if(res){
+    if (res) {
       //response if pass match
-      console.log("success")
+      console.log("success");
 
-      if(newPass1.localeCompare(newPass2) === 0){
+      if (newPass1.localeCompare(newPass2) === 0) {
         //hash password and update db
 
         //if old pass is correct and both new passwords match create the new password
-        bcrypt.genSalt(10, (err, salt) => 
+        bcrypt.genSalt(10, (err, salt) =>
           bcrypt.hash(newPass1, salt, (err, hash) => {
-            if(err){
-              console.log("error hit")
+            if (err) {
+              console.log("error hit");
             }
 
-            console.log("new pass: " + hash)
+            console.log("new pass: " + hash);
 
             //update the db with the new password
             User.findOneAndUpdate(
-              {email : req.user.email}, 
-              { $set : {password : hash}}, 
-              function(error, response){
-                if(error){
-                  console.log("something went wrong")
+              { email: req.user.email },
+              { $set: { password: hash } },
+              function (error, response) {
+                if (error) {
+                  console.log("something went wrong");
                 }
               }
-            )
+            );
+          })
+        );
 
-
-
-          })        
-        ) 
-
-        console.log("password updated")
-
-
-      }
-      else{
+        console.log("password updated");
+      } else {
         //if there is error output to user
       }
-
-    }
-    else {
+    } else {
       //if the new passwords don't match, add error msg and output to user
     }
-  })
+  });
 
-  res.redirect("/dashboard/home")
-
-})
-
-
+  res.redirect("/dashboard/home");
+});
 
 //SEND EMAIL FUNCTION
 function sendEmail(newUser) {
@@ -184,7 +172,7 @@ function sendEmail(newUser) {
   console.log(newUser);
 
   let transport = nodemailer.createTransport({
-    host: "smtp.omegu.tech",
+    host: "smtp.wavechat.tech",
     port: 587,
     secure: false, // true for 465, false for other ports
     auth: {
@@ -196,14 +184,14 @@ function sendEmail(newUser) {
 
   // send mail with defined transport object
   const message = {
-    from: '"OmegU" <noreply@omegu.tech>', // Sender address
+    from: '"Wave" <noreply@wavechat.tech>', // Sender address
     to: newUser.email, //this works
     //to: "omegu.team@gmail.com", //uncomment this later     // List of recipients
     subject: "Your Unique Verification Code", // Subject line
     html:
-      "Hi, <br /> <br />Thanks for signing up with OmegU! <br /> Your unique verification code is <strong>" +
+      "Hi, <br /> <br />Thanks for signing up with Wave! <br /> Your unique verification code is <strong>" +
       randomnum +
-      "</strong> <br /><br /> Best, <br /> OmegU Team",
+      "</strong> <br /><br /> Best, <br /> Wave Team",
     //style it later
   };
   transport.sendMail(message, function (err, info) {
@@ -262,7 +250,7 @@ Router.post("/verify", (req, res) => {
               } else {
                 //  console.log("THE CODE IN THE DB IS " + result.code); //the previous code? idk
                 let transport2 = nodemailer.createTransport({
-                  host: "smtp.omegu.tech",
+                  host: "smtp.wavechat.tech",
                   port: 587,
                   secure: false, // true for 465, false for other ports
                   auth: {
@@ -274,14 +262,14 @@ Router.post("/verify", (req, res) => {
 
                 // send mail with defined transport object
                 const message2 = {
-                  from: '"OmegU" <noreply@omegu.tech>', // Sender address
+                  from: '"Wave" <noreply@wavechat.tech>', // Sender address
                   to: result[0].email, //this works
                   //  to: "omegu.team@gmail.com", //uncomment this later     // List of recipients
                   subject: "Your Unique Verification Code", // Subject line
                   html:
-                    "Hi, <br /> <br />Thanks for signing up with OmegU! <br /> Your unique verification code is <strong>" +
+                    "Hi, <br /> <br />Thanks for signing up with Wave! <br /> Your unique verification code is <strong>" +
                     randomnum2 +
-                    "</strong> <br /><br /> Best, <br /> OmegU Team",
+                    "</strong> <br /><br /> Best, <br /> Wave Team",
                   //style it later
                 };
                 transport2.sendMail(message2, function (err, info) {

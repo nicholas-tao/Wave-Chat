@@ -1,22 +1,22 @@
-# OmegU
+# Wave Chat
 
-This repo is for the dashboard/profile/login/landing portion of OmegU. It is automatically deployed on Heroku.
+This repo is for the dashboard/profile/login/landing portion of Wave. It is automatically deployed on Heroku.
 
-OmegU is a web platform that connects incoming first-year university students from the same university. By placing users in one-on-one chats with other students who are either in their program or share common interests, OmegU allows meaningful friendships to be formed, despite the lack of in-person activities associated with one’s first year of university.
+Wave is a web platform that connects incoming first-year university students from the same university. By placing users in one-on-one chats with other students who are either in their program or share common interests, Wave allows meaningful friendships to be formed, despite the lack of in-person activities associated with one’s first year of university.
 
 [Devpost Page](https://devpost.com/software/omegu)
 
 [Demo Video](https://www.youtube.com/watch?v=6X2woerXQD4)
 
-[Live Version](https://www.omegu.tech)
+[Live Version](https://wavechat.tech)
 
 ## Inspiration
 
-As a group of incoming first-year university students, we are excited to meet new people on campus this fall. But surely with the pandemic at full heat, online classes make this impossible. Our first year experience is to be ruined... unless… unless we’re able to innovate. This is why we decided to build OmegU, a social media platform that enables first-year students to meet their classmates and build lasting relationships regardless of global situation.
+As a group of incoming first-year university students, we are excited to meet new people on campus this fall. But surely with the pandemic at full heat, online classes make this impossible. Our first year experience is to be ruined... unless… unless we’re able to innovate. This is why we decided to build Wave, a social media platform that enables first-year students to meet their classmates and build lasting relationships regardless of global situation.
 
 ## What it does
 
-After creating an account with your registered university email (non-university emails are not accepted), you can select your academic program, faculty, and input your interests on the OmegU dashboard. We can then connect you with students from your home school that share similar qualities with you. Once connected, you can video chat and text the other person through the OmegU platform. If you feel uncomfortable with video chat, you can always turn off your video or mute yourself. Our web app tells you if you and the other person are in the same academic program along with any common interests you might share. OmegU also provides icebreakers to give daunting interactions smooth beginnings. Once you’ve finished chatting with your new friend, you can return to the dashboard and start again, allowing you to meet more amazing students in difficult times!
+After creating an account with your registered university email (non-university emails are not accepted), you can select your academic program, faculty, and input your interests on the Wave dashboard. We can then connect you with students from your home school that share similar qualities with you. Once connected, you can video chat and text the other person through the Wave platform. If you feel uncomfortable with video chat, you can always turn off your video or mute yourself. Our web app tells you if you and the other person are in the same academic program along with any common interests you might share. Wave also provides icebreakers to give daunting interactions smooth beginnings. Once you’ve finished chatting with your new friend, you can return to the dashboard and start again, allowing you to meet more amazing students in difficult times!
 
 ## How we built it
 
@@ -42,6 +42,6 @@ All of these accomplishments and milestones made us very proud as a team, as we 
 
 We learned a lot throughout this project. Going into the project, we were not sure about how we would build the application. As we progressed through the stages of the project, we learned about both back and front end development, secure information storage, and application deployment. We also gained valuable experience working with the MEN (MERN minus React) stack, and other technologies such as Passport.js, WebRTC, and Socket.io. We also improved our version control skills as the project went along, and gained first-hand experience of software development life cycles as we built the app.
 
-## What's next for OmegU
+## What's next for Wave
 
 After the completion of this hacktahon, we plan to implement a confirmation feature where an email is sent to the email a user registers with, in order to confirm that it is their email. We are planning on working towards polishing the UI, before marketing the web application for student use.
