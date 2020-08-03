@@ -644,12 +644,12 @@
 
   <%} else if (contentCode == "settings") {%>
 
-  <h2>Settings</h2>
 
   <%- include('./passwordMessages.ejs')%>
 
   <form action="/users/change-password" method="POST">
-    <div style="padding-top: 5vh; width: 5vh; margin: 0 auto;">
+    <div style="padding-top: 5vh; margin: 0 auto;">
+      <h2>Settings</h2>
       <!-- <div class="row"> -->
       <!-- <div class="col" style="width: 50%;"> -->
       <!-- <label class="profileList">Old Password</label>  -->
@@ -659,7 +659,7 @@
         placeHolder="Old Password"
         id="password"
         name="password"
-        style="margin: 2vh; margin-left: -4vh; border: 1px solid grey; border-radius: 4px;"
+        style="border: 1px solid grey; border-radius: 4px; margin: 2vh; width: 50%; max-width: 20vw;"
       />
       <br />
 
@@ -670,7 +670,7 @@
         placeHolder="New Password"
         id="newPassword"
         name="newPassword"
-        style="margin: 2vh; margin-left: -4vh; border: 1px solid grey; border-radius: 4px;"
+        style="border: 1px solid grey; border-radius: 4px; margin: 2vh; max-width: 20vw;"
       />
       <br />
 
@@ -681,14 +681,14 @@
         placeHolder="Confirm New Password"
         id="confirmNewPassword"
         name="confirmNewPassword"
-        style="margin: 2vh; margin-left: -4vh; border: 1px solid grey; border-radius: 4px;"
+        style="border: 1px solid grey; border-radius: 4px; margin: 2vh; max-width: 20vw;"
       />
 
       <!-- </div> -->
       <!-- </div> -->
     </div>
 
-    <button
+    <!-- <button
       type="button"
       class="button saveButton"
       id="cancel"
@@ -696,13 +696,13 @@
       onclick="location.href='/dashboard/home'"
     >
       Cancel
-    </button>
+    </button> -->
 
     <button
       type="submit"
       class="button saveButton"
       id="save-settings"
-      style="margin-left: 0.5vh;"
+      style=" margin: 2vh; width: 50%;"
     >
       Save Changes
     </button>
