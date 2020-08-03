@@ -109,11 +109,17 @@ Router.post("/register", (req, res) => {
 Router.post("/change-password", (req, res) => {
   //get the passwords from the form submitted
 
+  let pass_errors = []
+
   const oldPass = req.body.password;
 
   const newPass1 = req.body.newPassword;
 
   const newPass2 = req.body.confirmNewPassword;
+
+  const name = req.user.name
+
+  const email = req.user.email
 
   console.log(oldPass);
   console.log(newPass1);
@@ -122,19 +128,38 @@ Router.post("/change-password", (req, res) => {
   console.log(req.user.password);
 
   //check if the old password is correct
-  bcrypt.compare(oldPass, req.user.password, function (err, res) {
-    if (err) {
-      //handle error
-    }
-    if (res) {
-      //response if pass match
-      console.log("success");
+  bcrypt.compare(oldPass, req.user.password, function (err, response) {
+    
+    console.log("here")
+  
+    if(err){
+      console.log("Something went wrong")
 
+      pass_errors.push({msg : "Something went wrong"})
+
+      const contentCode = "settings"
+
+      res.render("dashboard", {pass_errors, name, email, contentCode})
+
+    }
+    else if (response) {
+      //response if pass match
       if (newPass1.localeCompare(newPass2) === 0) {
         //hash password and update db
 
-        //if old pass is correct and both new passwords match create the new password
-        bcrypt.genSalt(10, (err, salt) =>
+        if(newPass1.length < 6){
+
+          console.log("password too short")
+
+          pass_errors.push({msg : "Passwords must be at least 6 characters long"})
+
+          const contentCode = "settings"
+  
+          res.render("dashboard", {pass_errors, name, email, contentCode})
+        }
+        else {
+          //if old pass is correct and both new passwords match create the new password
+          bcrypt.genSalt(10, (err, salt) =>
           bcrypt.hash(newPass1, salt, (err, hash) => {
             if (err) {
               console.log("error hit");
@@ -153,18 +178,54 @@ Router.post("/change-password", (req, res) => {
               }
             );
           })
-        );
+          );
+          console.log("password updated");
 
-        console.log("password updated");
+          const pass_success = "Password successfully changed"
+
+          const contentCode = "settings"
+
+          res.render("dashboard", {pass_success, name, email, contentCode})
+
+        }
+
+        
       } else {
         //if there is error output to user
+        console.log("here 2")
+
+        pass_errors.push({msg : "New passwords don't match"})
+
+
+        const contentCode = "settings"
+
+        res.render("dashboard", {pass_errors, name, email, contentCode})
       }
     } else {
       //if the new passwords don't match, add error msg and output to user
+    
+      console.log("here 3")
+
+      pass_errors.push({ msg: "Incorrect password" });
+
+      // req.flash("contentCode", "settings")
+
+      const contentCode = "settings"
+
+      res.render("dashboard", {pass_errors, name, email, contentCode})
+
     }
   });
 
-  res.redirect("/dashboard/home");
+  if(pass_errors.length > 0){
+
+    console.log("here 4")
+   
+    const contentCode = "settings"
+
+    res.render("dashboard", {pass_errors, name, email, contentCode})
+  } 
+
 });
 
 //SEND EMAIL FUNCTION
