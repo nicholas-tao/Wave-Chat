@@ -121,19 +121,11 @@ Router.post("/change-password", (req, res) => {
 
   const email = req.user.email
 
-  console.log(oldPass);
-  console.log(newPass1);
-  console.log(newPass2);
-
-  console.log(req.user.password);
-
   //check if the old password is correct
   bcrypt.compare(oldPass, req.user.password, function (err, response) {
     
-    console.log("here")
   
     if(err){
-      console.log("Something went wrong")
 
       pass_errors.push({msg : "Something went wrong"})
 
@@ -149,7 +141,6 @@ Router.post("/change-password", (req, res) => {
 
         if(newPass1.length < 6){
 
-          console.log("password too short")
 
           pass_errors.push({msg : "Passwords must be at least 6 characters long"})
 
@@ -165,7 +156,6 @@ Router.post("/change-password", (req, res) => {
               console.log("error hit");
             }
 
-            console.log("new pass: " + hash);
 
             //update the db with the new password
             User.findOneAndUpdate(
@@ -192,7 +182,6 @@ Router.post("/change-password", (req, res) => {
         
       } else {
         //if there is error output to user
-        console.log("here 2")
 
         pass_errors.push({msg : "New passwords don't match"})
 
@@ -204,7 +193,6 @@ Router.post("/change-password", (req, res) => {
     } else {
       //if the new passwords don't match, add error msg and output to user
     
-      console.log("here 3")
 
       pass_errors.push({ msg: "Incorrect password" });
 
@@ -219,7 +207,6 @@ Router.post("/change-password", (req, res) => {
 
   if(pass_errors.length > 0){
 
-    console.log("here 4")
    
     const contentCode = "settings"
 
