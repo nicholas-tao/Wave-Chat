@@ -4,7 +4,7 @@ const bcrypt = require("bcryptjs");
 const User = require("../models/User");
 const passport = require("passport");
 const nodemailer = require("nodemailer");
-const { db } = require("../models/User");
+const { db, getMaxListeners } = require("../models/User");
 const Queue = require("../models/Queue");
 const QueueModule = require("../QueueModule");
 
@@ -172,20 +172,19 @@ function sendEmail(newUser) {
   console.log(newUser);
 
   let transport = nodemailer.createTransport({
-    host: "smtp.wavechat.tech",
+    service: 'gmail',
     port: 587,
     secure: false, // true for 465, false for other ports
     auth: {
       user: process.env.EMAIL,
       pass: process.env.EMAIL_PW,
     },
-    ignoreTLS: true,
   });
 
   // send mail with defined transport object
   const message = {
-    from: '"Wave" <noreply@wavechat.tech>', // Sender address
-    to: newUser.email, //this works
+    from: '"Wave" <wavechat.team@gmail.com>', // Sender address
+    to: 'adamwlam26@gmail.com', //this works
     subject: "Your Unique Verification Code", // Subject line
     html:
       "Hi, <br /> <br />Thanks for signing up with Wave! <br /> Your unique verification code is <strong>" +
@@ -249,7 +248,7 @@ Router.post("/verify", (req, res) => {
               } else {
                 //  console.log("THE CODE IN THE DB IS " + result.code); //the previous code? idk
                 let transport2 = nodemailer.createTransport({
-                  host: "smtp.wavechat.tech",
+                  service: "gmail",
                   port: 587,
                   secure: false, // true for 465, false for other ports
                   auth: {
@@ -261,7 +260,7 @@ Router.post("/verify", (req, res) => {
 
                 // send mail with defined transport object
                 const message2 = {
-                  from: '"Wave" <noreply@wavechat.tech>', // Sender address
+                  from: '"Wave" <wavechat.team@gmail.com>', // Sender address
                   to: result[0].email, //this works
                   subject: "Your Unique Verification Code", // Subject line
                   html:
