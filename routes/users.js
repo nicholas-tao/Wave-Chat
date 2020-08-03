@@ -266,7 +266,7 @@ Router.post("/verify", (req, res) => {
                 console.log(err);
               } else {
                 //  console.log("THE CODE IN THE DB IS " + result.code); //the previous code? idk
-                /*
+                
                 const oauth2Client = new OAuth2(
                   process.env.CLIENT_ID, // ClientID
                   process.env.CLIENT_SECRET, // Client Secret
@@ -309,7 +309,7 @@ Router.post("/verify", (req, res) => {
                     console.log(info);
                   }
                 });
-                */
+              
                 res.redirect("/users/verify");
               }
             }
