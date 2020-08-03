@@ -266,15 +266,16 @@ Router.post("/verify", (req, res) => {
                 console.log(err);
               } else {
                 //  console.log("THE CODE IN THE DB IS " + result.code); //the previous code? idk
-                let transport2 = nodemailer.createTransport({
+                const transport2 = nodemailer.createTransport({
                   service: "gmail",
-                  port: 587,
-                  secure: false, // true for 465, false for other ports
                   auth: {
-                    user: process.env.EMAIL, //put this in a .env file
-                    pass: process.env.EMAIL_PW,
-                  },
-                  ignoreTLS: true,
+                       type: "OAuth2",
+                       user: "wavechat.team@gmail.com", 
+                       clientId: process.env.CLIENT_ID,
+                       clientSecret: process.env.CLIENT_SECRET,
+                       refreshToken: process.env.REFRESH_TOKEN,
+                       accessToken: accessToken
+                  }
                 });
 
                 // send mail with defined transport object
