@@ -3,10 +3,13 @@ const Router = express.Router();
 const bcrypt = require("bcryptjs");
 const User = require("../models/User");
 const passport = require("passport");
-const nodemailer = require("nodemailer");
 const { db, getMaxListeners } = require("../models/User");
 const Queue = require("../models/Queue");
 const QueueModule = require("../QueueModule");
+
+const nodemailer = require("nodemailer");
+const { google } = require("googleapis");
+const OAuth2 = google.auth.OAuth2;
 
 require("dotenv").config();
 
@@ -170,21 +173,36 @@ function sendEmail(newUser) {
   newUser.code = randomnum;
 
   console.log(newUser);
+  
+    const oauth2Client = new OAuth2(
+    process.env.CLIENT_ID, // ClientID
+    process.env.CLIENT_SECRET, // Client Secret
+     "https://developers.google.com/oauthplayground" // Redirect URL
+);
 
-  let transport = nodemailer.createTransport({
-    service: 'gmail',
-    port: 587,
-    secure: false, // true for 465, false for other ports
-    auth: {
-      user: process.env.EMAIL,
-      pass: process.env.EMAIL_PW,
-    },
-  });
+
+oauth2Client.setCredentials({
+  refresh_token: process.env.REFRESH_TOKEN
+});
+
+const accessToken = oauth2Client.getAccessToken()
+
+  const transport = nodemailer.createTransport({
+  service: "gmail",
+  auth: {
+       type: "OAuth2",
+       user: "wavechat.team@gmail.com", 
+       clientId: process.env.CLIENT_ID,
+       clientSecret: process.env.CLIENT_SECRET,
+       refreshToken: process.env.REFRESH_TOKEN,
+       accessToken: accessToken
+  }
+});
 
   // send mail with defined transport object
-  const message = {
+    const message = {
     from: '"Wave" <wavechat.team@gmail.com>', // Sender address
-    to: 'adamwlam26@gmail.com', //this works
+    to: newUser.email, //this works
     subject: "Your Unique Verification Code", // Subject line
     html:
       "Hi, <br /> <br />Thanks for signing up with Wave! <br /> Your unique verification code is <strong>" +
@@ -192,6 +210,7 @@ function sendEmail(newUser) {
       "</strong> <br /><br /> Best, <br /> Wave Team",
     //style it later
   };
+  
   transport.sendMail(message, function (err, info) {
     if (err) {
       console.log(err);
