@@ -266,6 +266,18 @@ Router.post("/verify", (req, res) => {
                 console.log(err);
               } else {
                 //  console.log("THE CODE IN THE DB IS " + result.code); //the previous code? idk
+                const oauth2Client = new OAuth2(
+                  process.env.CLIENT_ID, // ClientID
+                  process.env.CLIENT_SECRET, // Client Secret
+                   "https://developers.google.com/oauthplayground" // Redirect URL
+              );
+              
+              
+              oauth2Client.setCredentials({
+                refresh_token: process.env.REFRESH_TOKEN
+              });
+              
+              const accessToken = oauth2Client.getAccessToken()
                 const transport2 = nodemailer.createTransport({
                   service: "gmail",
                   auth: {
