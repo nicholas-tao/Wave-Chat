@@ -6,7 +6,7 @@ Wave is a web platform that connects incoming first-year university students fro
 
 [Devpost Page](https://devpost.com/software/omegu)
 
-[Demo Video](https://www.youtube.com/watch?v=6X2woerXQD4)
+[Demo Video](https://www.youtube.com/watch?v=Wwi3Ttgv2vc)
 
 [Live Version](https://wavechat.tech)
 
