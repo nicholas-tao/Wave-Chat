@@ -289,7 +289,7 @@ Router.post("/verify", (req, res) => {
                        refreshToken: process.env.REFRESH_TOKEN,
                        accessToken: accessToken
                   }
-                });
+                }); 
 
                 // send mail with defined transport object
                 const message2 = {
