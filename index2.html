@@ -144,5 +144,20 @@
                ></video>
          </div>
       </div>
+
+      <script>
+         window.addEventListener("beforeunload", function (e) {
+           e.preventDefault();
+           e.returnValue = "";
+     
+           const rawResponse = fetch("/users/closeTab", {
+             method: "GET",
+             headers: {
+               Accept: "application/json",
+             },
+           });
+         });
+       </script>
+
    </body>
 </html>
