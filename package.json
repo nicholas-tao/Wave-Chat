@@ -13,6 +13,7 @@
   "license": "ISC",
   "dependencies": {
     "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.0",
     "connect-flash": "^0.1.1",
     "cookieparser": "^0.1.0",
     "domino": "^2.1.5",
@@ -22,6 +23,7 @@
     "express-ejs-layouts": "^2.5.0",
     "express-session": "^1.17.1",
     "fs": "0.0.1-security",
+    "googleapis": "^58.0.0",
     "heroku-ssl-redirect": "0.0.4",
     "mongoose": "^5.9.19",
     "nodemailer": "^6.4.10",
@@ -29,11 +31,9 @@
     "opn": "^6.0.0",
     "passport": "^0.4.1",
     "passport-local": "^1.0.0",
-    "xmlhttprequest": "^1.8.0",
-    "googleapis": "^58.0.0",
-    "body-parser": "^1.19.0",
     "serve-favicon": "^2.5.0",
-    "socket.io": "^2.3.0"
+    "socket.io": "^2.3.0",
+    "xmlhttprequest": "^1.8.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.4"

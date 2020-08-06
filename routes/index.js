@@ -2,21 +2,10 @@ const express = require("express");
 const Router = express.Router();
 const { ensureAuthenticated } = require("../config/auth");
 const User = require("../models/User");
-const Queue = require("../models/Queue");
-const Room = require("../models/Room");
 const QueueModule = require("../QueueModule");
-var opn = require("opn");
 
 Router.get("/", (req, res) => {
   res.render("welcome");
-});
-
-var path = require("path");
-var appDir = path.dirname(require.main.filename);
-
-Router.get("/chat", (req, res) => {
-  //res.sendFile("index2.html", { root: __dirname });
-  res.sendFile("index2.html", { root: appDir });
 });
 
 Router.get(

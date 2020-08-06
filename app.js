@@ -1,4 +1,5 @@
 var sslRedirect = require("heroku-ssl-redirect");
+
 const express = require("express");
 const expressLayouts = require("express-ejs-layouts");
 const mongoose = require("mongoose");
@@ -6,20 +7,20 @@ const flash = require("connect-flash");
 const session = require("express-session");
 const passport = require("passport");
 const app = express();
+
 var server = require("http").createServer(app);
 var io = require("socket.io").listen(server);
+
 let stream = require("./ws/stream");
 let path = require("path");
+
 let favicon = require("serve-favicon");
 var bodyParser = require("body-parser");
+
 const Queue = require("./models/Queue");
 const Room = require("./models/Room");
-const { update } = require("./models/Queue");
 const QueueModule = require("./QueueModule");
 const roomModule = require("./roomModule");
-
-// create application/json parser
-var jsonParser = bodyParser.json();
 
 // create application/x-www-form-urlencoded parser
 var urlencodedParser = bodyParser.urlencoded({ extended: false });
@@ -56,8 +57,10 @@ app.use(express.urlencoded({ extended: false }));
 
 app.use(express.static("dashboard-styling"));
 
-app.use(favicon(path.join(__dirname, "favicon2.png")));
-app.use("/assets", express.static(path.join(__dirname, "assets"))); //telling it to use the other files in the repo
+var appDir = path.dirname(require.main.filename);
+
+app.use(favicon(path.join(appDir, "favicon2.png")));
+app.use("/assets", express.static(path.join(appDir, "assets"))); //telling it to use the other files in the repo
 
 //////////////////////////////////////////////////////////
 app.use(
@@ -87,11 +90,12 @@ app.use((req, res, next) => {
 app.use("/", require("./routes/index"));
 app.use("/users", require("./routes/users"));
 
-io.of("/stream").on("connection", stream);
-
-app.get("/?room", (req, res) => {
-  res.sendFile("index2.html", { root: __dirname });
+app.get("/chat", (req, res) => {
+  //res.sendFile("index2.html", { root: __dirname });
+  res.sendFile("index2.html", { root: appDir });
 });
+
+io.of("/stream").on("connection", stream);
 
 app.post("/get-info", urlencodedParser, async (req, res) => {
   console.log("Request :", req.headers.referer); //req.headers.referer gives us link of user's room
