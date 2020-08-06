@@ -30,7 +30,7 @@ var Queue = (module.exports = {
         case "waterloo":
             uList = this.uwList;
             break;
-        case "uoftList":
+        case "toronto":
             uList = this.uoftList;
             break;
         case "mcmaster":
