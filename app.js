@@ -22,7 +22,7 @@ var bodyParser = require("body-parser");
 const Queue = require("./models/Queue");
 const Room = require("./models/Room");
 const QueueModule = require("./QueueModule");
-const roomModule = require("./roomModule");
+const roomDocList = require("./roomModule").roomDocList;
 
 // create application/x-www-form-urlencoded parser
 var urlencodedParser = bodyParser.urlencoded({ extended: false });
@@ -95,90 +95,59 @@ app.use("/", require("./routes/index"));
 app.use("/users", require("./routes/users"));
 
 app.get("/chat", (req, res) => {
-  //res.sendFile("index2.html", { root: __dirname });
+
   res.sendFile("index2.html", { root: appDir });
+
 });
 
 io.of("/stream").on("connection", stream);
 
 app.post("/get-info", urlencodedParser, async (req, res) => {
-  console.log("Request :", req.headers.referer); //req.headers.referer gives us link of user's room
-  //const currRoomId = "vAN2Q2g0T2xsF97g";
+
+  //////////////////////GET ROOMID/////////////////////////////////////////////////
+  console.log("Request :", req.headers.referer);
   const roomURL = req.headers.referer;
-
-  //gets the roomID by making a substring of the part of the URL that starts after "="
   const currRoomId = roomURL.substring(roomURL.indexOf("=") + 1);
-
   console.log("roomID: ", currRoomId);
-  await Room.findOne({ roomId: currRoomId }, function (err, obj) {
-    if (err) console.log(err);
-    console.log("response from db: " + obj);
-    res.status(200).json(obj); //send
-  });
+  
+  /////////////////////GET ROOM DOCUMENT///////////////////////////////////////////
+  currRoomDocIndex = await roomDocList.findIndex((room) =>  room.roomId == currRoomId);
+  console.log(currRoomDocIndex)
+  currRoomDoc = roomDocList[currRoomDocIndex]
+
+  if(currRoomDoc) {
+
+    //DELETE PROCEDURES
+    roomDocList[currRoomDocIndex].count++;
+    if(roomDocList[currRoomDocIndex].count >= 2) {
+      await roomDocList.splice(currRoomDocIndex, 1);  
+    }
+
+  }
+
+  else {
+
+    await Room.findOne({ roomId: currRoomId }, function (err, obj) {
+      if (err) console.log(err);
+      currRoomDoc = obj;
+    });
+    
+  }
+  
+  res.status(200).json(currRoomDoc)
+
 });
 
 app.post("/delete-room", urlencodedParser, async (req, res) => {
-  const roomURL = req.headers.referer;
-
-  const currRoomId = roomURL.substring(roomURL.indexOf("=") + 1);
-
-  console.log("Room id: " + currRoomId);
-
-  console.log("trying to delete room");
-
-  await Room.findOneAndDelete({ roomId: currRoomId }, (err) => {
-    if (err) {
-      console.log(err);
-    }
-  });
 
   res.status(200);
+
 });
 /*
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, console.log(`Server started on port ${PORT}`));
 */
-matchFunction = function (newUser) {
-  if (this.uList.length > 1) {
-    const matchedUser = this.uList[0];
-    this.uList.splice(0, 1); //simultaneously remove matchedUser from the array and store matchedUser in matchedUser.
-    const i = this.uList.indexOf(newUser);
-    this.uList.splice(i, 1);
-    /*
-    //intersect interest arrays
-    const commonInterests = intersect(
-    newUser.interests,
-    matchedUser.interests
-    );
-  */
-
-    //generate roomid and room
-    const roomID = generateRoomID(16);
-    const newRoom = new Room({
-      name1: newUser.name,
-      name2: matchedUser.name,
-      email1: newUser.email,
-      email2: matchedUser.email,
-      program1: newUser.program,
-      program2: matchedUser.program,
-      interests1: newUser.interests,
-      interests2: matchedUser.interests,
-      //commonInterests: commonInterests,
-      roomId: roomID,
-    });
-    const roomDoc = new roomModule.roomDoc(newRoom);
-
-    //append newRoom to room collection
-    newRoom.save((err) => {
-      if (err) {
-        console.log(err);
-      }
-    });
-  }
-};
-
-QueueModule.registerOnAdd(matchFunction);
 
 //////////////////////////////////////////////////////////
 
@@ -387,17 +356,6 @@ async function match() {
 
     docNum = await Queue.countDocuments({});
   }
-}
-
-function generateRoomID(length) {
-  var result = "";
-  var characters =
-    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-  var charactersLength = characters.length;
-  for (var i = 0; i < length; i++) {
-    result += characters.charAt(Math.floor(Math.random() * charactersLength));
-  }
-  return result;
 }
 
 function intersect(a, b) {
