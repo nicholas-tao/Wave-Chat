@@ -58,9 +58,7 @@ function startBtnClicked() {
           if (d.roomLink) {
             clearInterval(periodicPing);
             audio.play();
-            window.location.replace(
-              "https://chat.wavechat.tech/?room=" + d.roomLink
-            );
+            window.location.replace("/?room=" + d.roomLink);
           }
         });
     }, 1000);

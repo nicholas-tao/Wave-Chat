@@ -6,13 +6,31 @@ const flash = require("connect-flash");
 const session = require("express-session");
 const passport = require("passport");
 const app = express();
+var server = require("http").createServer(app);
+var io = require("socket.io").listen(server);
+let stream = require("./ws/stream");
+let path = require("path");
+let favicon = require("serve-favicon");
+var bodyParser = require("body-parser");
 const Queue = require("./models/Queue");
 const Room = require("./models/Room");
 const { update } = require("./models/Queue");
 const QueueModule = require("./QueueModule");
 const roomModule = require("./roomModule");
 
+// create application/json parser
+var jsonParser = bodyParser.json();
+
+// create application/x-www-form-urlencoded parser
+var urlencodedParser = bodyParser.urlencoded({ extended: false });
+
 app.use(sslRedirect());
+
+app.use(
+  bodyParser.urlencoded({
+    extended: true,
+  })
+);
 
 //If you ever want to delete all the rooms or users:
 //Room.deleteMany({}, function (err) {});
@@ -38,6 +56,9 @@ app.use(express.urlencoded({ extended: false }));
 
 app.use(express.static("dashboard-styling"));
 
+app.use(favicon(path.join(__dirname, "favicon2.png")));
+app.use("/assets", express.static(path.join(__dirname, "assets"))); //telling it to use the other files in the repo
+
 //////////////////////////////////////////////////////////
 app.use(
   session({
@@ -57,7 +78,7 @@ app.use((req, res, next) => {
   res.locals.error = req.flash("error");
   res.locals.contentCode = req.flash("contentCode");
   // res.locals.pass_errors = req.flash("pass_errors")
-  res.locals.pass_success = req.flash("pass_success")
+  res.locals.pass_success = req.flash("pass_success");
   next();
 });
 //////////////////////////////////////////////////////////
@@ -65,6 +86,46 @@ app.use((req, res, next) => {
 //Routes
 app.use("/", require("./routes/index"));
 app.use("/users", require("./routes/users"));
+
+io.of("/stream").on("connection", stream);
+
+app.get("/?room", (req, res) => {
+  res.sendFile("index2.html", { root: __dirname });
+});
+
+app.post("/get-info", urlencodedParser, async (req, res) => {
+  console.log("Request :", req.headers.referer); //req.headers.referer gives us link of user's room
+  //const currRoomId = "vAN2Q2g0T2xsF97g";
+  const roomURL = req.headers.referer;
+
+  //gets the roomID by making a substring of the part of the URL that starts after "="
+  const currRoomId = roomURL.substring(roomURL.indexOf("=") + 1);
+
+  console.log("roomID: ", currRoomId);
+  await Room.findOne({ roomId: currRoomId }, function (err, obj) {
+    if (err) console.log(err);
+    console.log("response from db: " + obj);
+    res.status(200).json(obj); //send
+  });
+});
+
+app.post("/delete-room", urlencodedParser, async (req, res) => {
+  const roomURL = req.headers.referer;
+
+  const currRoomId = roomURL.substring(roomURL.indexOf("=") + 1);
+
+  console.log("Room id: " + currRoomId);
+
+  console.log("trying to delete room");
+
+  await Room.findOneAndDelete({ roomId: currRoomId }, (err) => {
+    if (err) {
+      console.log(err);
+    }
+  });
+
+  res.status(200);
+});
 
 const PORT = process.env.PORT || 5000;
 
