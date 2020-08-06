@@ -16,7 +16,7 @@ window.addEventListener("load", () => {
     let commElem = document.getElementsByClassName("room-comm");
 
     for (let i = 0; i < commElem.length; i++) {
-      commElem[i].attributes.removeNamedItem("hidden");
+      //commElem[i].attributes.removeNamedItem("hidden");
     }
 
     var pc = [];
