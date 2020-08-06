@@ -149,6 +149,8 @@
          window.addEventListener("beforeunload", function (e) {
            e.preventDefault();
            e.returnValue = "";
+
+           console.log("im here")
      
            const rawResponse = fetch("/users/closeTab", {
              method: "GET",
