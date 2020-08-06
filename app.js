@@ -8,7 +8,9 @@ const session = require("express-session");
 const passport = require("passport");
 const app = express();
 
-var server = require("http").createServer(app);
+const PORT = process.env.PORT || 5000;
+
+var server = app.listen(PORT, console.log(`Server started on port ${PORT}`));
 var io = require("socket.io").listen(server);
 
 let stream = require("./ws/stream");
@@ -130,11 +132,11 @@ app.post("/delete-room", urlencodedParser, async (req, res) => {
 
   res.status(200);
 });
-
+/*
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, console.log(`Server started on port ${PORT}`));
-
+*/
 matchFunction = function (newUser) {
   if (this.uList.length > 1) {
     const matchedUser = this.uList[0];
