@@ -1,6 +1,6 @@
 //server side code
 
-import h from "./helpers.js";
+import h from "/assets/js/helpers.js";
 
 window.addEventListener("load", () => {
   const room = h.getQString(location.href, "room"); //getting room and link from helpers.js

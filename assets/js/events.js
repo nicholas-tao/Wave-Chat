@@ -1,4 +1,4 @@
-import helpers from "./helpers.js";
+import helpers from "/assets/js/helpers.js";
 
 window.addEventListener("load", () => {
   const currentURL = window.location.href;
