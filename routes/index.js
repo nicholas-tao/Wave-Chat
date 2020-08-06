@@ -2,10 +2,7 @@ const express = require("express");
 const Router = express.Router();
 const { ensureAuthenticated } = require("../config/auth");
 const User = require("../models/User");
-const Queue = require("../models/Queue");
-const Room = require("../models/Room");
 const QueueModule = require("../QueueModule");
-var opn = require("opn");
 
 Router.get("/", (req, res) => {
   res.render("welcome");
@@ -201,36 +198,31 @@ Router.get("/dashboard/load/profile", ensureAuthenticated, (req, res) => {
 //START CHATTING
 
 Router.get("/dashboard/start", ensureAuthenticated, (req, res) => {
-  
-  if(!QueueModule.uList.includes(req.user)) {
-    
+  if (!QueueModule.uList.includes(req.user)) {
     QueueModule.addUser(req.user);
-    res.status(200).json({added: true})
-
-  }
-  else {
-
-    res.status(200).json({added: false})
-
+    res.status(200).json({ added: true });
+  } else {
+    res.status(200).json({ added: false });
   }
 });
 
-const roomModule = require('../roomModule')
+const roomModule = require("../roomModule");
 Router.get("/dashboard/ping", ensureAuthenticated, async (req, res) => {
+  const roomDocIndex = roomModule.roomDocList.findIndex(
+    (roomDoc) =>
+      roomDoc.room.email1 == req.user.email ||
+      roomDoc.room.email2 == req.user.email
+  );
 
-  const roomDocIndex = roomModule.roomDocList.findIndex(roomDoc => roomDoc.room.email1 == req.user.email || roomDoc.room.email2 == req.user.email);
-
-  if(roomDocIndex >= 0) {
-
-    res.status(200).json({roomLink: roomModule.roomDocList[roomDocIndex].room.roomId});
-    roomModule.roomDocList[roomDocIndex].count = roomModule.roomDocList[roomDocIndex].count + 1;
-    
+  if (roomDocIndex >= 0) {
+    res
+      .status(200)
+      .json({ roomLink: roomModule.roomDocList[roomDocIndex].room.roomId });
+    roomModule.roomDocList[roomDocIndex].count =
+      roomModule.roomDocList[roomDocIndex].count + 1;
+  } else {
+    res.status(200).json({ roomLink: null });
   }
-
-  else {
-    res.status(200).json({roomLink: null})
-  }
-
-})
+});
 
 module.exports = Router;
