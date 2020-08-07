@@ -49,6 +49,9 @@ window.addEventListener("load", () => {
       socket.on("new user", (data) => {
         //called from client side js
         socket.emit("newUserStart", { to: data.socketId, sender: socketId });
+        console.log("logged on");
+        let enter = "Other user has entered the chat."
+        h.addChat(enter, "notify")
         pc.push(data.socketId);
         init(true, data.socketId);
       });

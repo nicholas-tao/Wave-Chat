@@ -128,29 +128,61 @@ export default {
 
       this.toggleChatNotificationBadge();
     }
+    if(senderType === "notify"){
+      console.log(data)
+      let msgBd = "bgd-blue"
+      let infoDiv = document.createElement("div");
+        infoDiv.className = "sender-info";
+        //infoDiv.innerHTML = `${senderName} - ${moment().format("h:mm a")}`; //time sent is just the time of day in am or pm
+        infoDiv.innerHTML = `${moment().format("h:mm a")}`; //same as line above but don't include senderName
 
-    let infoDiv = document.createElement("div");
-    infoDiv.className = "sender-info";
-    //infoDiv.innerHTML = `${senderName} - ${moment().format("h:mm a")}`; //time sent is just the time of day in am or pm
-    infoDiv.innerHTML = `${moment().format("h:mm a")}`; //same as line above but don't include senderName
+        let colDiv = document.createElement("div");
+        colDiv.className = `col-12 card chat-card msg ${msgBd}`;
 
-    let colDiv = document.createElement("div");
-    colDiv.className = `col-7 card chat-card msg ${msgBg}`;
-    colDiv.innerHTML = xssFilters
-      .inHTMLData(data.msg)
-      .autoLink({ target: "_blank", rel: "nofollow" });
+        colDiv.innerHTML = xssFilters
+          .inHTMLData(data)
+          .autoLink({ target: "_blank", rel: "nofollow" })
+        
+        let rowDiv = document.createElement("div");
+        rowDiv.className = `row ${contentAlign} mb-2`;
 
-    let rowDiv = document.createElement("div");
-    rowDiv.className = `row ${contentAlign} mb-2`;
+        colDiv.appendChild(infoDiv);
+        rowDiv.appendChild(colDiv);
 
-    colDiv.appendChild(infoDiv);
-    rowDiv.appendChild(colDiv);
-
-    chatMsgDiv.appendChild(rowDiv);
-
-    if (this.pageHasFocus) {
-      rowDiv.scrollIntoView();
+        chatMsgDiv.appendChild(rowDiv);
+        
+        if (this.pageHasFocus) {
+          rowDiv.scrollIntoView();
+        }
     }
+
+
+    else{
+
+        let infoDiv = document.createElement("div");
+        infoDiv.className = "sender-info";
+        //infoDiv.innerHTML = `${senderName} - ${moment().format("h:mm a")}`; //time sent is just the time of day in am or pm
+        infoDiv.innerHTML = `${moment().format("h:mm a")}`; //same as line above but don't include senderName
+
+        let colDiv = document.createElement("div");
+        colDiv.className = `col-7 card chat-card msg ${msgBg}`;
+        colDiv.innerHTML = xssFilters
+          .inHTMLData(data.msg)
+          .autoLink({ target: "_blank", rel: "nofollow" });
+
+        let rowDiv = document.createElement("div");
+        rowDiv.className = `row ${contentAlign} mb-2`;
+
+        colDiv.appendChild(infoDiv);
+        rowDiv.appendChild(colDiv);
+
+        chatMsgDiv.appendChild(rowDiv);
+        
+        if (this.pageHasFocus) {
+          rowDiv.scrollIntoView();
+        }
+    }
+    
   },
 
   toggleChatNotificationBadge() {

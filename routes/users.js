@@ -435,32 +435,14 @@ Router.post("/login", (req, res, next) => {
 });
 
 Router.get("/leaveQueue", (req, res) => {
-  /*
-  Queue.deleteOne({ email: req.user.email }, function (err, result) {
-    if (err) {
-      console.log(err);
-    } else {
-      //console.log(result);
-    }
-  });
-  */
-  //console.log("req.user: ", req.user);
 
   QueueModule.delUser(req.user);
-  console.log("made it here");
   res.sendStatus(200);
+
 });
 
 Router.get("/closeTab", (req, res) => {
-  /*
-  Queue.deleteOne({ email: req.user.email }, function (err, result) {
-    if (err) {
-      console.log(err);
-    } else {
-      //console.log(result);
-    }
-  });
-  */
+
   QueueModule.delUser(req.user);
 
   User.findOneAndUpdate(

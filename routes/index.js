@@ -198,31 +198,32 @@ Router.get("/dashboard/load/profile", ensureAuthenticated, (req, res) => {
 //START CHATTING
 
 Router.get("/dashboard/start", ensureAuthenticated, (req, res) => {
-  if (!QueueModule.uList.includes(req.user)) {
-    QueueModule.addUser(req.user);
-    res.status(200).json({ added: true });
-  } else {
-    res.status(200).json({ added: false });
-  }
+
+  wasAdded = QueueModule.addUser(req.user)
+  res.status(200).json({ added: wasAdded })
+
 });
 
-const roomModule = require("../roomModule");
-Router.get("/dashboard/ping", ensureAuthenticated, async (req, res) => {
-  const roomDocIndex = roomModule.roomDocList.findIndex(
-    (roomDoc) =>
-      roomDoc.room.email1 == req.user.email ||
-      roomDoc.room.email2 == req.user.email
-  );
+const roomDocList = require("../roomModule").roomDocList;
 
-  if (roomDocIndex >= 0) {
+Router.get("/dashboard/ping", ensureAuthenticated, async (req, res) => {
+
+  const roomDoc = roomDocList.find((roomDoc) => roomDoc.email1 == req.user.email || roomDoc.email2 == req.user.email);
+
+  if (roomDoc) {
+
     res
       .status(200)
-      .json({ roomLink: roomModule.roomDocList[roomDocIndex].room.roomId });
-    roomModule.roomDocList[roomDocIndex].count =
-      roomModule.roomDocList[roomDocIndex].count + 1;
-  } else {
+      .json({ roomLink: roomDoc.roomId });
+    
+  } 
+  
+  else {
+
     res.status(200).json({ roomLink: null });
+
   }
+
 });
 
 module.exports = Router;

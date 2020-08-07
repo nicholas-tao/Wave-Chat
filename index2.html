@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html>
    <head>
       <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -144,5 +144,20 @@
                ></video>
          </div>
       </div>
+
+      <script>
+         window.addEventListener("beforeunload", function (e) {
+           e.preventDefault();
+           e.returnValue = "";
+     
+           const rawResponse = fetch("/users/closeTab", {
+             method: "GET",
+             headers: {
+               Accept: "application/json",
+             },
+           });
+         });
+       </script>
+
    </body>
 </html>

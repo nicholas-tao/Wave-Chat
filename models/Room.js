@@ -51,6 +51,11 @@ const RoomSchema = new mongoose.Schema({
       expires: "60m",
     },
   },
+
+  count: {
+    type: Number,
+    default: 0
+  }
   /*
   createdAt: {
     type: Date,
