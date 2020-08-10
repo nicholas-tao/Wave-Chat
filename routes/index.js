@@ -52,6 +52,9 @@ Router.get(
           req.user.program.localeCompare("No Program Entered") === 0 ||
           req.user.program.localeCompare("--Select a Program--") === 0
         ) {
+          if (req.user.university.localeCompare("waterloo") === 0) {
+            req.user.university = "University of Waterloo";
+          }
           console.log("no program selected");
           req.flash("contentCode", "no-program");
 
@@ -59,12 +62,17 @@ Router.get(
             contentCode: req.flash("contentCode"),
             name: req.user.name,
             email: req.user.email,
+            university: req.user.university,
             onlineCount: count,
           });
         } else {
+          if (req.user.university.localeCompare("waterloo") === 0) {
+            req.user.university = "University of Waterloo";
+          }
           res.render("dashboard", {
             name: req.user.name,
             email: req.user.email,
+            university: req.user.university,
             onlineCount: count,
           });
         }
@@ -186,10 +194,14 @@ Router.get("/dashboard/load", ensureAuthenticated, (req, res) => {
 
 //LOAD PROFILE DATA FROM DB
 Router.get("/dashboard/load/profile", ensureAuthenticated, (req, res) => {
+  if (req.user.university.localeCompare("waterloo") === 0) {
+    req.user.university = "University of Waterloo";
+  }
   var data = {
     faculty: req.user.faculty,
     program: req.user.program,
     year: req.user.gradYear,
+    university: req.user.university,
   };
 
   res.send(JSON.stringify(data));
@@ -198,32 +210,23 @@ Router.get("/dashboard/load/profile", ensureAuthenticated, (req, res) => {
 //START CHATTING
 
 Router.get("/dashboard/start", ensureAuthenticated, (req, res) => {
-
-  wasAdded = QueueModule.addUser(req.user)
-  res.status(200).json({ added: wasAdded })
-
+  wasAdded = QueueModule.addUser(req.user);
+  res.status(200).json({ added: wasAdded });
 });
 
 const roomDocList = require("../roomModule").roomDocList;
 
 Router.get("/dashboard/ping", ensureAuthenticated, async (req, res) => {
-
-  const roomDoc = roomDocList.find((roomDoc) => roomDoc.email1 == req.user.email || roomDoc.email2 == req.user.email);
+  const roomDoc = roomDocList.find(
+    (roomDoc) =>
+      roomDoc.email1 == req.user.email || roomDoc.email2 == req.user.email
+  );
 
   if (roomDoc) {
-
-    res
-      .status(200)
-      .json({ roomLink: roomDoc.roomId });
-    
-  } 
-  
-  else {
-
+    res.status(200).json({ roomLink: roomDoc.roomId });
+  } else {
     res.status(200).json({ roomLink: null });
-
   }
-
 });
 
 module.exports = Router;

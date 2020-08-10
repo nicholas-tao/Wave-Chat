@@ -109,7 +109,7 @@ Router.post("/register", (req, res) => {
 Router.post("/change-password", (req, res) => {
   //get the passwords from the form submitted
 
-  let pass_errors = []
+  let pass_errors = [];
 
   const oldPass = req.body.password;
 
@@ -117,102 +117,86 @@ Router.post("/change-password", (req, res) => {
 
   const newPass2 = req.body.confirmNewPassword;
 
-  const name = req.user.name
+  const name = req.user.name;
 
-  const email = req.user.email
+  const email = req.user.email;
 
   //check if the old password is correct
   bcrypt.compare(oldPass, req.user.password, function (err, response) {
-    
-  
-    if(err){
+    if (err) {
+      pass_errors.push({ msg: "Something went wrong" });
 
-      pass_errors.push({msg : "Something went wrong"})
+      const contentCode = "settings";
 
-      const contentCode = "settings"
-
-      res.render("dashboard", {pass_errors, name, email, contentCode})
-
-    }
-    else if (response) {
+      res.render("dashboard", { pass_errors, name, email, contentCode });
+    } else if (response) {
       //response if pass match
       if (newPass1.localeCompare(newPass2) === 0) {
         //hash password and update db
 
-        if(newPass1.length < 6){
+        if (newPass1.length < 6) {
+          pass_errors.push({
+            msg: "Passwords must be at least 6 characters long",
+          });
 
+          const contentCode = "settings";
 
-          pass_errors.push({msg : "Passwords must be at least 6 characters long"})
-
-          const contentCode = "settings"
-  
-          res.render("dashboard", {pass_errors, name, email, contentCode})
-        }
-        else {
+          res.render("dashboard", { pass_errors, name, email, contentCode });
+        } else {
           //if old pass is correct and both new passwords match create the new password
           bcrypt.genSalt(10, (err, salt) =>
-          bcrypt.hash(newPass1, salt, (err, hash) => {
-            if (err) {
-              console.log("error hit");
-            }
-
-
-            //update the db with the new password
-            User.findOneAndUpdate(
-              { email: req.user.email },
-              { $set: { password: hash } },
-              function (error, response) {
-                if (error) {
-                  console.log("something went wrong");
-                }
+            bcrypt.hash(newPass1, salt, (err, hash) => {
+              if (err) {
+                console.log("error hit");
               }
-            );
-          })
+
+              //update the db with the new password
+              User.findOneAndUpdate(
+                { email: req.user.email },
+                { $set: { password: hash } },
+                function (error, response) {
+                  if (error) {
+                    console.log("something went wrong");
+                  }
+                }
+              );
+            })
           );
           console.log("password updated");
 
-          const pass_success = "Password successfully changed"
+          const pass_success = "Password successfully changed";
 
-          const contentCode = "settings"
+          const contentCode = "settings";
 
-          res.render("dashboard", {pass_success, name, email, contentCode})
-
+          res.render("dashboard", { pass_success, name, email, contentCode });
         }
-
-        
       } else {
         //if there is error output to user
 
-        pass_errors.push({msg : "New passwords don't match"})
+        pass_errors.push({ msg: "New passwords don't match" });
 
+        const contentCode = "settings";
 
-        const contentCode = "settings"
-
-        res.render("dashboard", {pass_errors, name, email, contentCode})
+        res.render("dashboard", { pass_errors, name, email, contentCode });
       }
     } else {
       //if the new passwords don't match, add error msg and output to user
-    
 
       pass_errors.push({ msg: "Incorrect password" });
 
       // req.flash("contentCode", "settings")
 
-      const contentCode = "settings"
+      const contentCode = "settings";
 
-      res.render("dashboard", {pass_errors, name, email, contentCode})
-
+      res.render("dashboard", { pass_errors, name, email, contentCode });
     }
   });
 
-  if(pass_errors.length > 0){
+  if (pass_errors.length > 0) {
+    const contentCode = "settings";
 
-   
-    const contentCode = "settings"
-
-    res.render("dashboard", {pass_errors, name, email, contentCode})
-  } 
-
+    res.render("dashboard", { pass_errors, name, email, contentCode });
+  }
 });
 
 //SEND EMAIL FUNCTION
@@ -221,34 +205,33 @@ function sendEmail(newUser) {
   newUser.code = randomnum;
 
   console.log(newUser);
-  
-    const oauth2Client = new OAuth2(
+
+  const oauth2Client = new OAuth2(
     process.env.CLIENT_ID, // ClientID
     process.env.CLIENT_SECRET, // Client Secret
-     "https://developers.google.com/oauthplayground" // Redirect URL
-);
+    "https://developers.google.com/oauthplayground" // Redirect URL
+  );
 
+  oauth2Client.setCredentials({
+    refresh_token: process.env.REFRESH_TOKEN,
+  });
 
-oauth2Client.setCredentials({
-  refresh_token: process.env.REFRESH_TOKEN
-});
-
-const accessToken = oauth2Client.getAccessToken()
+  const accessToken = oauth2Client.getAccessToken();
 
   const transport = nodemailer.createTransport({
-  service: "gmail",
-  auth: {
-       type: "OAuth2",
-       user: "wavechat.team@gmail.com", 
-       clientId: process.env.CLIENT_ID,
-       clientSecret: process.env.CLIENT_SECRET,
-       refreshToken: process.env.REFRESH_TOKEN,
-       accessToken: accessToken
-  }
-});
+    service: "gmail",
+    auth: {
+      type: "OAuth2",
+      user: "wavechat.team@gmail.com",
+      clientId: process.env.CLIENT_ID,
+      clientSecret: process.env.CLIENT_SECRET,
+      refreshToken: process.env.REFRESH_TOKEN,
+      accessToken: accessToken,
+    },
+  });
 
   // send mail with defined transport object
-    const message = {
+  const message = {
     from: '"Wave" <wavechat.team@gmail.com>', // Sender address
     to: newUser.email, //this works
     subject: "Your Unique Verification Code", // Subject line
@@ -258,7 +241,7 @@ const accessToken = oauth2Client.getAccessToken()
       "</strong> <br /><br /> Best, <br /> Wave Team",
     //style it later
   };
-  
+
   transport.sendMail(message, function (err, info) {
     if (err) {
       console.log(err);
@@ -314,30 +297,29 @@ Router.post("/verify", (req, res) => {
                 console.log(err);
               } else {
                 //  console.log("THE CODE IN THE DB IS " + result.code); //the previous code? idk
-                
+
                 const oauth2Client = new OAuth2(
                   process.env.CLIENT_ID, // ClientID
                   process.env.CLIENT_SECRET, // Client Secret
-                   "https://developers.google.com/oauthplayground" // Redirect URL
-              );
-              
-              
-              oauth2Client.setCredentials({
-                refresh_token: process.env.REFRESH_TOKEN
-              });
-              
-              const accessToken = oauth2Client.getAccessToken()
+                  "https://developers.google.com/oauthplayground" // Redirect URL
+                );
+
+                oauth2Client.setCredentials({
+                  refresh_token: process.env.REFRESH_TOKEN,
+                });
+
+                const accessToken = oauth2Client.getAccessToken();
                 const transport2 = nodemailer.createTransport({
                   service: "gmail",
                   auth: {
-                       type: "OAuth2",
-                       user: "wavechat.team@gmail.com", 
-                       clientId: process.env.CLIENT_ID,
-                       clientSecret: process.env.CLIENT_SECRET,
-                       refreshToken: process.env.REFRESH_TOKEN,
-                       accessToken: accessToken
-                  }
-                }); 
+                    type: "OAuth2",
+                    user: "wavechat.team@gmail.com",
+                    clientId: process.env.CLIENT_ID,
+                    clientSecret: process.env.CLIENT_SECRET,
+                    refreshToken: process.env.REFRESH_TOKEN,
+                    accessToken: accessToken,
+                  },
+                });
 
                 // send mail with defined transport object
                 const message2 = {
@@ -357,7 +339,7 @@ Router.post("/verify", (req, res) => {
                     console.log(info);
                   }
                 });
-              
+
                 res.redirect("/users/verify");
               }
             }
@@ -435,14 +417,11 @@ Router.post("/login", (req, res, next) => {
 });
 
 Router.get("/leaveQueue", (req, res) => {
-
   QueueModule.delUser(req.user);
   res.sendStatus(200);
-
 });
 
 Router.get("/closeTab", (req, res) => {
-
   QueueModule.delUser(req.user);
 
   User.findOneAndUpdate(

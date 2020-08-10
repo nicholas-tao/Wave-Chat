@@ -5,10 +5,12 @@ function populateDropdowns() {
   var loadFaculty;
   var loadProgram;
   var loadYear;
+  var loadUniversity;
 
   var faculty = document.getElementById("faculty");
   var programs = document.getElementById("program");
   var year = document.getElementById("year");
+  var university = document.getElementById("university");
 
   const rawResponse = fetch("/dashboard/load/profile", {
     method: "GET",
@@ -18,14 +20,16 @@ function populateDropdowns() {
   })
     .then((response) => response.json())
     .then((data) => {
-      //console.log(data);
+      //console.log("data: ", data);
       loadFaculty = data["faculty"];
       loadProgram = data["program"];
       loadYear = data["year"];
+      loadUniversity = data["university"];
       //console.log(loadFaculty);
       //console.log(loadProgram);
       //console.log(loadYear);
       //console.log('hi123456789');
+      //console.log("uni: ", loadUniversity);
       let sfaculty = loadFaculty.toString();
       // faculty.value = sfaculty
 
@@ -33,6 +37,9 @@ function populateDropdowns() {
       // programs.value = sprograms
 
       let syear = loadYear.toString();
+
+      let suniversity = loadUniversity.toString();
+
       // graduatingYear.value = syear
       // programs.options[0] = loadProgram
       // year.options[0] = loadYear
@@ -81,10 +88,10 @@ function populateDropdowns() {
       for (i = 0; i < faculty.options.length; i++) {
         temp = faculty.options[i].value;
 
-        console.log("temp: " + temp);
+        //console.log("temp: " + temp);
 
         if (temp.localeCompare(sfaculty) === 0) {
-          console.log("i made it here 8008");
+          //console.log("i made it here 8008");
           faculty.selectedIndex = i;
           break;
         }
@@ -311,10 +318,10 @@ function populateDropdowns() {
       for (j = 0; j < programs.options.length; j++) {
         temp2 = programs.options[j].value;
 
-        console.log("temp2: " + temp2);
+        //console.log("temp2: " + temp2);
 
         if (temp2.localeCompare(sprograms) === 0) {
-          console.log("i made it here 9009");
+          //console.log("i made it here 9009");
           programs.selectedIndex = j;
           break;
         }
@@ -585,10 +592,10 @@ function populateDropdowns() {
         for (j = 0; j < programs.options.length; j++) {
           temp2 = programs.options[j].value;
 
-          console.log("temp2: " + temp2);
+          //console.log("temp2: " + temp2);
 
           if (temp2.localeCompare(sprograms) === 0) {
-            console.log("i made it here 9009");
+            //  console.log("i made it here 9009");
             programs.selectedIndex = j;
             break;
           }
@@ -613,10 +620,10 @@ function populateDropdowns() {
       for (k = 0; k < year.options.length; k++) {
         temp3 = year.options[k].value;
 
-        console.log("temp2: " + temp3);
+        //console.log("temp2: " + temp3);
 
         if (temp3.localeCompare(syear) === 0) {
-          console.log("i made it here 9009");
+          //console.log("i made it here 9009");
           year.selectedIndex = k;
           break;
         }
