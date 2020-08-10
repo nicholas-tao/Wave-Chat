@@ -52,6 +52,9 @@ Router.get(
           req.user.program.localeCompare("No Program Entered") === 0 ||
           req.user.program.localeCompare("--Select a Program--") === 0
         ) {
+          if (req.user.university.localeCompare("waterloo") === 0) {
+            req.user.university = "University of Waterloo";
+          }
           console.log("no program selected");
           req.flash("contentCode", "no-program");
 
@@ -63,6 +66,9 @@ Router.get(
             onlineCount: count,
           });
         } else {
+          if (req.user.university.localeCompare("waterloo") === 0) {
+            req.user.university = "University of Waterloo";
+          }
           res.render("dashboard", {
             name: req.user.name,
             email: req.user.email,
@@ -188,6 +194,9 @@ Router.get("/dashboard/load", ensureAuthenticated, (req, res) => {
 
 //LOAD PROFILE DATA FROM DB
 Router.get("/dashboard/load/profile", ensureAuthenticated, (req, res) => {
+  if (req.user.university.localeCompare("waterloo") === 0) {
+    req.user.university = "University of Waterloo";
+  }
   var data = {
     faculty: req.user.faculty,
     program: req.user.program,

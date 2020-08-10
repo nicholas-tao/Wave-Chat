@@ -71,7 +71,6 @@ app.use(
     resave: true,
     saveUninitialized: true,
     cookie: { maxAge: 3600000 },
-
   })
 );
 
@@ -95,53 +94,43 @@ app.use("/", require("./routes/index"));
 app.use("/users", require("./routes/users"));
 
 app.get("/chat", (req, res) => {
-
   res.sendFile("index2.html", { root: appDir });
-
 });
 
 io.of("/stream").on("connection", stream);
 
 app.post("/get-info", urlencodedParser, async (req, res) => {
-
   //////////////////////GET ROOMID/////////////////////////////////////////////////
   console.log("Request :", req.headers.referer);
   const roomURL = req.headers.referer;
   const currRoomId = roomURL.substring(roomURL.indexOf("=") + 1);
   console.log("roomID: ", currRoomId);
-  
+
   /////////////////////GET ROOM DOCUMENT///////////////////////////////////////////
-  currRoomDocIndex = await roomDocList.findIndex((room) =>  room.roomId == currRoomId);
-  console.log(currRoomDocIndex)
-  currRoomDoc = roomDocList[currRoomDocIndex]
+  currRoomDocIndex = await roomDocList.findIndex(
+    (room) => room.roomId == currRoomId
+  );
+  console.log(currRoomDocIndex);
+  currRoomDoc = roomDocList[currRoomDocIndex];
 
-  if(currRoomDoc) {
-
+  if (currRoomDoc) {
     //DELETE PROCEDURES
     roomDocList[currRoomDocIndex].count++;
-    if(roomDocList[currRoomDocIndex].count >= 2) {
-      await roomDocList.splice(currRoomDocIndex, 1);  
+    if (roomDocList[currRoomDocIndex].count >= 2) {
+      await roomDocList.splice(currRoomDocIndex, 1);
     }
-
-  }
-
-  else {
-
+  } else {
     await Room.findOne({ roomId: currRoomId }, function (err, obj) {
       if (err) console.log(err);
       currRoomDoc = obj;
     });
-    
   }
-  
-  res.status(200).json(currRoomDoc)
 
+  res.status(200).json(currRoomDoc);
 });
 
 app.post("/delete-room", urlencodedParser, async (req, res) => {
-
   res.status(200);
-
 });
 /*
 const PORT = process.env.PORT || 5000;
