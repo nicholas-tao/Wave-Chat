@@ -54,7 +54,7 @@ Router.post("/register", (req, res) => {
   ];
   var emailExt = email.split("@")[1];
   var temp = true;
-  whiteList.forEach((ext) => {
+  newWhiteList.forEach((ext) => {
     if (ext == emailExt) temp = false;
   });
 
@@ -63,10 +63,10 @@ Router.post("/register", (req, res) => {
     // errors.push({msg: 'Email not affiliated with a post secondary institution'})
 
     errors.push({
-      msg:
-        "Wave is only available to UWaterloo students at the moment. Please use your uwaterloo.ca email.",
+      //msg:"Wave is only available to UWaterloo students at the moment. Please use your uwaterloo.ca email.",
       //NEW MESSAGE BELOW
-      //msg: 'Wave is only available at Waterloo, UofT, Western, Queens, McMaster, and UOttawa at the moment. We are coming to your school soon though!',
+      msg:
+        "Wave is only available at Waterloo, UofT, Western, Queens, McMaster, and UOttawa at the moment. We are coming to your school soon though!",
     });
   }
 
@@ -90,10 +90,24 @@ Router.post("/register", (req, res) => {
           password2,
         });
       } else {
+        if (email.includes("uwaterloo.ca")) {
+          university = "University of Waterloo";
+        } else if (email.includes("utoronto.ca")) {
+          university = "University of Toronto";
+        } else if (email.includes("queensu.ca")) {
+          university = "Queen's University";
+        } else if (email.includes("mcmaster.ca")) {
+          university = "McMaster University";
+        } else if (email.includes("uwo.ca")) {
+          university = "Western University";
+        } else if (email.includes("uottawa.ca")) {
+          university = "University of Ottawa";
+        }
         const newUser = new User({
           name,
           email,
           password,
+          university,
         });
 
         bcrypt.genSalt(10, (err, salt) =>
