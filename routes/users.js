@@ -44,6 +44,14 @@ Router.post("/register", (req, res) => {
   // var whiteList = ["uwaterloo.ca","yorku.ca","utoronto.ca","mcmaster.ca","ryerson.ca","queensu.ca","uwo.ca","uottawa.ca","carleton.ca","wlu.ca"]
 
   var whiteList = ["uwaterloo.ca"];
+  var newWhiteList = [
+    "uwaterloo.ca",
+    "utoronto.ca",
+    "uwo.ca",
+    "queensu.ca",
+    "mcmaster.ca",
+    "uottawa.ca",
+  ];
   var emailExt = email.split("@")[1];
   var temp = true;
   whiteList.forEach((ext) => {
@@ -57,6 +65,8 @@ Router.post("/register", (req, res) => {
     errors.push({
       msg:
         "Wave is only available to UWaterloo students at the moment. Please use your uwaterloo.ca email.",
+      //NEW MESSAGE BELOW
+      //msg: 'Wave is only available at Waterloo, UofT, Western, Queens, McMaster, and UOttawa at the moment. We are coming to your school soon though!',
     });
   }
 
