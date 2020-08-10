@@ -59,12 +59,14 @@ Router.get(
             contentCode: req.flash("contentCode"),
             name: req.user.name,
             email: req.user.email,
+            university: req.user.university,
             onlineCount: count,
           });
         } else {
           res.render("dashboard", {
             name: req.user.name,
             email: req.user.email,
+            university: req.user.university,
             onlineCount: count,
           });
         }
