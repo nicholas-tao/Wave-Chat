@@ -190,6 +190,7 @@ Router.get("/dashboard/load/profile", ensureAuthenticated, (req, res) => {
     faculty: req.user.faculty,
     program: req.user.program,
     year: req.user.gradYear,
+    university: req.user.university,
   };
 
   res.send(JSON.stringify(data));
@@ -198,32 +199,23 @@ Router.get("/dashboard/load/profile", ensureAuthenticated, (req, res) => {
 //START CHATTING
 
 Router.get("/dashboard/start", ensureAuthenticated, (req, res) => {
-
-  wasAdded = QueueModule.addUser(req.user)
-  res.status(200).json({ added: wasAdded })
-
+  wasAdded = QueueModule.addUser(req.user);
+  res.status(200).json({ added: wasAdded });
 });
 
 const roomDocList = require("../roomModule").roomDocList;
 
 Router.get("/dashboard/ping", ensureAuthenticated, async (req, res) => {
-
-  const roomDoc = roomDocList.find((roomDoc) => roomDoc.email1 == req.user.email || roomDoc.email2 == req.user.email);
+  const roomDoc = roomDocList.find(
+    (roomDoc) =>
+      roomDoc.email1 == req.user.email || roomDoc.email2 == req.user.email
+  );
 
   if (roomDoc) {
-
-    res
-      .status(200)
-      .json({ roomLink: roomDoc.roomId });
-    
-  } 
-  
-  else {
-
+    res.status(200).json({ roomLink: roomDoc.roomId });
+  } else {
     res.status(200).json({ roomLink: null });
-
   }
-
 });
 
 module.exports = Router;
