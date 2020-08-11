@@ -433,12 +433,39 @@
     </div>
     <div class="row rowA">
       <div class="col">
-        <label class="profileList">Program</label> <br />
+
+        <!-- <form action="" method="POST">
+          <label for="programList">Program:</label>
+          <input list="programs" name="programs" id="programs">
+            <datalist id="programDatalist">
+              <option value="Test 1">
+              <option value="Test 2">
+              <option value="Test 3">
+              <option value="Test 4">
+              <option value="Test 5">
+              <option value="Test 6">
+              <option value="Test 7">
+              <option value="Test 8">
+              <option value="Test 9">
+            </datalist>
+          </input type="submit">
+        </form> -->
+
+        <form action="/action_page.php" method="get">
+          <label class="profileList" for="program">Program</label>
+          <input list="programs" name="program" id="program" style="width: 92%;">
+          <datalist id="programs">
+
+            <!-- the options are dynamically added to this datalist in profileItemScript.js -->
+
+          </datalist>
+        </form>
+        <!-- <label class="profileList">Program</label> <br />
         <select
           id="program"
           name="program"
           class="custom-select custom-select-sm selectA"
-        >
+        > -->
           <!--Applied health sci programs-->
           <!-- <option value="placeholder">Health Studies</option> -->
           <!-- <option value="placeholder">Kinesiology</option> -->
@@ -528,7 +555,7 @@
           <!-- <option value="placeholder">Psychology</option> -->
           <!-- <option value="placeholder">Science and Aviation</option> -->
           <!-- <option value="placeholder">Science and Business</option> -->
-        </select>
+        <!-- </select> -->
       </div>
       <div class="col">
         <label class="profileList">Graduating Year</label> <br />
@@ -612,13 +639,15 @@
     </div>
     <div class="row rowA">
       <div class="col">
-        <label class="profileList">Program</label> <br />
-        <select
-          id="program"
-          name="program"
-          class="custom-select custom-select-sm selectA"
-        >
-        </select>
+        <form action="/action_page.php" method="get">
+          <label class="profileList" for="program">Program</label>
+          <input list="programs" name="program" id="program" style="width: 92%;">
+          <datalist id="programs">
+
+            <!-- the options are dynamically added to this datalist in profileItemScript.js -->
+
+          </datalist>
+        </form>
       </div>
       <div class="col">
         <label class="profileList">Graduating Year</label> <br />
