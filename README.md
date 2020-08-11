@@ -1,6 +1,6 @@
 # Wave Chat
 
-This repo is for the dashboard/profile/login/landing portion of Wave. It is automatically deployed on Heroku.
+This repo is for Wave, a full-stack web application. It is automatically deployed on Heroku.
 
 Wave is a web platform that connects incoming first-year university students from the same university. By placing users in one-on-one chats with other students who are either in their program or share common interests, Wave allows meaningful friendships to be formed, despite the lack of in-person activities associated with one’s first year of university.
 
