@@ -590,9 +590,10 @@
         <label class="profileList">Name</label> <br />
         <input
           type="text"
-          placeHolder="<%=name%>"
+          placeholder="<%=name%>"
           id="name"
           name="name"
+          style="border: 1px solid gray; border-radius: 4px;"
           readonly
         />
       </div>
@@ -600,9 +601,10 @@
         <label class="profileList">Email</label> <br />
         <input
           type="text"
-          placeHolder="<%=email%>"
+          placeholder="<%=email%>"
           id="email"
           name="Email"
+          style="border: 1px solid gray; border-radius: 4px;"
           readonly
         />
       </div>
@@ -612,15 +614,27 @@
         <label class="profileList">University</label> <br />
         <input
           type="text"
-          placeHolder="University of Waterloo"
+          placeHolder="Placeholder University"
           id="university"
           name="university"
-          value="University of Waterloo"
+          style="border: 1px solid gray; border-radius: 4px;"
           readonly
         />
       </div>
 
       <div class="col">
+        <form action="/action_page.php" method="get">
+          <label class="profileList" for="program">Program</label> <br>
+          <input list="programs" name="program" id="program" style="border: 1px solid gray; border-radius: 4px;">
+          <datalist id="programs">
+
+            <!-- the options are dynamically added to this datalist in profileItemScript.js -->
+
+          </datalist>
+        </form>
+      </div>
+
+      <!-- <div class="col">
         <label class="profileList">Faculty</label> <br />
         <select
           class="custom-select custom-select-sm changeWidth"
@@ -636,35 +650,7 @@
           <option value="Faculty of Mathematics">Faculty of Mathematics</option>
           <option value="Faculty of Science">Faculty of Science</option>
         </select>
-      </div>
-    </div>
-    <div class="row rowA">
-      <div class="col">
-        <form action="/action_page.php" method="get">
-          <label class="profileList" for="program">Program</label>
-          <input list="programs" name="program" id="program" style="width: 92%;">
-          <datalist id="programs">
-
-            <!-- the options are dynamically added to this datalist in profileItemScript.js -->
-
-          </datalist>
-        </form>
-      </div>
-      <div class="col">
-        <label class="profileList">Graduating Year</label> <br />
-        <select
-          id="year"
-          name="year"
-          class="custom-select custom-select-sm selectA"
-        >
-          <option value="2020">2020</option>
-          <option value="2021">2021</option>
-          <option value="2022">2022</option>
-          <option value="2023">2023</option>
-          <option value="2024">2024</option>
-          <option value="2025">2025</option>
-        </select>
-      </div>
+      </div> -->
     </div>
   </div>
 
