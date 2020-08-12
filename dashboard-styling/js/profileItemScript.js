@@ -323,7 +323,23 @@ let mcmasterPrograms = [
   "Studio Arts"
 ]
 
-let queensPrograms = []
+let queensPrograms = [
+  "Arts", 
+  "Commerce" , 
+  "Computing", 
+  "Concurrent Education/Arts" , 
+  "Concurrent Education/Fine Art" , 
+  "Concurrent Education/Music" , 
+  "Concurrent Education/Science", 
+  "Engineering and Applied Science", 
+  "Fine Art" , 
+  "Health Sciences", 
+  "Kinesiology" , 
+  "Music" , 
+  "Music Theatre" , 
+  "Nursing" , 
+  "Science", 
+]
 
 
 function populateDropdowns() {
