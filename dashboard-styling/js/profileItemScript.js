@@ -1,6 +1,330 @@
 //function which runs when DOM is ready i.e. upon page start - populates the faculty dropdown list
 $(document).ready(populateDropdowns());
 
+let waterlooPrograms = [
+  "Accounting and Financial Management" , 
+  "Actuarial Science" , 
+  "Anthropology" , 
+  "Applied Mathematics" , 
+  "Architectural Engineering" , 
+  "Architecture" , 
+  "Bachelor of Arts" , 
+  "Bachelor of Science" , 
+  "Biochemistry" , 
+  "Biology" , 
+  "Biomedical Engineering" , 
+  "Biomedical Sciences" , 
+  "Biostatistics" , 
+  "Biotechnology/Chartered Professional Accountancy" , 
+  "Business Administration and Computer Science" , 
+  "Business Administration and Mathematics" , 
+  "Business programs" , 
+  "Chemical Engineering" , 
+  "Chemistry" , 
+  "Civil Engineering" , 
+  "Classical Studies" , 
+  "Combinatorics and Optimization" , 
+  "Communication Studies" , 
+  "Computational Mathematics" , 
+  "Computer Engineering" , 
+  "Computer Science" , 
+  "Computing and Financial Management" , 
+  "Data Science" , 
+  "Earth Sciences" , 
+  "Economics" , 
+  "Education" , 
+  "Electrical Engineering" , 
+  "English" , 
+  "Environment and Business" , 
+  "Environment, Resources and Sustainability" , 
+  "Environmental Engineering" , 
+  "Environmental Science" , 
+  "Fine Arts" , 
+  "French" , 
+  "Gender and Social Justice" , 
+  "Geography and Aviation" , 
+  "Geography and Environmental Management" , 
+  "Geological Engineering" , 
+  "Geomatics" , 
+  "German" , 
+  "Global Business and Digital Arts" , 
+  "Health Studies" , 
+  "History" , 
+  "Honours Arts" , 
+  "Honours Arts and Business" , 
+  "Honours Science" , 
+  "Information Technology Management" , 
+  "International Development" , 
+  "Kinesiology" , 
+  "Knowledge Integration" , 
+  "Legal Studies" , 
+  "Liberal Studies" , 
+  "Life Physics" , 
+  "Life Sciences" , 
+  "Management Engineering" , 
+  "Materials and Nanosciences" , 
+  "Mathematical Economics" , 
+  "Mathematical Finance" , 
+  "Mathematical Optimization" , 
+  "Mathematical Physics" , 
+  "Mathematics" , 
+  "Mathematics/Business Administration" , 
+  "Mathematics/Chartered Professional Accountancy" , 
+  "Mathematics/Financial Analysis and Risk Management" , 
+  "Mathematics/Teaching" , 
+  "Mechanical Engineering" , 
+  "Mechatronics Engineering" , 
+  "Medicinal Chemistry" , 
+  "Medieval Studies" , 
+  "Minors and specializations" , 
+  "Music" , 
+  "Nanotechnology Engineering" , 
+  "Nursing" , 
+  "Optometry" , 
+  "Pathways to medical school and other health professions" , 
+  "Peace and Conflict Studies" , 
+  "Pharmacy" , 
+  "Philosophy" , 
+  "Physical Sciences" ,
+   "Physics" , 
+   "Physics and Astronomy" , 
+   "Planning" , 
+   "Political Science" , 
+   "Pre-law" , 
+   "Psychology" , 
+   "Public Health" , 
+   "Pure Mathematics" , 
+   "Recreation and Leisure Studies" , 
+   "Recreation and Sport Business" , 
+   "Religious Studies" , 
+   "Science and Aviation" , 
+   "Science and Business" , 
+   "Sexuality, Marriage, and Family Studies" , 
+   "Social Development Studies" , 
+   "Social Work" , 
+   "Sociology" , 
+   "Software Engineering" , 
+   "Spanish" , 
+   "Statistics" , 
+   "Systems Design Engineering" , 
+   "Teaching" , 
+   "Theatre and Performance" , 
+   "Therapeutic Recreation" , 
+   "Tourism Development"
+]
+
+let ottawaPrograms = [
+  "Accounting" , 
+  "Acting" , 
+  "Anthropology" , 
+  "Anthropology and Sociology" , 
+  "Art History" , 
+  "Biochemistry" , 
+  "Biochemistry and Chemical Engineering" , 
+  "Biology" , 
+  "Biomedical Mechanical Engineering" , 
+  "Biomedical Mechanical Engineering and Computing Technology" , 
+  "Biomedical Science" , 
+  "Biopharmaceutical Science" , 
+  "Business Technology Management" , 
+  "Chemical Engineering" , 
+  "Chemical Engineering and Computing Technology" , 
+  "Chemistry" , 
+  "Civil Engineering" , 
+  "Civil Engineering and Computing Technology" , 
+  "Commerce & Juris Doctor" , 
+  "Commerce and Juris Doctor" , 
+  "Communication" , 
+  "Communication & Political Science" , 
+  "Communication & Sociology" , 
+  "Communication and Political Science" , 
+  "Communication and Sociology" , 
+  "Communication et lettres françaises" , 
+  "Computer Engineering" , 
+  "Computer Science" , 
+  "Computer Science and Mathematics" , 
+  "Conflict Studies and Human Rights" , 
+  "Criminology" , 
+  "Criminology and Feminist and Gender Studies" , 
+  "Data Science" , 
+  "Digital Journalism" , 
+  "Economics" , 
+  "Economics and Political Science" , 
+  "Economics and Public Policy" , 
+  "Electrical Engineering" , 
+  "Electrical Engineering and Computing Technology" , 
+  "English" , 
+  "English as a Second Language" , 
+  "Environmental Economics and Public Policy" , 
+  "Environmental Geoscience" , 
+  "Environmental Science" , 
+  "Environmental Studies" , 
+  "Ethics and Political Philosophy" , 
+  "Feminist and Gender Studies" , 
+  "Feminist and Gender Studies and Political Science" , 
+  "Feminist and Gender Studies and Sociology" , 
+  "Finance" , 
+  "Financial Mathematics and Economics" , 
+  "Food and Nutrition Sciences" , 
+  "French as a Second Language" , 
+  "Geography" , 
+  "Geology" , 
+  "Geology-Physics" , 
+  "Greek and Roman Studies" , 
+  "Health Sciences" , 
+  "Healthcare Analytics" , 
+  "History" , 
+  "History and Political Science" , 
+  "Human Kinetics" , 
+  "Human Resource Management" , 
+  "Indigenous Studies" , 
+  "Integrated Food Sciences" , 
+  "Interdisciplinary Studies" , 
+  "International Development & Globalization" , 
+  "International Development and Globalization" , 
+  "International Economics and Development" , 
+  "International Management" , 
+  "International Studies and Modern Languages" , 
+  "Juris Doctor" , 
+  "Juris Doctor/Master of Arts" , 
+  "Juris Doctor/MBA" , 
+  "Lettres françaises" , 
+  "Lettres françaises et éducation" , 
+  "Licentiate in Law (LLL)" , 
+  "Linguistics" , 
+  "LLL & International Development and Globalization" , 
+  "LLL/MBA" , 
+  "Management" , 
+  "Marketing" , 
+  "Mathematics" , 
+  "Mathematics and Economics" , 
+  "Mechanical Engineering" , 
+  "Mechanical Engineering and Computing Technology" , 
+  "Medieval and Renaissance Studies" , 
+  "Music" , 
+  "Music and Science" , 
+  "Nursing" , 
+  "Ophthalmic Medical Technology" , 
+  "Philosophy" , 
+  "Philosophy and Political Science" , 
+  "Physical Geography and Geomatics" , 
+  "Physics" , 
+  "Physics and Electrical Engineering" , 
+  "Physics-Mathematics" , 
+  "Political Science" , 
+  "Political Science & Juris Doctor" , 
+  "Political Science and Juris Doctor" , 
+  "Psychology" , 
+  "Psychology and Linguistic" , 
+  "Public Administration" , 
+  "Public Administration and Political Science" , 
+  "Public Relations" , 
+  "Religious Studies" , 
+  "Second Language Teaching" , 
+  "Social Sciences" , 
+  "Social Work" , 
+  "Sociology" , 
+  "Software Engineering" , 
+  "Statistics" , 
+  "Teacher Education" , 
+  "Theatre" , 
+  "Translational and Molecular Medicine" , 
+  "Undergraduate Medical Education" , 
+  "Visual Arts" , 
+  "World Languages and Cultures"
+]
+
+let westernPrograms = [
+  "Arts and Humanities" , 
+  "DAN Management and Organizational Studies" , 
+  "Engineering" , 
+  "Health Sciences" , 
+  "Information and Media Studies" , 
+  "Kinesiology" , 
+  "Medical Sciences" , 
+  "Music" , 
+  "Nursing" , 
+  "Science" , 
+  "Social Science"
+]
+
+let uoftPrograms = [
+  "Architectural Studies" , 
+  "Chemical & Physical Sciences" , 
+  "Chemical Engineering" , 
+  "Civil Engineering" , 
+  "Commerce" , 
+  "Communication, Culture, Information & Technology" , 
+  "Computer Engineering" , 
+  "Computer Science" , 
+  "Computer Science, Mathematics & Statistics" , 
+  "Electrical Engineering" , 
+  "Engineering Science" , 
+  "Forensic Science" , 
+  "French" , 
+  "Humanities" , 
+  "Industrial Engineering" , 
+  "International Development Studies" , 
+  "Journalism" , 
+  "Kinesiology & Physical Education" , 
+  "Life Sciences" , 
+  "Management" , 
+  "Management & Finance and Quantitative Finance" , 
+  "Management and International Business" , 
+  "Materials Engineering" , 
+  "Mechanical Engineering" , 
+  "Mineral Engineering" , 
+  "Music - Artist" , 
+  "Music - Music" , 
+  "Music - Music Education" , 
+  "Music - Performance" , 
+  "Paramedicine" , 
+  "Physical & Mathematical Sciences" , 
+  "Physical and Environmental Sciences" , 
+  "Pschology" , 
+  "Psycological & Health Sciences" , 
+  "Rotman Commerce" , 
+  "Social Sciences" , 
+  "Social Sciences & Humanities" , 
+  "Theatre & Drama" , 
+  "Undeclared Engineering" , 
+  "Visual and Performing Arts, Arts Management & Media" , 
+  "Visual Studies"
+]
+
+let mcmasterPrograms = [
+  "Anatomy" , 
+  "Arts and Science" , 
+  "Bachelor of Technology" , 
+  "Biology and Pharmacology" , 
+  "Biomedical discovery and Commercialization" , 
+  "Business" , 
+  "Chemical and Physical Sciences" , 
+  "Commerce" , 
+  "Computer Science" , 
+  "Economics" , 
+  "Engineering" , 
+  "Environmental and Earth Sciences" , 
+  "Health and Society" , 
+  "Health Science" , 
+  "Humanities" , 
+  "Integrated Biomedical and Health Sciences" , 
+  "Integrated Business and Humanities" , 
+  "Kinesiology" , 
+  "Life sciences" , 
+  "Mathematics and Statistics" , 
+  "Medical Radiation" , 
+  "Midwifery" , 
+  "Music" , 
+  "Nursing" , 
+  "Physical Assistant" , 
+  "Social Science" , 
+  "Studio Arts"
+]
+
+let queensPrograms = []
+
+
 function populateDropdowns() {
   var loadFaculty;
   var loadProgram;
@@ -42,119 +366,15 @@ function populateDropdowns() {
 
       let programList = document.getElementById("programs")
 
+
       if(suniversity.localeCompare("University of Waterloo") === 0){
         let listOptions = ''
 
-        listOptions += '<option value="Accounting and Financial Management"/>'
-        listOptions += '<option value="Actuarial Science"/>'
-        listOptions += '<option value="Anthropology"/>'
-        listOptions += '<option value="Applied Mathematics"/>'
-        listOptions += '<option value="Architectural Engineering"/>'
-        listOptions += '<option value="Architecture"/>'
-        listOptions += '<option value="Bachelor of Arts"/>'
-        listOptions += '<option value="Bachelor of Science"/>'
-        listOptions += '<option value=Biochemistry""/>'
-        listOptions += '<option value="Biology"/>'
-        listOptions += '<option value="Biomedical Engineering"/>'
-        listOptions += '<option value="Biomedical Sciences"/>'
-        listOptions += '<option value="Biostatistics"/>'
-        listOptions += '<option value="Biotechnology/Chartered Professional Accountancy"/>'
-        listOptions += '<option value="Business Administration and Computer Science"/>'
-        listOptions += '<option value="Business Administration and Mathematics"/>'
-        listOptions += '<option value="Business programs"/>'
-        listOptions += '<option value="Chemical Engineering"/>'
-        listOptions += '<option value="Chemistry"/>'
-        listOptions += '<option value="Civil Engineering"/>'
-        listOptions += '<option value="Classical Studies"/>'
-        listOptions += '<option value="Co-op programs"/>'
-        listOptions += '<option value="Combinatorics and Optimization"/>'
-        listOptions += '<option value="Communication Studies"/>'
-        listOptions += '<option value="Computational Mathematics"/>'
-        listOptions += '<option value="Computer Engineering"/>'
-        listOptions += '<option value="Computer Science"/>'
-        listOptions += '<option value="Computing and Financial Management"/>'
-        listOptions += '<option value="Data Science"/>'
-        listOptions += '<option value="Earth Sciences"/>'
-        listOptions += '<option value="Economics"/>'
-        listOptions += '<option value="Education"/>'
-        listOptions += '<option value="Electrical Engineering"/>'
-        listOptions += '<option value="English"/>'
-        listOptions += '<option value="Environment and Business"/>'
-        listOptions += '<option value="Environment, Resources and Sustainability"/>'
-        listOptions += '<option value="Environmental Engineering"/>'
-        listOptions += '<option value="Environmental Science"/>'
-        listOptions += '<option value="Fine Arts"/>'
-        listOptions += '<option value="French"/>'
-        listOptions += '<option value="Gender and Social Justice"/>'
-        listOptions += '<option value="Geography and Aviation"/>'
-        listOptions += '<option value="Geography and Environmental Management"/>'
-        listOptions += '<option value="Geological Engineering"/>'
-        listOptions += '<option value="Geomatics"/>'
-        listOptions += '<option value="German"/>'
-        listOptions += '<option value="Global Business and Digital Arts"/>'
-        listOptions += '<option value="Health Studies"/>'
-        listOptions += '<option value="History"/>'
-        listOptions += '<option value="Honours Arts"/>'
-        listOptions += '<option value="Honours Arts and Business"/>'
-        listOptions += '<option value="Honours Science"/>'
-        listOptions += '<option value="Information Technology Management"/>'
-        listOptions += '<option value="International Development"/>'
-        listOptions += '<option value="Kinesiology"/>'
-        listOptions += '<option value="Knowledge Integration"/>'
-        listOptions += '<option value="Legal Studies"/>'
-        listOptions += '<option value="Liberal Studies"/>'
-        listOptions += '<option value="Life Physics"/>'
-        listOptions += '<option value="Life Sciences"/>'
-        listOptions += '<option value="Management Engineering"/>'
-        listOptions += '<option value="Materials and Nanosciences"/>'
-        listOptions += '<option value="Mathematical Economics"/>'
-        listOptions += '<option value="Mathematical Finance"/>'
-        listOptions += '<option value="Mathematical Optimization"/>'
-        listOptions += '<option value="Mathematical Physics"/>'
-        listOptions += '<option value="Mathematics"/>'
-        listOptions += '<option value="Mathematics/Business Administration"/>'
-        listOptions += '<option value="Mathematics/Chartered Professional Accountancy"/>'
-        listOptions += '<option value="Mathematics/Financial Analysis and Risk Management"/>'
-        listOptions += '<option value="Mathematics/Teaching"/>'
-        listOptions += '<option value="Mechanical Engineering"/>'
-        listOptions += '<option value="Mechatronics Engineering"/>'
-        listOptions += '<option value="Medicinal Chemistry"/>'
-        listOptions += '<option value="Medieval Studies"/>'
-        listOptions += '<option value="Minors and specializations"/>'
-        listOptions += '<option value="Music"/>'
-        listOptions += '<option value="Nanotechnology Engineering"/>'
-        listOptions += '<option value="Nursing"/>'
-        listOptions += '<option value="Optometry"/>'
-        listOptions += '<option value="Pathways to medical school and other health professions"/>'
-        listOptions += '<option value="Peace and Conflict Studies"/>'
-        listOptions += '<option value="Pharmacy"/>'
-        listOptions += '<option value="Philosophy"/>'
-        listOptions += '<option value="Physical Sciences"/>'
-        listOptions += '<option value="Physics"/>'
-        listOptions += '<option value="Physics and Astronomy"/>'
-        listOptions += '<option value="Planning"/>'
-        listOptions += '<option value="Political Science"/>'
-        listOptions += '<option value="Pre-law"/>'
-        listOptions += '<option value="Psychology"/>'
-        listOptions += '<option value="Public Health"/>'
-        listOptions += '<option value="Pure Mathematics"/>'
-        listOptions += '<option value="Recreation and Leisure Studies"/>'
-        listOptions += '<option value="Recreation and Sport Business"/>'
-        listOptions += '<option value="Religious Studies"/>'
-        listOptions += '<option value="Science and Aviation"/>'
-        listOptions += '<option value="Science and Business"/>'
-        listOptions += '<option value="Sexuality, Marriage, and Family Studies"/>'
-        listOptions += '<option value="Social Development Studies"/>'
-        listOptions += '<option value="Social Work"/>'
-        listOptions += '<option value="Sociology"/>'
-        listOptions += '<option value="Software Engineering"/>'
-        listOptions += '<option value="Spanish"/>'
-        listOptions += '<option value="Statistics"/>'
-        listOptions += '<option value="Systems Design Engineering"/>'
-        listOptions += '<option value="Teaching"/>'
-        listOptions += '<option value="Theatre and Performance"/>'
-        listOptions += '<option value="Therapeutic Recreation"/>'
-        listOptions += '<option value="Tourism Development"/>'
+
+        for(const tempProgram of waterlooPrograms){
+          listOptions += '<option value="' + tempProgram + '"/>'
+        }
+
 
         programList.innerHTML = listOptions
 
@@ -162,125 +382,10 @@ function populateDropdowns() {
       else if(suniversity.localeCompare("University of Ottawa") === 0){
         let listOptions = ''
 
-        listOptions += '<option value="Accounting"/>'
-        listOptions += '<option value="Acting"/>'
-        listOptions += '<option value="Anthropology and Sociology"/>'
-        listOptions += '<option value="Anthropology"/>'
-        listOptions += '<option value="Art History"/>'
-        listOptions += '<option value="Biochemistry and Chemical Engineering "/>'
-        listOptions += '<option value="Biochemistry"/>'
-        listOptions += '<option value="Biology"/>'
-        listOptions += '<option value="Biomedical Mechanical Engineering and Computing Technology "/>'
-        listOptions += '<option value="Biomedical Mechanical Engineering"/>'
-        listOptions += '<option value="Biomedical Science"/>'
-        listOptions += '<option value="Biopharmaceutical Science"/>'
-        listOptions += '<option value="Business Technology Management"/>'
-        listOptions += '<option value="Chemical Engineering and Computing Technology"/>'
-        listOptions += '<option value="Chemical Engineering"/>'
-        listOptions += '<option value="Chemistry"/>'
-        listOptions += '<option value="Civil Engineering and Computing Technology "/>'
-        listOptions += '<option value="Civil Engineering"/>'
-        listOptions += '<option value="Commerce & Juris Doctor"/>'
-        listOptions += '<option value="Commerce and Juris Doctor "/>'
-        listOptions += '<option value="Communication & Political Science"/>'
-        listOptions += '<option value="Communication & Sociology"/>'
-        listOptions += '<option value="Communication and Political Science "/>'
-        listOptions += '<option value="Communication and Sociology "/>'
-        listOptions += '<option value="Communication et lettres françaises"/>'
-        listOptions += '<option value="Communication"/>'
-        listOptions += '<option value="Computer Engineering"/>'
-        listOptions += '<option value="Computer Science and Mathematics"/>'
-        listOptions += '<option value="Computer Science"/>'
-        listOptions += '<option value="Conflict Studies and Human Rights"/>'
-        listOptions += '<option value="Criminology and Feminist and Gender Studies"/>'
-        listOptions += '<option value="Criminology"/>'
-        listOptions += '<option value="Data Science"/>'
-        listOptions += '<option value="Digital Journalism"/>'
-        listOptions += '<option value="Economics and Political Science"/>'
-        listOptions += '<option value="Economics and Public Policy"/>'
-        listOptions += '<option value="Economics"/>'
-        listOptions += '<option value="Electrical Engineering and Computing Technology "/>'
-        listOptions += '<option value="Electrical Engineering"/>'
-        listOptions += '<option value="English as a Second Language"/>'
-        listOptions += '<option value="English"/>'
-        listOptions += '<option value="Environmental Economics and Public Policy"/>'
-        listOptions += '<option value="Environmental Geoscience"/>'
-        listOptions += '<option value="Environmental Science"/>'
-        listOptions += '<option value="Environmental Studies"/>'
-        listOptions += '<option value="Ethics and Political Philosophy"/>'
-        listOptions += '<option value="Feminist and Gender Studies and Political Science"/>'
-        listOptions += '<option value="Feminist and Gender Studies and Sociology"/>'
-        listOptions += '<option value="Feminist and Gender Studies"/>'
-        listOptions += '<option value="Finance"/>'
-        listOptions += '<option value="Financial Mathematics and Economics "/>'
-        listOptions += '<option value="Food and Nutrition Sciences"/>'
-        listOptions += '<option value="French as a Second Language"/>'
-        listOptions += '<option value="Geography"/>'
-        listOptions += '<option value="Geology"/>'
-        listOptions += '<option value="Geology-Physics"/>'
-        listOptions += '<option value="Greek and Roman Studies"/>'
-        listOptions += '<option value="Health Sciences"/>'
-        listOptions += '<option value="Healthcare Analytics"/>'
-        listOptions += '<option value="History and Political Science"/>'
-        listOptions += '<option value="History"/>'
-        listOptions += '<option value="Human Kinetics"/>'
-        listOptions += '<option value="Human Resource Management"/>'
-        listOptions += '<option value="Indigenous Studies"/>'
-        listOptions += '<option value="Integrated Food Sciences"/>'
-        listOptions += '<option value="Interdisciplinary Studies"/>'
-        listOptions += '<option value="International Development & Globalization"/>'
-        listOptions += '<option value="International Development and Globalization"/>'
-        listOptions += '<option value="International Economics and Development"/>'
-        listOptions += '<option value="International Management"/>'
-        listOptions += '<option value="International Studies and Modern Languages"/>'
-        listOptions += '<option value="Juris Doctor"/>'
-        listOptions += '<option value="Juris Doctor/Master of Arts"/>'
-        listOptions += '<option value="Juris Doctor/MBA"/>'
-        listOptions += '<option value="Lettres françaises et éducation"/>'
-        listOptions += '<option value="Lettres françaises"/>'
-        listOptions += '<option value="Licentiate in Law (LLL)"/>'
-        listOptions += '<option value="Linguistics"/>'
-        listOptions += '<option value="LLL & International Development and Globalization"/>'
-        listOptions += '<option value="LLL/MBA"/>'
-        listOptions += '<option value="Management"/>'
-        listOptions += '<option value="Marketing"/>'
-        listOptions += '<option value="Mathematics and Economics "/>'
-        listOptions += '<option value="Mathematics"/>'
-        listOptions += '<option value="Mechanical Engineering and Computing Technology "/>'
-        listOptions += '<option value="Mechanical Engineering"/>'
-        listOptions += '<option value="Medieval and Renaissance Studies"/>'
-        listOptions += '<option value="Music "/>'
-        listOptions += '<option value="Music and Science "/>'
-        listOptions += '<option value="Nursing"/>'
-        listOptions += '<option value="Ophthalmic Medical Technology"/>'
-        listOptions += '<option value="Philosophy and Political Science "/>'
-        listOptions += '<option value="Philosophy"/>'
-        listOptions += '<option value="Physical Geography and Geomatics"/>'
-        listOptions += '<option value="Physics and Electrical Engineering "/>'
-        listOptions += '<option value="Physics"/>'
-        listOptions += '<option value="Physics-Mathematics"/>'
-        listOptions += '<option value="Political Science & Juris Doctor"/>'
-        listOptions += '<option value="Political Science and Juris Doctor "/>'
-        listOptions += '<option value="Political Science"/>'
-        listOptions += '<option value="Psychology "/>'
-        listOptions += '<option value="Psychology and Linguistic"/>'
-        listOptions += '<option value="Public Administration and Political Science"/>'
-        listOptions += '<option value="Public Administration"/>'
-        listOptions += '<option value="Public Relations"/>'
-        listOptions += '<option value="Religious Studies"/>'
-        listOptions += '<option value="Second Language Teaching"/>'
-        listOptions += '<option value="Social Sciences"/>'
-        listOptions += '<option value="Social Work"/>'
-        listOptions += '<option value="Sociology"/>'
-        listOptions += '<option value="Software Engineering"/>'
-        listOptions += '<option value="Statistics"/>'
-        listOptions += '<option value="Teacher Education"/>'
-        listOptions += '<option value="Theatre"/>'
-        listOptions += '<option value="Translational and Molecular Medicine"/>'
-        listOptions += '<option value="Undergraduate Medical Education"/>'
-        listOptions += '<option value="Visual Arts "/>'
-        listOptions += '<option value="World Languages and Cultures"/>'
 
+        for(const tempProgram of ottawaPrograms){
+          listOptions += '<option value="' + tempProgram + '"/>'
+        }
 
 
         programList.innerHTML = listOptions
@@ -288,17 +393,9 @@ function populateDropdowns() {
       else if(suniversity.localeCompare("Western University") === 0){
         let listOptions = ''
         
-        listOptions += '<option value="Arts and Humanities"/>'
-        listOptions += '<option value="Engineering"/>'
-        listOptions += '<option value="Health Sciences"/>'
-        listOptions += '<option value="Kinesiology"/>'
-        listOptions += '<option value="Nursing"/>'
-        listOptions += '<option value="Information and Media Studies"/>'
-        listOptions += '<option value="Music"/>'
-        listOptions += '<option value="Science"/>'
-        listOptions += '<option value="Medical Sciences"/>'
-        listOptions += '<option value="Social Science"/>'
-        listOptions += '<option value="DAN Management and Organizational Studies"/>'
+        for(const tempProgram of westernPrograms){
+          listOptions += '<option value="' + tempProgram + '"/>'
+        }
 
         programList.innerHTML = listOptions
 
@@ -307,54 +404,9 @@ function populateDropdowns() {
 
         let listOptions = ''
 
-        listOptions += '<option value="Undeclared Engineering"/>'
-        listOptions += '<option value="Chemical Engineering"/>'
-        listOptions += '<option value="Civil Engineering"/>'
-        listOptions += '<option value="Computer Engineering"/>'
-        listOptions += '<option value="Electrical Engineering"/>'
-        listOptions += '<option value="Engineering Science"/>'
-        listOptions += '<option value="Industrial Engineering"/>'
-        listOptions += '<option value="Materials Engineering"/>'
-        listOptions += '<option value="Mechanical Engineering"/>'
-        listOptions += '<option value="Mineral Engineering"/>'
-        listOptions += '<option value="Architectural Studies"/>'
-        listOptions += '<option value="Visual Studies"/>'
-        listOptions += '<option value="Computer Science"/>'
-        listOptions += '<option value="Humanities"/>'
-        listOptions += '<option value="Life Sciences"/>'
-        listOptions += '<option value="Physical & Mathematical Sciences"/>'
-        listOptions += '<option value="Rotman Commerce"/>'
-        listOptions += '<option value="Social Sciences"/>'
-        listOptions += '<option value="Kinesiology & Physical Education"/>'
-        listOptions += '<option value="Music - Artist"/>'
-        listOptions += '<option value="Music - Music"/>'
-        listOptions += '<option value="Music - Music Education"/>'
-        listOptions += '<option value="Music - Performance"/>'
-        listOptions += '<option value="Chemical & Physical Sciences"/>'
-        listOptions += '<option value="Commerce"/>'
-        listOptions += '<option value="Communication, Culture, Information & Technology"/>'
-        listOptions += '<option value="Computer Science, Mathematics & Statistics"/>'
-        listOptions += '<option value="Forensic Science"/>'
-        listOptions += '<option value="Humanities"/>'
-        listOptions += '<option value="Life Sciences"/>'
-        listOptions += '<option value="Management"/>'
-        listOptions += '<option value="Pschology"/>'
-        listOptions += '<option value="Social Sciences"/>'
-        listOptions += '<option value="Theatre & Drama"/>'
-        listOptions += '<option value="Visual Studies"/>'
-        listOptions += '<option value="Social Sciences & Humanities"/>'
-        listOptions += '<option value="International Development Studies"/>'
-        listOptions += '<option value="French"/>'
-        listOptions += '<option value="Journalism"/>'
-        listOptions += '<option value="Visual and Performing Arts, Arts Management & Media"/>'
-        listOptions += '<option value="Management"/>'
-        listOptions += '<option value="Management and International Business"/>'
-        listOptions += '<option value="Management & Finance and Quantitative Finance"/>'
-        listOptions += '<option value="Computer Science, Mathematics & Statistics"/>'
-        listOptions += '<option value="Life Sciences"/>'
-        listOptions += '<option value="Paramedicine"/>'
-        listOptions += '<option value="Physical and Environmental Sciences"/>'
-        listOptions += '<option value="Psycological & Health Sciences"/>'
+        for(const tempProgram of uoftPrograms){
+          listOptions += '<option value="' + tempProgram + '"/>'
+        }
 
         programList.innerHTML = listOptions
       }
@@ -362,7 +414,9 @@ function populateDropdowns() {
 
         let listOptions = ''
 
-        listOptions += '<option value=""/>'
+        for(const tempProgram of queensPrograms){
+          listOptions += '<option value="' + tempProgram + '"/>'
+        }
 
         programList.innerHTML = listOptions
       }
@@ -370,37 +424,17 @@ function populateDropdowns() {
 
         let listOptions = ''
 
-        listOptions += '<option value="Anatomy"/>'
-        listOptions += '<option value="Arts and Science"/>'
-        listOptions += '<option value="Bachelor of Technology"/>'
-        listOptions += '<option value="Biology and Pharmacology"/>'
-        listOptions += '<option value="Biomedical discovery and Commercialization"/>'
-        listOptions += '<option value="Business"/>'
-        listOptions += '<option value="Chemical and Physical Sciences"/>'
-        listOptions += '<option value="Commerce"/>'
-        listOptions += '<option value="Computer Science"/>'
-        listOptions += '<option value="Economics"/>'
-        listOptions += '<option value="Economics"/>'
-        listOptions += '<option value="Engineering"/>'
-        listOptions += '<option value="Environmental and Earth Sciences"/>'
-        listOptions += '<option value="Health and Society"/>'
-        listOptions += '<option value="Health Science"/>'
-        listOptions += '<option value="Humanities"/>'
-        listOptions += '<option value="Integrated Biomedical and Health Sciences"/>'
-        listOptions += '<option value="Integrated Business and Humanities"/>'
-        listOptions += '<option value="Kinesiology"/>'
-        listOptions += '<option value="Life sciences"/>'
-        listOptions += '<option value="Mathematics and Statistics"/>'
-        listOptions += '<option value="Medical Radiation"/>'
-        listOptions += '<option value="Midwifery"/>'
-        listOptions += '<option value="Music"/>'
-        listOptions += '<option value="Nursing"/>'
-        listOptions += '<option value="Physical Assistant"/>'
-        listOptions += '<option value="Social Science"/>'
-        listOptions += '<option value="Studio Arts"/>'
+        for(const tempProgram of mcmasterPrograms){
+          listOptions += '<option value="' + tempProgram + '"/>'
+        }
 
         programList.innerHTML = listOptions
       }
+
+      document.getElementById("program").placeholder = loadProgram;
+      document.getElementById("university").placeholder = loadUniversity;
+
+
 
 
       // graduatingYear.value = syear
@@ -1009,27 +1043,153 @@ $("#save").click(function () {
   // var selectedFaculty = $('select[id="faculty"]').val
   // var selectedProgram = $('select[id="program"]').val
 
-  var selectedFaculty = document.getElementById("faculty").value;
-  var selectedProgram = document.getElementById("program").value;
-  var graduatingYear = document.getElementById("year").value;
 
-  // no validation on the faculty or program selected since they can leave it blank if they want
-  // send post or patch request to db here to update the faculty and program of user
-  reqBody = {
-    fac: selectedFaculty,
-    prog: selectedProgram,
-    year: graduatingYear,
-  };
-  const rawResponse = fetch("/dashboard/profile", {
-    method: "POST",
+
+
+  const rawResponse = fetch("/dashboard/load/profile", {
+    method: "GET", 
     headers: {
       Accept: "application/json",
-      "Content-Type": "application/json",
     },
-    body: JSON.stringify(reqBody),
-  }).then((response) => console.log(response));
-  console.log("request sent");
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      loadUniversity = data["university"]
+      selectedUniversity = loadUniversity.toString()
 
-  alert("Information Saved!");
-  location.href = "/dashboard/home";
+      var selectedFaculty = document.getElementById("faculty").value;
+      var selectedProgram = document.getElementById("program").value;
+      var graduatingYear = document.getElementById("year").value;
+
+      var validProgram = false
+
+      console.log("Program: " + selectedProgram)
+      console.log("Item at index" + waterlooPrograms[25])
+      console.log("Includes program: " + waterlooPrograms.includes(selectedProgram))
+      console.log(selectedUniversity)
+      console.log(selectedUniversity.localeCompare("University of Waterloo"))
+    
+      if(selectedUniversity.localeCompare("University of Waterloo") === 0){
+        if(waterlooPrograms.includes(selectedProgram)){
+          validProgram = true
+          console.log("validProgram in if: " + validProgram)
+        }
+      }
+      else if(selectedUniversity.localeCompare("Queen's University") === 0){
+        if(queensPrograms.includes(selectedProgram)){
+          validProgram = true
+        }
+      }
+      else if(selectedUniversity.localeCompare("McMaster University") === 0){
+        if(mcmasterPrograms.includes(selectedProgram)){
+          validProgram = true
+        }
+      }
+      else if(selectedUniversity.localeCompare("University of Toronto") === 0){
+        if(uoftPrograms.includes(selectedProgram)){
+          validProgram = true
+        }
+      }
+      else if(selectedUniversity.localeCompare("University of Ottawa") === 0){
+        if(ottawaPrograms.includes(selectedProgram)){
+          validProgram = true
+        }
+      }
+    
+      console.log("validProgram: " + validProgram)
+    
+    
+      if(validProgram){
+        reqBody = {
+          fac: selectedFaculty,
+          prog: selectedProgram,
+          year: graduatingYear,
+        };
+        const rawResponse = fetch("/dashboard/profile", {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(reqBody),
+        }).then((response) => console.log(response));
+        console.log("request sent");
+      
+        alert("Information Saved!");
+        location.href = "/dashboard/home";
+      }
+      else{
+        alert("Invalid program. Please select one from the list");
+      }
+
+    })
+
+  // var selectedUniversity = document.getElementById("university").value;
+  // var selectedFaculty = document.getElementById("faculty").value;
+  // var selectedProgram = document.getElementById("program").value;
+  // var graduatingYear = document.getElementById("year").value;
+
+  // var validProgram = false
+
+  // console.log("Program: " + selectedProgram)
+  // console.log("Item at index" + waterlooPrograms[25])
+  // console.log("Includes program: " + waterlooPrograms.includes(selectedProgram))
+  // console.log(selectedUniversity)
+  // console.log(selectedUniversity.localeCompare("University of Waterloo"))
+
+  // if(selectedUniversity.localeCompare("University of Waterloo") === 0){
+  //   if(waterlooPrograms.includes(selectedProgram)){
+  //     validProgram = true
+  //     console.log("validProgram in if: " + validProgram)
+  //   }
+  // }
+  // else if(selectedUniversity.localeCompare("Queen's University") === 0){
+  //   if(queensPrograms.includes(selectedProgram)){
+  //     validProgram = true
+  //   }
+  // }
+  // else if(selectedUniversity.localeCompare("McMaster University") === 0){
+  //   if(mcmasterPrograms.includes(selectedProgram)){
+  //     validProgram = true
+  //   }
+  // }
+  // else if(selectedUniversity.localeCompare("University of Toronto") === 0){
+  //   if(uoftPrograms.includes(selectedProgram)){
+  //     validProgram = true
+  //   }
+  // }
+  // else if(selectedUniversity.localeCompare("University of Ottawa") === 0){
+  //   if(ottawaPrograms.includes(selectedProgram)){
+  //     validProgram = true
+  //   }
+  // }
+
+  // console.log("validProgram: " + validProgram)
+
+
+  // if(validProgram){
+  //   reqBody = {
+  //     fac: selectedFaculty,
+  //     prog: selectedProgram,
+  //     year: graduatingYear,
+  //   };
+  //   const rawResponse = fetch("/dashboard/profile", {
+  //     method: "POST",
+  //     headers: {
+  //       Accept: "application/json",
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify(reqBody),
+  //   }).then((response) => console.log(response));
+  //   console.log("request sent");
+  
+  //   alert("Information Saved!");
+  //   location.href = "/dashboard/home";
+  // }
+  // else{
+  //   alert("Invalid program. Please select one from the list");
+  // }
+  // no validation on the faculty or program selected since they can leave it blank if they want
+  // send post or patch request to db here to update the faculty and program of user
+  
 });
