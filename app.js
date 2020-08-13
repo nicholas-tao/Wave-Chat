@@ -24,6 +24,10 @@ const Room = require("./models/Room");
 const QueueModule = require("./QueueModule");
 const roomDocList = require("./roomModule").roomDocList;
 
+const prompt = require('prompt');
+const { uwList, quList } = require("./QueueModule");
+const { FORMERR } = require("dns");
+
 // create application/x-www-form-urlencoded parser
 var urlencodedParser = bodyParser.urlencoded({ extended: false });
 
@@ -132,6 +136,22 @@ app.post("/get-info", urlencodedParser, async (req, res) => {
 app.post("/delete-room", urlencodedParser, async (req, res) => {
   res.status(200);
 });
+
+prompt.start();
+
+prompt.get(['test'], (err, result) => {
+  if (err) { return onErr(err); }
+  if(result.test == 'startTest') {
+    console.log("starting matchmaking test.")
+    matchTest();
+    console.log("uwList: " + QueueModule.uwList);
+    console.log("uoftList: " + QueueModule.uoftList);
+    console.log("quList: " + QueueModule.quList);
+    console.log("macList: " + QueueModule.macList);
+    console.log("uwoList: " + QueueModule.uwoList);
+    console.log("oList: " + QueueModule.oList);
+  }
+})
 /*
 const PORT = process.env.PORT || 5000;
 
@@ -349,4 +369,79 @@ async function match() {
 
 function intersect(a, b) {
   return a.filter(Set.prototype.has, new Set(b));
+}
+
+//Matchmaking Test Code
+
+function matchTest() {
+  //GENERATE RANDOM AMOUNT OF USERS
+  uSet = [];
+  uSetCardinality = getRandomInt(4, 10);
+  console.log("Testing with " + uSetCardinality  + " random users.");
+
+  //GENERATE RANDOM UNIVERSITIES AND USERS
+  for(i = 0; i < uSetCardinality; i++) {
+    uniNumber = getRandomInt(0, 6);
+    uniDetails = getRandomUniversity(uniNumber);
+    user = createTestUser(i, uniDetails);
+    console.log(user);
+  }
+
+  console.log("After adding users, uSet length is: " + uSet.length);
+
+  //ADD THESE USERS AT RANDOM POINTS WITHIN A CERTAIN TIME INTERVAL
+  for(i = 0; i < uSetCardinality; i++) {
+    tickTock = getRandomInt(40, 1000);
+    setTimeout(userAddition, tickTock, uSet[i]);
+  };
+  //PERFORM SOME DATA LOGGING TO ENSURE THINGS ARE WORKING
+
+}
+
+function getRandomInt(min, max) {
+    return Math.floor(Math.random() * (max - min)) + min; //The maximum is exclusive and the minimum is inclusive
+}
+
+function createTestUser(userNum, [university, uniEmail]) {
+  strUserNum = userNum.toString();
+  user =  {
+    name: "user" + strUserNum,
+    email: "user" + strUserNum + "@" + uniEmail,
+    password: "testPassword",
+    interests: ['anything'],
+    university: university,
+    faculty: 'testFaculty',
+    program: 'testProgram',
+    gradYear: 2025,
+    date: Date.now(),
+    authenticated: true,
+    code: 123456,
+    status: 'online',
+  }
+  uSet.push(user);
+  return user;
+}
+
+function getRandomUniversity(num) {
+  switch(num) {
+    case 0:
+      return ["University of Waterloo", "uwaterloo.ca"];
+    case 1:
+      return ["University of Toronto", "utoronto.ca"];
+    case 2:
+      return ["Queen's University", "queensu.ca"];
+    case 3:
+      return ["McMaster University", "mcmaster.ca"];
+    case 4:
+      return ["Western University", "uwo.ca"];
+    case 5: 
+      return ["University of Ottawa", "uottawa.ca"];
+    default:
+      return ["University of Waterloo", "uwaterloo.ca"];
+  }
+}
+
+function userAddition(user) {
+  console.log("adding user " + user.name + " from " + user.university);
+  QueueModule.addUser(user);
 }
