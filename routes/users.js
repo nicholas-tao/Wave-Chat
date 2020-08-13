@@ -323,13 +323,13 @@ Router.post("/verify", (req, res) => {
                 //  console.log("THE CODE IN THE DB IS " + result.code); //the previous code? idk
 
                 const oauth2Client = new OAuth2(
-                  process.env.CLIENT_ID, // ClientID
-                  process.env.CLIENT_SECRET, // Client Secret
+                  process.env.CLIENT_ID_2, // ClientID
+                  process.env.CLIENT_SECRET_2, // Client Secret
                   "https://developers.google.com/oauthplayground" // Redirect URL
                 );
 
                 oauth2Client.setCredentials({
-                  refresh_token: process.env.REFRESH_TOKEN,
+                  refresh_token: process.env.REFRESH_TOKEN_2,
                 });
 
                 const accessToken = oauth2Client.getAccessToken();
@@ -338,9 +338,9 @@ Router.post("/verify", (req, res) => {
                   auth: {
                     type: "OAuth2",
                     user: "wavechat.team@gmail.com",
-                    clientId: process.env.CLIENT_ID,
-                    clientSecret: process.env.CLIENT_SECRET,
-                    refreshToken: process.env.REFRESH_TOKEN,
+                    clientId: process.env.CLIENT_ID_2,
+                    clientSecret: process.env.CLIENT_SECRET_2,
+                    refreshToken: process.env.REFRESH_TOKEN_2,
                     accessToken: accessToken,
                   },
                 });
