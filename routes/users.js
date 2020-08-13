@@ -45,6 +45,7 @@ Router.post("/register", (req, res) => {
 
   var whiteList = ["uwaterloo.ca"];
   var newWhiteList = [
+    "mail.utoronto.ca",
     "uwaterloo.ca",
     "utoronto.ca",
     "uwo.ca",
