@@ -359,15 +359,15 @@ function populateDropdowns() {
     .then((response) => response.json())
     .then((data) => {
       //load data received into variables
-      loadFaculty = data["faculty"];
+      //loadFaculty = data["faculty"];
       loadProgram = data["program"];
-      loadYear = data["year"];
+      //loadYear = data["year"];
       loadUniversity = data["university"];
 
       //convert to string format
-      let sfaculty = loadFaculty.toString();
-      let sprograms = loadProgram.toString();
-      let syear = loadYear.toString();
+      //let sfaculty = loadFaculty.toString();
+      //let sprograms = loadProgram.toString();
+      //let syear = loadYear.toString();
       let suniversity = loadUniversity.toString();
 
       //get the datalist element for the program input
