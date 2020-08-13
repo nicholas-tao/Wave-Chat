@@ -198,9 +198,9 @@ Router.get("/dashboard/load/profile", ensureAuthenticated, (req, res) => {
     req.user.university = "University of Waterloo";
   }
   var data = {
-    faculty: req.user.faculty,
+    //faculty: req.user.faculty,
     program: req.user.program,
-    year: req.user.gradYear,
+    //year: req.user.gradYear,
     university: req.user.university,
   };
 
