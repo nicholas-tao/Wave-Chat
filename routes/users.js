@@ -1,6 +1,6 @@
 const express = require("express");
 const Router = express.Router();
-const bcrypt = require("bcryptjs");
+const bcrypt = require("bcryptjs");no
 const User = require("../models/User");
 const passport = require("passport");
 const { db, getMaxListeners } = require("../models/User");
@@ -231,13 +231,13 @@ function sendEmail(newUser) {
   console.log(newUser);
 
   const oauth2Client = new OAuth2(
-    process.env.CLIENT_ID, // ClientID
-    process.env.CLIENT_SECRET, // Client Secret
+    process.env.CLIENT_ID_2, // ClientID
+    process.env.CLIENT_SECRET_2, // Client Secret
     "https://developers.google.com/oauthplayground" // Redirect URL
   );
 
   oauth2Client.setCredentials({
-    refresh_token: process.env.REFRESH_TOKEN,
+    refresh_token: process.env.REFRESH_TOKEN_2,
   });
 
   const accessToken = oauth2Client.getAccessToken();
@@ -246,17 +246,17 @@ function sendEmail(newUser) {
     service: "gmail",
     auth: {
       type: "OAuth2",
-      user: "wavechat.team@gmail.com",
-      clientId: process.env.CLIENT_ID,
-      clientSecret: process.env.CLIENT_SECRET,
-      refreshToken: process.env.REFRESH_TOKEN,
+      user: "noreply.wavechat@gmail.com",
+      clientId: process.env.CLIENT_ID_2,
+      clientSecret: process.env.CLIENT_SECRET_2,
+      refreshToken: process.env.REFRESH_TOKEN_2,
       accessToken: accessToken,
     },
   });
 
   // send mail with defined transport object
   const message = {
-    from: '"Wave" <wavechat.team@gmail.com>', // Sender address
+    from: '"Wave" <noreply.wavechat@gmail.com>', // Sender address
     to: newUser.email, //this works
     subject: "Your Unique Verification Code", // Subject line
     html:
