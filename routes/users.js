@@ -347,7 +347,7 @@ Router.post("/verify", (req, res) => {
 
                 // send mail with defined transport object
                 const message2 = {
-                  from: '"Wave" <wavechat.team@gmail.com>', // Sender address
+                  from: '"Wave" <noreply.wavechat@gmail.com>', // Sender address
                   to: result1.email, //this works
                   subject: "Your Unique Verification Code", // Subject line
                   html:
