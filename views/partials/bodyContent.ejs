@@ -375,7 +375,7 @@
         <label class="profileList">Name</label> <br />
         <input
           type="text"
-          placeHolder="<%=name%>"
+          placeholder="<%=name%>"
           id="name"
           name="name"
           readonly
@@ -385,7 +385,7 @@
         <label class="profileList">Email</label> <br />
         <input
           type="text"
-          placeHolder="<%=email%>"
+          placeholder="<%=email%>"
           id="email"
           name="Email"
           readonly
@@ -397,198 +397,51 @@
         <label class="profileList">University</label> <br />
         <input
           type="text"
-          placeHolder="<%=university%>"
+          placeHolder="Placeholder University"
           id="university"
           name="university"
           readonly
         />
       </div>
+
+      <div class="col">
+        <form action="/action_page.php" method="get">
+          <label class="profileList" for="program">Program</label> <br />
+          <input
+            list="programs"
+            name="program"
+            id="program"
+            style="border: 1px solid gray; border-radius: 4px;"
+          />
+          <datalist id="programs">
+            <!-- the options are dynamically added to this datalist in profileItemScript.js -->
+          </datalist>
+        </form>
+      </div>
+
       <!-- <div class="col">
-            <label class = "profileList">University</label> <br />
-            <select id="university" name="university" class="changeWidth">
-              <option value="University of Waterloo">University of Waterloo</option>
-              <option value="University of Waterloo">University of Ottawa</option>
-              <option value="University of Waterloo">Queen's University</option>
-              <option value="University of Waterloo">University of Toronto</option>
-              <option value="University of Waterloo">Carleton Univsersity</option>
-            </select>
-          </div> -->
-      <!--
-  <div class="col">
-        <label class="profileList">Faculty</label> <br />
-        <select
-          class="custom-select custom-select-sm changeWidth"
-          id="faculty"
-          name="faculty"
-        >
-          <option value="Faculty of Applied Health Sciences"
-            >Faculty of Applied Health Sciences</option
+          <label class="profileList">Faculty</label> <br />
+          <select
+            class="custom-select custom-select-sm changeWidth"
+            id="faculty"
+            name="faculty"
           >
-          <option value="Faculty of Arts">Faculty of Arts</option>
-          <option value="Faculty of Engineering">Faculty of Engineering</option>
-          <option value="Faculty of Environment">Faculty of Environment</option>
-          <option value="Faculty of Mathematics">Faculty of Mathematics</option>
-          <option value="Faculty of Science">Faculty of Science</option>
-        </select>
-      </div>
-          -->
-          <div class="col">
-            <!-- <form action="" method="POST">
-              <label for="programList">Program:</label>
-              <input list="programs" name="programs" id="programs">
-                <datalist id="programDatalist">
-                  <option value="Test 1">
-                  <option value="Test 2">
-                  <option value="Test 3">
-                  <option value="Test 4">
-                  <option value="Test 5">
-                  <option value="Test 6">
-                  <option value="Test 7">
-                  <option value="Test 8">
-                  <option value="Test 9">
-                </datalist>
-              </input type="submit">
-            </form> -->
-    
-            <form action="/action_page.php" method="get">
-              <label class="profileList" for="program">Program</label>
-              <input
-                list="programs"
-                name="program"
-                id="program"
-                style="width: 92%;"
-              />
-              <datalist id="programs">
-                <!-- the options are dynamically added to this datalist in profileItemScript.js -->
-              </datalist>
-            </form>
-          </div>
+            <option value="Faculty of Applied Health Sciences"
+              >Faculty of Applied Health Sciences</option
+            >
+            <option value="Faculty of Arts">Faculty of Arts</option>
+            <option value="Faculty of Engineering">Faculty of Engineering</option>
+            <option value="Faculty of Environment">Faculty of Environment</option>
+            <option value="Faculty of Mathematics">Faculty of Mathematics</option>
+            <option value="Faculty of Science">Faculty of Science</option>
+          </select>
+        </div> -->
     </div>
-      
-        <!-- <label class="profileList">Program</label> <br />
-        <select
-          id="program"
-          name="program"
-          class="custom-select custom-select-sm selectA"
-        > -->
-        <!--Applied health sci programs-->
-        <!-- <option value="placeholder">Health Studies</option> -->
-        <!-- <option value="placeholder">Kinesiology</option> -->
-        <!-- <option value="placeholder">Public Health</option> -->
-        <!-- <option value="placeholder">Recreation and Leisure Studies</option> -->
-
-        <!--Arts programs-->
-        <!-- <option value="placeholder">Honours Arts</option> -->
-        <!-- <option value="placeholder">Honours Arts and Business</option> -->
-        <!-- <option value="placeholder">Global Business and Digital Arts</option> -->
-        <!-- <option value="placeholder">Social Development Studies</option> -->
-        <!-- <option value="placeholder">Accounting and Financial Management</option> -->
-        <!-- <option value="placeholder">Computing and Financial Management</option> -->
-
-        <!--Engineering programs-->
-        <!-- <option value="placeholder">Architectural Engineering</option> -->
-        <!-- <option value="placeholder">Architecture</option> -->
-        <!-- <option value="placeholder">Biomedical Engineering</option> -->
-        <!-- <option value="placeholder">Chemical Engineering</option> -->
-        <!-- <option value="placeholder">Civil Engineering</option> -->
-        <!-- <option value="placeholder">Computer Engineering</option> -->
-        <!-- <option value="placeholder">Electrical Engineering</option> -->
-        <!-- <option value="placeholder">Environmental Engineering</option> -->
-        <!-- <option value="placeholder">Geological Engineering</option> -->
-        <!-- <option value="placeholder">Management Engineering</option> -->
-        <!-- <option value="placeholder">Mechanical Engineering</option> -->
-        <!-- <option value="placeholder">Mechatronics Engineering</option> -->
-        <!-- <option value="placeholder">Nanotechnology Engineering</option> -->
-        <!-- <option value="placeholder">Software Engineering</option> -->
-        <!-- <option value="placeholder">Systems Design Engineering</option> -->
-
-        <!--Environment Programs-->
-        <!-- <option value="placeholder">Environment and Business</option> -->
-        <!-- <option value="placeholder">Environment, Resources and Sustainability</option> -->
-        <!-- <option value="placeholder">Geography and Aviation</option> -->
-        <!-- <option value="placeholder">Geography and Environmental Management</option> -->
-        <!-- <option value="placeholder">Geomatics</option> -->
-        <!-- <option value="placeholder">International Development</option> -->
-        <!-- <option value="placeholder">Knowledge Integration</option> -->
-        <!-- <option value="placeholder">Planning</option> -->
-
-        <!--Math Programs-->
-        <!-- <option value="placeholder">Business Administration and Computer Science Double Degree</option> -->
-        <!-- <option value="placeholder">Business Administration and Mathematics Double Degree</option> -->
-        <!-- <option value="placeholder">Computer Science</option> -->
-        <!-- <option value="placeholder">Computing and Financial Management</option> -->
-        <!-- <option value="placeholder">Honours Mathematics</option> -->
-        <!-- <option value="placeholder">Mathematics/Business Administration</option> -->
-        <!-- <option value="placeholder">Mathematics/Chartered Professional Accountancy</option> -->
-        <!-- <option value="placeholder">Mathematics/Financial Analysis and Risk Management</option> -->
-
-        <!--Honours Math Majors-->
-        <!--
-                <option value="placeholder">Actuarial Science</option>
-                <option value="placeholder">Applied Mathematics</option>
-                <option value="placeholder">Biostatistics</option>
-                <option value="placeholder">Combinatorics and Optimization</option>
-                <option value="placeholder">Computational Mathematics</option>
-                <option value="placeholder">Data Science (BCS)</option>
-                <option value="placeholder">Data Science (BMath)</option>
-                <option value="placeholder">Mathematical Economics</option>
-                <option value="placeholder">Mathematical Finance</option>
-                <option value="placeholder">Mathematical Optimization</option>
-                <option value="placeholder">Mathematical Physics</option>
-                <option value="placeholder">Mathematical Studies</option>
-                <option value="placeholder">Mathematics/Teaching</option>
-                <option value="placeholder">Pure Mathematics</option>
-                <option value="placeholder">Statistics</option>
-              -->
-
-        <!--Science Programs-->
-        <!-- <option value="placeholder">Biochemistry</option> -->
-        <!-- <option value="placeholder">Biology</option> -->
-        <!-- <option value="placeholder">Biotechnology/Chartered Professional Accountancy</option> -->
-        <!-- <option value="placeholder">Biotechnology/Economics</option> -->
-        <!-- <option value="placeholder">Chemistry</option> -->
-        <!-- <option value="placeholder">Conditional Admission to Pharmacy</option> -->
-        <!-- <option value="placeholder">Earth Sciences</option> -->
-        <!-- <option value="placeholder">Environmental Science</option> -->
-        <!-- <option value="placeholder">Honours Science</option> -->
-        <!-- <option value="placeholder">Life Physics</option> -->
-        <!-- <option value="placeholder">Materials and Nanosciences</option> -->
-        <!-- <option value="placeholder">Mathematical Physics</option> -->
-        <!-- <option value="placeholder">Medicinal Chemistry</option> -->
-        <!-- <option value="placeholder">Physics</option> -->
-        <!-- <option value="placeholder">Physics and Astronomy</option> -->
-        <!-- <option value="placeholder">Psychology</option> -->
-        <!-- <option value="placeholder">Science and Aviation</option> -->
-        <!-- <option value="placeholder">Science and Business</option> -->
-        <!-- </select> -->
-
-      <!--
-<div class="col">
-        <label class="profileList">Graduating Year</label> <br />
-        <select
-          id="year"
-          name="year"
-          class="custom-select custom-select-sm selectA"
-        >
-          <option value="2020">2020</option>
-          <option value="2021">2021</option>
-          <option value="2022">2022</option>
-          <option value="2023">2023</option>
-          <option value="2024">2024</option>
-          <option value="2025">2025</option>
-        </select>
-      </div>
-      -->
-      
-    </div>
-    <button type="button" class="button saveButton" id="save">
-      Save Profile
-    </button>
   </div>
 
-
-
-
+  <button type="button" class="button saveButton" id="save">
+    Save Profile
+  </button>
   <%} else if(contentCode == "no-program"){%>
   <div class="container containerA">
     <h2><span class="colorz"><%=name%>'s</span> Profile</h2>
@@ -765,7 +618,6 @@
   <hr />
 
   <div class="container">
-  
     <div class="row">
       <div class="intro col-12">
         <h1>Interests</h1>
