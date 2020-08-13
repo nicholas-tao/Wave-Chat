@@ -19,20 +19,24 @@ const UserSchema = new mongoose.Schema({
   },
   university: {
     type: String,
-    default: "University of Waterloo",
+    default: "No University Selected",
   },
+  /*
   faculty: {
     type: String,
     default: "No Faculty Entered",
   },
+  */
   program: {
     type: String,
     default: "No Program Entered",
   },
+  /*
   gradYear: {
     type: Number,
     default: 0,
   },
+  */
   date: {
     type: Date,
     default: Date.now,
