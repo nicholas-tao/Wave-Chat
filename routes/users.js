@@ -337,7 +337,7 @@ Router.post("/verify", (req, res) => {
                   service: "gmail",
                   auth: {
                     type: "OAuth2",
-                    user: "wavechat.team@gmail.com",
+                    user: "noreply.wavechat@gmail.com",
                     clientId: process.env.CLIENT_ID_2,
                     clientSecret: process.env.CLIENT_SECRET_2,
                     refreshToken: process.env.REFRESH_TOKEN_2,
