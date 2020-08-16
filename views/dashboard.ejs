@@ -27,7 +27,7 @@
   <script type="text/javascript" src="js/matching.js"></script>
   <!--The script below gets rid of those "are you sure you want to leave?" messages by ignoring all beforeunload events
   the issue is that we need to remove users from queue and set status to offline when they close the tab so i just commented it out for now-->
-  <!--
+
   <script type="text/javascript">
     EventTarget.prototype.addEventListenerBase =
       EventTarget.prototype.addEventListener;
@@ -36,7 +36,6 @@
       this.addEventListenerBase(type, listener); //treat all other events normally
     };
   </script>
--->
 </head>
 
 <title>Wave</title>
@@ -130,12 +129,12 @@
               <%}%>
             </li>
 
-            <li>              
+            <li>
               <a href="https://forms.gle/W34M4pPPWk2RQmeKA" target="_blank">
-              <i class="fa fa-hands-helping"></i>
-              <span>Improve Wave</span>
+                <i class="fa fa-hands-helping"></i>
+                <span>Improve Wave</span>
               </a>
-          </li>
+            </li>
 
             <li>
               <a href="/users/logout">
