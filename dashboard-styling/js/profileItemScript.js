@@ -501,6 +501,10 @@ $("#save").click(function () {
         if (ottawaPrograms.includes(selectedProgram)) {
           validProgram = true;
         }
+      } else if (selectedUniversity.localeCompare("Western University") === 0) {
+        if (westernPrograms.includes(selectedProgram)) {
+          validProgram = true;
+        }
       }
 
       //if user selects a valid program send a post req to db to update the info,
