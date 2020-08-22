@@ -52,6 +52,7 @@ Router.post("/register", (req, res) => {
     "queensu.ca",
     "mcmaster.ca",
     "uottawa.ca",
+    "student.ubc.ca"
   ];
   var emailExt = email.split("@")[1];
   var temp = true;
@@ -103,6 +104,8 @@ Router.post("/register", (req, res) => {
           university = "Western University";
         } else if (email.includes("uottawa.ca")) {
           university = "University of Ottawa";
+        } else if (email.includes("student.ubc.ca")) {
+          university = "University of British Colombia";
         }
         const newUser = new User({
           name,
