@@ -341,6 +341,126 @@ let queensPrograms = [
   "Science",
 ];
 
+let ubcPrograms = [
+  "Anthropology",
+  "Applied Animal Biology",
+  "Archaeology",
+  "Architecture",
+  "Architecture, Landscape Architecture, and Urbanism",
+  "Art History",
+  "Asian Area Studies",
+  "Asian Language and Cultre",
+  "Astronomy",
+  "Atmospheric Science",
+  "Behavioural Neuroscience",
+  "Biochemistry",
+  "Biology",
+  "Biomedical Engineering",
+  "Biophysics",
+  "Biotechnology",
+  "Business and Computer Science",
+  "Canadian Studies",
+  "Cellular, Anatomical, and Physiological Sciences",
+  "Chemical and Biological Engineering",
+  "Chemical Engineering",
+  "Chemistry",
+  "Civil Engineering",
+  "Classical, Near Eastern, and Religious Studies",
+  "Cognitive Systems",
+  "Combined Major in Science",
+  "Combined Majors in Statistics",
+  "Commerce",
+  "Computer Engineering",
+  "Computer Science",
+  "Creative Writing",
+  "Dental Hygiene",
+  "Dentistry",
+  "Dietetics",
+  "Earth and Ocean Sciences",
+  "Economics",
+  "Education",
+  "Electrical Engineering",
+  "Engineering Physics",
+  "English",
+  "Environmental Design",
+  "Environmental Engineering",
+  "Environmental Sciences",
+  "Film Production",
+  "Film Studies",
+  "First Nations and Endangered Languages",
+  "First Nations and Indigenous Studies",
+  "Food and Nutritional Sciences",
+  "Food and Resource Economics",
+  "Food Science",
+  "Food, Nutrition, and Health",
+  "Forest Bioeconomy Sciences and Technology",
+  "Forest Sciences",
+  "Forestry",
+  "French",
+  "Gender, Race, Sexuality, and Social Justice",
+  "Geographical Sciences",
+  "Geography",
+  "Geography: Human Geography",
+  "Geological Engineering",
+  "Geology",
+  "Geophysics",
+  "German",
+  "Global Resource Systems",
+  "History",
+  "Integrated Computer Science",
+  "Integrated Engineering",
+  "Integrated Sciences",
+  "Interdisciplinary Studies",
+  "International Economics",
+  "International Relations",
+  "Journalism",
+  "Kinesiology",
+  "Latin American Studies",
+  "Law",
+  "Linguistics",
+  "Management",
+  "Manufacturing Engineering",
+  "Materials Engineering",
+  "Mathematical Sciences",
+  "Mathematics and Economics",
+  "Mathematics",
+  "Mechanical Engineering",
+  "media Studies",
+  "Medical Laboratory Science",
+  "Medicine",
+  "Medieval Studies",
+  "Microbiology and Immunology",
+  "Midwifery",
+  "Mining Engineering",
+  "Modern European Studies",
+  "Museum Studies",
+  "Music",
+  "Natural Resource Conservation",
+  "Nursing",
+  "Nutritional Sciences",
+  "Oceanography",
+  "Pharmaceutical Sciences",
+  "Pharmacology",
+  "Pharmacy",
+  "Philosophy",
+  "Physics",
+  "Political Science",
+  "Psychology",
+  "Religion",
+  "Romance Studies",
+  "Social Work",
+  "Sociology",
+  "Spanish",
+  "Speech Sciences",
+  "Statistics",
+  "Sustainable Agriculture and Environment",
+  "Theatre",
+  "United States Studies",
+  "Urban Forestry",
+  "Visual Art",
+  "Wood Products Processing"
+];
+
 function populateDropdowns() {
   // initialize variables
   var loadFaculty;
@@ -419,6 +539,14 @@ function populateDropdowns() {
         let listOptions = "";
 
         for (const tempProgram of mcmasterPrograms) {
+          listOptions += '<option value="' + tempProgram + '"/>';
+        }
+
+        programList.innerHTML = listOptions;
+      } else if (suniversity.localeCompare("University of British Colombia") === 0) {
+        let listOptions = "";
+
+        for (const tempProgram of ubcPrograms) {
           listOptions += '<option value="' + tempProgram + '"/>';
         }
 
@@ -503,6 +631,10 @@ $("#save").click(function () {
         }
       } else if (selectedUniversity.localeCompare("Western University") === 0) {
         if (westernPrograms.includes(selectedProgram)) {
+          validProgram = true;
+        }
+      } else if (selectedUniversity.localeCompare("University of British Colombia") === 0) {
+        if (ubcPrograms.includes(selectedProgram)) {
           validProgram = true;
         }
       }
