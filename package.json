@@ -26,7 +26,7 @@
     "googleapis": "^58.0.0",
     "heroku-ssl-redirect": "0.0.4",
     "mongoose": "^5.9.19",
-    "nodemailer": "^6.4.10",
+    "nodemailer": "^6.4.16",
     "open": "^7.0.4",
     "opn": "^6.0.0",
     "passport": "^0.4.1",
